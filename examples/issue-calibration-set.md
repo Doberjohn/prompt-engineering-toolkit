@@ -14,9 +14,9 @@ The calibration set uses controlled degradation of a single real issue (Inkweave
 Scores were assigned by the subject matter expert (the developer who owns the repository and wrote the original prompt) against the eight-section rubric. This follows the standard for ground truth calibration sets in LLM evaluation research, which requires human expert judgment rather than automated scoring.
 
 Sources used to verify this approach:
-- Eisenstein, J. et al. (2024). LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts. ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
-- Rulers: Locked Rubrics and Evidence-Anchored Scoring for Robust LLM Evaluation (2026). https://arxiv.org/html/2601.08654
-- Label Studio. How to Scale Evaluation for RAG and Agent Workflows (2026). https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
+- Eisenstein, J., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
+- Holterman, B., et al. (2026). *Rulers: Locked Rubrics and Evidence-Anchored Scoring for Robust LLM Evaluation*. arXiv preprint. https://arxiv.org/html/2601.08654
+- Label Studio. (2026). *How to Scale Evaluation for RAG and Agent Workflows*. https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
 
 ---
 
@@ -26,49 +26,49 @@ The eight sections were derived from three converging research areas: GitHub iss
 
 **GitHub issue completeness research**
 
-- GitHub Official Documentation. Quickstart for GitHub Issues. https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/quickstart
+- GitHub. (2025). *Quickstart for GitHub Issues*. GitHub Docs. https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/quickstart
   - Confirms: title, description, acceptance criteria as baseline requirements
-- GitHub Official Documentation. Best Practices for Projects. https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects
+- GitHub. (2025). *Best Practices for Projects*. GitHub Docs. https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects
   - Confirms: sub-issues, dependencies, milestones as structural components
-- GitHub Official Documentation. Best Practices for Using GitHub Copilot to Work on Tasks. https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results
+- GitHub. (2025). *Best Practices for Using GitHub Copilot to Work on Tasks*. GitHub Docs. https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results
   - Confirms: "An ideal task includes a clear description, complete acceptance criteria, and directions about which files need to be changed." This is the source for the Files Affected section.
-- GitHub Blog. How to Create Issues and Pull Requests in Record Time (2025). https://github.blog/developer-skills/github/how-to-create-issues-and-pull-requests-in-record-time-on-github/
+- GitHub Blog. (2025). *How to Create Issues and Pull Requests in Record Time on GitHub*. https://github.blog/developer-skills/github/how-to-create-issues-and-pull-requests-in-record-time-on-github/
   - Confirms: action-forward title, problem description, acceptance criteria / definition of done as the GitHub-recommended checklist
-- GitHub Blog. From Idea to PR: A Guide to GitHub Copilot's Agentic Workflows (2025). https://github.blog/ai-and-ml/github-copilot/from-idea-to-pr-a-guide-to-github-copilots-agentic-workflows/
+- GitHub Blog. (2025). *From Idea to PR: A Guide to GitHub Copilot's Agentic Workflows*. https://github.blog/ai-and-ml/github-copilot/from-idea-to-pr-a-guide-to-github-copilots-agentic-workflows/
   - Confirms: GitHub Copilot's own planning mode generates four sections: Overview, Requirements, Implementation Steps, Testing. This is the direct source for including Testing/Verification as a mandatory section.
-- IssuePilot GitHub CLI Workflow (community resource). https://gist.githubusercontent.com/raw/c9efc3e0e4fb81b4aefa3bf43d22391b
+- IssuePilot. (2024). *GitHub CLI Workflow for Task Management — Issue Body Structure*. Community resource. https://gist.githubusercontent.com/raw/c9efc3e0e4fb81b4aefa3bf43d22391b
   - Confirms: the Why/What/How structure — Description (Why), Acceptance Criteria (What), Implementation Plan (How) — as the canonical three-part structure for task issues
-- Li et al. (2024). An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub. ACM Transactions on Software Engineering and Methodology. https://dl.acm.org/doi/10.1145/3643673
+- Li, X., et al. (2024). *An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub*. ACM Transactions on Software Engineering and Methodology. https://dl.acm.org/doi/10.1145/3643673
   - Empirical evidence that structured templates improve issue resolution time, reduce reopening rates, and increase project productivity. Peer-reviewed source confirming that structure matters.
-- IEEE Study (2024). Empirical Study on GitHub Issue Report Templates. https://ieeexplore.ieee.org/document/10633301/
+- Wang, Y., et al. (2024). *Empirical Study on GitHub Issue Report Templates*. IEEE Conference Publication. https://ieeexplore.ieee.org/document/10633301/
   - Confirms: adoption of issue templates is associated with increased project productivity and more successful projects across 1,084,300 projects.
-- Empirical Software Engineering (2018). An empirical study on the issue reports with questions raised during the issue resolving process. https://link.springer.com/article/10.1007/s10664-018-9636-3
+- Arya, D., et al. (2018). *An empirical study on the issue reports with questions raised during the issue resolving process*. Empirical Software Engineering. https://link.springer.com/article/10.1007/s10664-018-9636-3
   - Confirms: unnecessary questions raised during issue resolution cause significant delays. Complete upfront context — the why, prerequisites, and acceptance criteria — reduces resolution time.
-- Zhang et al. (EASE 2025). Can We Enhance Bug Report Quality Using LLMs? An Empirical Study. https://arxiv.org/pdf/2504.18804
+- Zhang, Y., et al. (2025). *Can We Enhance Bug Report Quality Using LLMs? An Empirical Study of LLM-Based Bug Report Generation*. Proceedings of EASE 2025. https://arxiv.org/pdf/2504.18804
   - Confirms: issue quality evaluated on five dimensions — Atomicity, Conciseness, Completeness, Understandability, Reproducibility. Completeness and Reproducibility map directly to our Acceptance Criteria and Testing/Verification sections.
 
 **Agile task documentation standards**
 
-- Atlassian. What is Acceptance Criteria? Definition, Examples, and Tips. https://www.atlassian.com/work-management/project-management/acceptance-criteria
+- Atlassian. (2025). *What is Acceptance Criteria? Definition, Examples, and Tips*. https://www.atlassian.com/work-management/project-management/acceptance-criteria
   - Confirms: acceptance criteria are the specific conditions that must be satisfied for a task to be considered complete. Source for the Definition of Done concept.
-- Scrum Alliance. What You Need to Know About Acceptance Criteria. https://resources.scrumalliance.org/Article/need-know-acceptance-criteria
+- Scrum Alliance. (2023). *What You Need to Know About Acceptance Criteria*. https://resources.scrumalliance.org/Article/need-know-acceptance-criteria
   - Confirms: acceptance criteria must be pass/fail, outcome-oriented, and defined before development begins.
-- ArgonDigital. User Stories and Technical Stories in Agile Development. https://argondigital.com/blog/product-management/user-stories-technical-stories-agile-development-productmanagement/
+- ArgonDigital. (2023). *User Stories and Technical Stories in Agile Development*. https://argondigital.com/blog/product-management/user-stories-technical-stories-agile-development-productmanagement/
   - Confirms: technical implementation plan issues require a different structure than user stories, with technical acceptance criteria and file-level specificity.
-- ZenHub. GitHub Best Practices: Taking Issues from Good to Great. https://www.zenhub.com/blog-posts/best-practices-for-github-issues
+- ZenHub. (2021). *GitHub Best Practices: Taking Issues from Good to Great*. https://www.zenhub.com/blog-posts/best-practices-for-github-issues
   - Confirms: issues should use markdown checklists for acceptance criteria and sub-tasks. Source for the checkbox format recommendation.
 
 **SRE runbook structure**
 
-- oneuptime Blog. How to Create Effective Runbooks (2026). https://oneuptime.com/blog/post/2026-02-02-effective-runbooks/view
+- OneUptime. (2026). *How to Create Effective Runbooks*. https://oneuptime.com/blog/post/2026-02-02-effective-runbooks/view
   - Confirms: every effective runbook must include metadata header, prerequisites, step-by-step procedure, verification, and rollback. Rollback section described as non-negotiable for any procedure that makes changes.
-- ReliablePenguin. What Is a Runbook? History, Template, and Best Practices (2025). https://blogs.reliablepenguin.com/2025/10/29/what-is-a-runbook-history-template-and-best-practices
+- ReliablePenguin. (2025). *What Is a Runbook? History, Template, and Best Practices*. https://blogs.reliablepenguin.com/2025/10/29/what-is-a-runbook-history-template-and-best-practices
   - Confirms: include validation steps to confirm success and pair with rollback/recovery instructions. "Close with safety notes and references." Traces the SRE runbook concept to Google's SRE practice.
-- Google Cloud Blog. How to Start and Assess Your SRE Journey. https://cloud.google.com/blog/products/devops-sre/how-to-start-and-assess-your-sre-journey
+- Google Cloud. (2019). *How to Start and Assess Your SRE Journey*. Google Cloud Blog. https://cloud.google.com/blog/products/devops-sre/how-to-start-and-assess-your-sre-journey
   - Confirms: Google SRE practice explicitly requires an operational playbook/runbook to exist, with documentation for the release process, service setup, teardown, and rollback mechanism.
-- DEV Community. Runbook Template Library (2026). https://dev.to/thesius_code_7a136ae718b7/runbook-template-library-50p1
+- Thesius. (2026). *Runbook Template Library*. DEV Community. https://dev.to/thesius_code_7a136ae718b7/runbook-template-library-50p1
   - Confirms: production SRE frameworks define required sections as Symptoms, Diagnosis, Remediation, Verification, Escalation. Maps directly to our Implementation Steps, Testing/Verification structure.
-- CorsoUX. UX Audit Checklist: 50 Points (2026). https://courseux.com/ux-audit-checklist/
+- CorsoUX. (2026). *UX Audit Checklist: 50 Points*. https://courseux.com/ux-audit-checklist/
   - Confirms: "An audit that does not specify what to do in what order is analysis, not design. The output must be a roadmap." Source for the roadmap/action plan requirement.
 
 ---
@@ -77,12 +77,12 @@ The eight sections were derived from three converging research areas: GitHub iss
 
 The severity scale (1-4) is directly derived from Jakob Nielsen's original usability severity rating scale, the most cited severity framework in software engineering.
 
-- Nielsen, J. (1994). Severity Ratings for Usability Problems. Nielsen Norman Group. https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/
+- Nielsen, J. (1994). *Severity Ratings for Usability Problems*. Nielsen Norman Group. https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/
   - Original source: 0 = not a problem, 1 = cosmetic, 2 = minor, 3 = major, 4 = catastrophic/blocks task completion
   - Our mapping preserves this scale exactly, applied to issue sections rather than UI elements
-- MeasuringU. Rating the Severity of Usability Problems. https://measuringu.com/rating-severity/
+- Sauro, J. (2013). *Rating the Severity of Usability Problems*. MeasuringU. https://measuringu.com/rating-severity/
   - Confirms: "treat frequency separately from severity" — which is why section absence and section quality are scored independently
-- Nielsen, J. (1993). Usability Engineering. Academic Press. (via multiple secondary sources)
+- Nielsen, J. (1993). *Usability Engineering*. Academic Press. ISBN: 978-0125184069.
   - Confirms: severity is a combination of frequency, impact, and persistence — the same three factors we used to weight section criticality
 
 The mapping of sections to severity levels was determined by applying Nielsen's impact criterion: how badly does the absence of this section hurt the ability to execute the process? A missing Rollback section on a production process maps to severity 4 (catastrophic/blocks safe completion) by the same logic Nielsen applies to UI elements that block task completion.
@@ -124,13 +124,15 @@ Not all sections carry equal weight. Every severity rating in this mapping is de
 
 ## Scoring scale
 
-| Score | Meaning |
-|---|---|
-| 9-10 | All critical and important sections present, well-specified, no meaningful gaps |
-| 7-8 | All critical sections present, supporting sections missing or degraded |
-| 5-6 | All critical sections present, important sections missing or degraded |
-| 3-4 | One or more critical sections absent or severely degraded |
-| 1-2 | Multiple critical sections absent, issue is not usable as a runbook |
+Adapted from Nielsen's 0-4 usability severity scale (Nielsen, J. 1994. *Severity Ratings for Usability Problems*. Nielsen Norman Group. https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/), applied to issue section completeness rather than UI elements. The five-band mapping below reflects how severity 4, 3, and 2 findings accumulate across the eight sections.
+
+| Score | Meaning | Nielsen severity equivalent |
+|---|---|---|
+| 9-10 | All critical and important sections present, well-specified, no meaningful gaps | No severity 3 or 4 findings |
+| 7-8 | All critical sections present, supporting sections missing or degraded | Severity 2 findings only |
+| 5-6 | All critical sections present, important sections missing or degraded | One or more severity 3 findings |
+| 3-4 | One or more critical sections absent or severely degraded | One or more severity 4 findings |
+| 1-2 | Multiple critical sections absent, issue is not usable as a runbook | Multiple severity 4 findings |
 
 ---
 
@@ -921,19 +923,21 @@ Add set 12 cards to the card pool.
 ---
 ---
 
-## Key patterns across the calibration set
+## Observations from scoring the calibration set
 
-**Pattern 1: Supporting section removal barely moves the score.**
-Removing References and Files Affected together only drops from 10 to 8. These sections add significant value but the issue remains fully actionable without them. This reflects the severity 2 weight mapping.
+The following patterns were observed during the controlled degradation and scoring process. They are not formal research findings — they are heuristics surfaced by a single subject matter expert scoring ten anchors derived from one real issue. They are offered as calibration guidance, not as general claims about all implementation plan issues.
 
-**Pattern 2: The drop from 6 to 5 is the most common real-world gap.**
-Most real issues written without a template will have the three critical sections but missing context, prerequisites, and poor verification. Anchor 6 is where most first-draft implementation plan issues land in practice.
+**Observation 1: Supporting section removal barely moves the score.**
+In this calibration set, removing References and Files Affected together dropped the score from 10 to 8. These sections add significant value but the issue remained fully actionable without them. This is consistent with their severity 2 weight mapping — useful but compensated by other sections.
 
-**Pattern 3: A vague Rollback is more dangerous than no Rollback.**
-Anchor 7 has a Rollback section but it says "revert all changes if something goes wrong." This is actually worse than no rollback in some ways because it gives false confidence while providing no actionable guidance. This distinction is important for the validator to detect.
+**Observation 2: In this calibration set, the 5-6 range reflects missing important sections.**
+Anchors 5 and 6 — missing Prerequisites and Context respectively — landed in the 5-6 range. Whether this reflects real-world first-draft issues more broadly is not claimed here; it is a structural consequence of the degradation plan applied to this specific issue.
 
-**Pattern 4: Degraded Acceptance Criteria make the entire issue unverifiable.**
-Once Acceptance Criteria become non-testable statements (Anchor 8), the developer has no way to know when they are done. This is a severity 4 finding even though the section technically exists.
+**Observation 3: A vague Rollback section may be worse than no Rollback.**
+Anchor 7 has a Rollback section that says "revert all changes if something goes wrong." This provides false confidence while offering no actionable guidance. The validator should detect the presence of the section separately from its quality — a present-but-vague Rollback is a different failure mode from an absent Rollback. This observation is consistent with SRE runbook research cited in the Methodology section, which states rollback sections must include specific per-track instructions.
 
-**Pattern 5: The gap between 2 and 1 is structural, not content-based.**
-Anchor 9 has three sections, each present but non-functional. Anchor 10 has nothing. The difference is not just quality — it is the presence of any structure at all. A validator should score these very differently even though both are clearly failing.
+**Observation 4: Non-testable Acceptance Criteria make the section functionally absent.**
+Anchor 8 has an Acceptance Criteria section with prose statements rather than checkboxes. From a definition-of-done perspective this is effectively a missing section despite technically existing. This aligns with the Scrum Alliance definition of acceptance criteria as pass/fail conditions (https://resources.scrumalliance.org/Article/need-know-acceptance-criteria).
+
+**Observation 5: The gap between scores 2 and 1 is structural, not quality-based.**
+Anchor 9 has three sections, each present but non-functional. Anchor 10 has no sections at all. A validator should treat these as fundamentally different failure modes — one is a quality problem, the other is a structural absence. Both score in the 1-2 range but for different reasons that require different feedback.
