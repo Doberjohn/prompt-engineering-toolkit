@@ -3,26 +3,51 @@
 
 ---
 
+## Methodology
+
+### How this was built
+
+These nine prompts are real prompts written and iteratively improved during live development sessions. They are not synthetic examples. Each represents a genuine use case encountered during framework development, and they were scored against the PPEP rubric as the framework was being stabilised.
+
+Scores were assigned by the subject matter expert who developed the PPEP framework — a single evaluator. This follows the standard for calibration set construction described in LLM evaluation research, which requires human expert judgment rather than automated scoring as the ground truth source:
+
+- Eisenstein, J., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
+- Label Studio. (2026). *How to Scale Evaluation for RAG and Agent Workflows*. https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
+
+### Known limitations
+
+Single-evaluator scoring carries irreducible subjectivity. This is a documented limitation in usability and evaluation research:
+
+> "There tends to be disagreement between evaluators when assigning severity, and reliability improves when averaging ratings from independent evaluators." — Nielsen (1993), as discussed in Hertzum (2006). *International Journal of Human-Computer Interaction*, 21(2), 125–146.
+
+The calibration set reduces scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity. The framework confidence is documented as 93% in `framework/ppep-framework.md`, with the remaining 7% reflecting this irreducible gap.
+
+These anchors were calibrated against Claude's behavior specifically. Scoring consistency may vary on other models.
+
+### Relationship to the framework
+
+This calibration set is an applied output of the PPEP framework. For the theoretical basis of the four dimensions, the scoring scale justification, and the six integrated prompting techniques, see `framework/ppep-framework.md`.
+
+---
+
 ## How to use this document
 
-These nine prompts were evaluated and scored during the development of the PPEP framework. They represent real prompts written and iteratively improved in live sessions, not constructed examples.
-
-Use them to calibrate your intuition before evaluating your own prompts. When you score a prompt, compare it against the anchor that most closely resembles it. A prompt with similar gaps to Anchor 3 should score similarly to Anchor 3.
-
-**Important:** These anchors were calibrated against Claude's behavior specifically. Scoring consistency may vary on other models.
+Use these anchors to calibrate your intuition before evaluating your own prompts. When you score a prompt, compare it against the anchor that most closely resembles it. A prompt with similar gaps to Anchor 3 should score similarly to Anchor 3.
 
 ---
 
 ## Scoring scale reminder
 
-Each dimension (Product, Process, Performance, Epistemics) is scored 1-10. The overall score is the average of the four dimensions.
+Each dimension (Product, Process, Performance, Epistemics) is scored 1-10. The overall score is the average of the active dimensions (see Epistemics N/A note below).
 
-| Score | Meaning |
-|---|---|
-| 1-3 | Dimension is absent or so vague it provides no guidance |
-| 4-6 | Dimension is partially addressed with meaningful gaps |
-| 7-8 | Dimension is well addressed with minor gaps remaining |
-| 9-10 | Dimension is fully specified with no meaningful ambiguity |
+The four bands below correspond to the behavioral anchor pattern used in the PPEP framework. They are an application of rubric-based scoring principles from educational measurement and psychometrics, adapted for prompt evaluation. The framework document (`framework/ppep-framework.md`) provides the full theoretical basis.
+
+| Score | Meaning | Observable signal |
+|---|---|---|
+| 1-3 | Dimension is absent or so vague it provides no guidance | Claude must guess or invent the missing element entirely |
+| 4-6 | Dimension is partially addressed with meaningful gaps | Claude can partially follow the intent but will make assumptions that may not match your needs |
+| 7-8 | Dimension is well addressed with minor gaps remaining | Claude will produce a good response but one specific sub-criterion is missing |
+| 9-10 | Dimension is fully specified with no meaningful ambiguity | Claude has everything it needs; variance in output comes from the model, not the prompt |
 
 ---
 
@@ -148,7 +173,11 @@ Each dimension (Product, Process, Performance, Epistemics) is scored 1-10. The o
 | Performance | 8 | Technical depth and analytical tone specified. No role defined. |
 | Epistemics | N/A | Not applicable for a pure code generation task with no research or verification component. |
 
-**Note on Epistemics N/A:** Do not penalize prompts for missing Epistemics when the task does not require knowledge verification. Code generation, creative writing, and formatting tasks have no meaningful epistemic dimension. Applying the dimension to tasks where it does not fit will artificially deflate scores.
+**Note on Epistemics N/A:** Do not penalize prompts for missing Epistemics when the task does not require knowledge verification. A task has a meaningful epistemic dimension when it requires the AI to make factual claims, retrieve or verify information, evaluate existing artifacts, or draw conclusions about the state of a system. Pure code generation from a complete specification, creative writing, and formatting tasks have no meaningful epistemic dimension — the AI is producing content from instructions, not asserting facts about the world.
+
+When Epistemics is N/A, the overall score is the average of the three active dimensions only. For Anchor 7: (9 + 10 + 8) / 3 = 9.0.
+
+Applying the dimension to tasks where it does not fit will artificially deflate scores and create false incentives to add verification instructions where they add no value.
 
 ---
 
@@ -188,19 +217,21 @@ Each dimension (Product, Process, Performance, Epistemics) is scored 1-10. The o
 
 ---
 
-## Key patterns across the calibration set
+## Observations from scoring the calibration set
 
-**Pattern 1: Product without the others is not enough.**
-Anchor 2 scores 7 on Product but only 3 overall. Knowing your domain does not substitute for Process, Performance, and Epistemics.
+The following patterns were observed during the scoring of these nine anchors by a single subject matter expert. They are not formal research findings — they are heuristics surfaced from this specific set of nine real prompts. They are offered as calibration guidance, not as general claims about all prompts or all users.
 
-**Pattern 2: A single addition can jump a dimension.**
-Between Anchor 3 and Anchor 4, one addition (web search and verification) jumped Epistemics from 1 to 7. The biggest score improvements often come from a single targeted change to the weakest dimension.
+**Observation 1: In this set, strong Product without the other dimensions produced low overall scores.**
+Anchor 2 scores 7 on Product but only 3 overall. The developer knew their domain well but did not address how Claude should approach the task, behave, or verify its knowledge. Whether this reflects a general pattern in real-world prompts is not claimed here — it is a structural consequence of the four-dimension framework applied to these specific examples.
 
-**Pattern 3: Epistemics is the last dimension people think of and the one with the highest leverage.**
-No anchor before the 7/10 range has meaningful Epistemics. Yet the difference between a 7/10 and a 10/10 prompt is almost always Epistemics.
+**Observation 2: In this set, a single addition produced the largest dimension jumps.**
+Between Anchor 3 and Anchor 4, one addition — web search and verification — jumped Epistemics from 1 to 7. The largest score improvements in this set came from targeting the single weakest dimension rather than incrementally improving all dimensions simultaneously.
 
-**Pattern 4: Two different paths to 10/10.**
-Anchors 8 and 9 both score 10/10. One uses grep commands and file references in an agentic codebase context. The other uses role layers and iterative collaboration in a non-technical writing context. The framework is content-agnostic.
+**Observation 3: In this set, Epistemics was consistently the last dimension addressed.**
+No anchor before the 7/10 range has meaningful Epistemics. This is consistent with the framework's design: Epistemics is the most advanced dimension and the one least present in general prompting guidance. Whether this reflects general user behaviour is not claimed here — it reflects the development trajectory of these nine specific prompts.
 
-**Pattern 5: Epistemics N/A is valid.**
-Anchor 7 scores N/A on Epistemics for a code generation task. Do not force a dimension where it does not apply — it will artificially deflate good prompts.
+**Observation 4: Two structurally different prompts reached 10/10.**
+Anchors 8 and 9 both score 10/10 through entirely different approaches. One uses grep commands and file references in an agentic codebase context. The other uses role layers and iterative collaboration in a non-technical writing context. This suggests the framework is task-agnostic in its application, though two examples are insufficient to establish this as a general claim.
+
+**Observation 5: Epistemics N/A is methodologically valid for some task types.**
+Anchor 7 scores N/A on Epistemics for a code generation task. Forcing the dimension where it does not apply would artificially deflate the score and create a false incentive. See the scoring scale section above for the definition of when Epistemics applies and how N/A affects the overall average.
