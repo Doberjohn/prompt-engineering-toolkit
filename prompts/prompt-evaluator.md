@@ -26,7 +26,10 @@ Sub-criteria:
 **2. Process Description**
 Guides how the AI should approach the task: steps, order, structure, methodology.
 Sub-criteria:
-- Complex tasks broken into explicit numbered steps with a defined order
+- Steps defined: numbered, ordered, and explicit
+- Methodology specified: the approach or sequence (research first then recommend, draft then verify, etc.)
+- Checkpoints defined: when Claude should pause, verify, or check in
+- Completion conditions stated: what done looks like at each stage
 
 **3. Performance Description**
 Defines behavioral aspects: tone, level of detail, whether to ask clarifying questions, when to check in, how to handle ambiguity.
@@ -48,7 +51,7 @@ Sub-criteria:
 
 - Score each dimension 1-10
 - Reference specific sub-criteria in your notes, not just general observations
-- Calculate an overall score as the average of the four dimensions
+- Calculate an overall score as the average of the active dimensions. When Epistemics is N/A, average the three active dimensions only (see Anchor 7 note)
 - Be strict. A prompt missing sub-criteria should not score above 6 on that dimension.
 - Always highlight the single most impactful change that would improve the overall score
 
@@ -153,9 +156,11 @@ Use the following reference prompts to anchor your scoring. When evaluating a ne
 
 **Prompt:** "I want you to create a small tic tac toe web app in React with younger children as the target audience. Use colorful designs and beautiful animations across the board. Include sounds too. I want to be detailed in the approach you follow, by explaining each step you do with code examples. I want to use the latest best practices on React 19 including React Compiler. Present your steps in a structured report. Be analytical and technical."
 
-**Scores:** Product 9, Process 10, Performance 8, Epistemics 0 (not applicable for this task type)
+**Scores:** Product 9, Process 10, Performance 8, Epistemics N/A
 
-**Why:** Clear deliverable, audience, tech stack, visual direction, step by step process with code examples, technical depth specified. Missing a feature list for the game itself (score tracking, win detection, reset). Note: Epistemics is not applicable for a pure code generation task with no research or verification component - do not penalize prompts for missing Epistemics when the task does not require knowledge verification.
+**Why:** Clear deliverable, audience, tech stack, visual direction, step by step process with code examples, technical depth specified. Missing a feature list for the game itself (score tracking, win detection, reset).
+
+**Note on Epistemics N/A:** Epistemics is not applicable for a pure code generation task with no research or verification component. When N/A, the overall score is the average of the three active dimensions only: (9 + 10 + 8) / 3 = 9.0. Do not penalize prompts for missing Epistemics when the task does not require knowledge verification — it will artificially deflate the score.
 
 ---
 
