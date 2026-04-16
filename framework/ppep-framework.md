@@ -7,6 +7,8 @@
 
 The PPEP Framework is a four-dimension model for writing and evaluating prompts for AI language models. It was developed through iterative testing, scored against real examples, and grounded in established research from usability, communication, and epistemology.
 
+> **Scope note:** The PPEP framework covers the **Description** competency of the AI Fluency 4D Framework (Dakan, Feller, and Anthropic, 2025). The three peer competencies — Delegation (deciding when and how to involve AI), Discernment (evaluating AI outputs), and Diligence (responsible use) — are not covered by this framework. PPEP addresses the question: once you have decided to use AI for a task, how do you communicate your intent effectively?
+
 The four dimensions are:
 
 1. **Product** — what you want
@@ -136,9 +138,11 @@ Instructing Claude to reason through tradeoffs before recommending is an accessi
 
 ---
 
-## The six integrated techniques
+## The seven integrated techniques
 
-The PPEP framework integrates six evidence-based prompting techniques from Anthropic's prompting research (Dakan, Feller, & Anthropic, 2025). Here is how each technique maps to the framework:
+The PPEP framework integrates seven evidence-based prompting techniques from Anthropic's prompting research (Dakan, Feller, & Anthropic, 2025). Six map directly to PPEP dimensions. The seventh is a meta-technique that operates across all dimensions simultaneously.
+
+### Dimension-mapped techniques
 
 | Technique | Dimension | Impact |
 |---|---|---|
@@ -149,7 +153,17 @@ The PPEP framework integrates six evidence-based prompting techniques from Anthr
 | Show Examples of What Good Looks Like | Performance | Calibrates style when words cannot describe it |
 | Ask It to Think First | Epistemics | Entry-level epistemic instruction preventing shallow answers |
 
-> Source: Dakan, R., Feller, J., & Anthropic. (2025). [6 Techniques for Effective Prompt Engineering](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). CC BY-NC-SA 4.0.
+### The meta-technique
+
+**Ask the AI for help with prompting.**
+
+When you are unsure which dimension is failing or how to fix it, ask the AI directly: "I am trying to get you to help me with [goal]. I am not sure how to phrase my request to get the best results. Can you help me craft an effective prompt for this?"
+
+This technique does not map to a single dimension because it operates across all four simultaneously — the AI diagnoses which Product, Process, Performance, or Epistemic instructions are missing and suggests how to add them. The source authors describe it as "perhaps the most powerful technique of all."
+
+It is most useful as a diagnostic tool: reach for it when the six dimension-mapped techniques have not produced the result you need, and you cannot identify which dimension is the source of the failure.
+
+> Source: Dakan, R., Feller, J., & Anthropic. (2025). [AI Fluency: Framework and Foundations](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). CC BY-NC-SA 4.0.
 
 ---
 
