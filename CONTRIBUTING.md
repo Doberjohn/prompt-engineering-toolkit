@@ -8,7 +8,8 @@ Contributions are welcome. This toolkit was built on a principle of evidence ove
 
 **Preferred:**
 - Changes backed by citations from established UX, accessibility, or prompting research
-- New calibration examples with full scoring rationale across all four dimensions
+- New prompt calibration examples with full scoring rationale across all four PPEP dimensions
+- New issue calibration anchors with full section scoring rationale across all eight sections and formula-verified scores
 - Corrections with evidence showing why the current version is wrong
 - New prompt templates that have been tested and iterated on, not first drafts
 - Translations of the framework or prompts into other languages
