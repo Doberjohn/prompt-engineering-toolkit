@@ -99,7 +99,7 @@ The five patterns documented at the end of the calibration set are observations 
 
 ## How to use this document
 
-These ten issues are controlled degradations of a real 9.5/10 implementation plan issue (Inkweave issue #278) produced by Claude Code. Each anchor removes or degrades specific sections in a traceable way so the scoring rationale is explicit and verifiable.
+These ten issues are controlled degradations of a real implementation plan issue (Inkweave issue #278, formula score 9.44/10) produced by Claude Code. Each anchor removes or degrades specific sections in a traceable way so the scoring rationale is explicit and verifiable.
 
 Use them to calibrate your intuition before evaluating a real issue. When you score an issue, compare it against the anchor that most closely resembles it. An issue with similar gaps to Anchor 6 should score similarly to Anchor 6.
 
@@ -136,12 +136,12 @@ Adapted from Nielsen's 0-4 usability severity scale (Nielsen, J. 1994. *Severity
 
 ---
 
-## ANCHOR 1 — Score: 10/10
+## ANCHOR 1 — Score: 10/10 (formula: 9.44)
 ### All sections present and complete
 
 **Degradation applied:** None. This is the reference issue.
 
-**Failure mode:** None. Minor gap in Prerequisites (missing local environment setup) noted but insufficient to reduce score below 10 in context of a solo developer who owns the repo.
+**Failure mode:** None. Minor gap in Prerequisites (missing local environment setup) noted but insufficient to reduce score below 10 in context of a solo developer who owns the repo. Expert judgment override: formula score 9.44 rounded to 10/10 given that the gap is context-specific and does not reduce actionability.
 
 **Source:** https://github.com/Doberjohn/inkweave/issues/278
 
