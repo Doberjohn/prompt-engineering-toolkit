@@ -26,7 +26,7 @@ These anchors were calibrated against Claude's behavior specifically. Scoring co
 
 ### Relationship to the framework
 
-This calibration set is an applied output of the PPEP framework. For the theoretical basis of the four dimensions, the scoring scale justification, and the six integrated prompting techniques, see `framework/ppep-framework.md`.
+This calibration set is an applied output of the PPEP framework. For the theoretical basis of the four dimensions, the scoring scale justification, and the seven integrated prompting techniques, see `framework/ppep-framework.md`.
 
 ---
 
@@ -40,7 +40,7 @@ Use these anchors to calibrate your intuition before evaluating your own prompts
 
 Each dimension (Product, Process, Performance, Epistemics) is scored 1-10. The overall score is the average of the active dimensions (see Epistemics N/A note below).
 
-The four bands below correspond to the behavioral anchor pattern used in the PPEP framework. They are an application of rubric-based scoring principles from educational measurement and psychometrics, adapted for prompt evaluation. The framework document (`framework/ppep-framework.md`) provides the full theoretical basis.
+The four bands below correspond to the behavioral anchor pattern used in the PPEP framework for Product, Process, and Performance. They are an application of rubric-based scoring principles from educational measurement and psychometrics, adapted for prompt evaluation. **Epistemics uses a five-band scale** (1-3, 4-5, 6-7, 8-9, 10) defined in the framework document because the progression from implicit to full epistemic rigor is finer-grained. The framework document (`framework/ppep-framework.md`) provides the full theoretical basis for both scales.
 
 | Score | Meaning | Observable signal |
 |---|---|---|
