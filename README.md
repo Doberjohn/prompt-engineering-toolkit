@@ -1,6 +1,23 @@
 # Prompt Engineering Toolkit
 
-A research-backed, iteratively developed framework for writing better AI prompts — with calibrated evaluation tools, real-world examples, and production-ready prompt templates.
+A research-backed toolkit covering the **Description** competency of the AI Fluency 4D Framework — with calibrated evaluation tools, real-world examples, and production-ready prompt templates.
+
+---
+
+## Built on the AI Fluency Framework
+
+This toolkit is a practitioner's implementation built on top of the **AI Fluency Framework** by Rick Dakan, Joseph Feller, and Anthropic (2025), released under CC BY-NC-SA 4.0. The framework defines four competencies for effective, efficient, ethical, and safe collaboration with AI systems — the 4Ds:
+
+- **Delegation** — deciding when and how to involve AI
+- **Description** — communicating your intent to AI effectively
+- **Discernment** — evaluating AI outputs with critical judgment
+- **Diligence** — taking responsibility for AI-assisted work
+
+This toolkit covers **Description** in depth — the competency concerned with writing prompts that produce the results you need. The PPEP framework, prompt evaluator, and calibration sets all operate within this competency. The issue evaluator is a **Discernment** tool — it supports human judgment over AI-destined documents before execution begins.
+
+The three remaining competencies (Delegation, full Discernment coverage, and Diligence) are not covered by this toolkit. The full AI Fluency course is available through Anthropic and covers all four competencies with structured exercises and project-based learning.
+
+> Dakan, R., Feller, J., & Anthropic. (2025). *AI Fluency: Framework and Foundations*. Released under CC BY-NC-SA 4.0. Supported in part by the Higher Education Authority, Ireland, through the National Forum for the Enhancement of Teaching and Learning.
 
 ---
 
@@ -24,7 +41,9 @@ The result is a framework you can trust, teach, and build on.
 ## What is in this toolkit
 
 ### The Framework
-A four-dimension model for evaluating and writing AI prompts, extended with six evidence-based prompting techniques and mapped to established research.
+A four-dimension model for evaluating and writing AI prompts, extended with seven evidence-based prompting techniques and mapped to established research.
+
+> **Scope note:** The PPEP framework covers the **Description** competency of the AI Fluency 4D Framework (Dakan, Feller, and Anthropic, 2025). The three peer competencies — Delegation, Discernment, and Diligence — are not covered by this toolkit. Description is the competency concerned with communicating effectively with AI systems. The other three competencies address deciding when to involve AI (Delegation), evaluating AI outputs (Discernment), and responsible use (Diligence).
 
 **Core dimensions:**
 - **Product** — what you want: output, format, audience, scope, constraints
@@ -41,7 +60,7 @@ A session intro prompt you paste at the start of any AI conversation to activate
 Three production-ready evaluation prompts for auditing user interfaces — one for each evaluation source: URL, Screenshot, and Codebase. Built on Nielsen's heuristics, WCAG 2.2 AA, and a 20-dimension scoring system covering both UI (objective) and UX (heuristic inference).
 
 ### The Issue Evaluator
-A session intro prompt and standalone HTML app for evaluating GitHub implementation plan issues. Scores issues across eight sections using a weighted formula derived from Nielsen's severity scale, produces severity findings, and generates either targeted improvement suggestions (score >= 7.0) or a full revised issue (score < 7.0). Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
+A Discernment tool — a session intro prompt and standalone HTML app for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Produces severity findings and generates either targeted improvement suggestions (score >= 7.0) or a full revised issue (score < 7.0). Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
 
 ### The Prompt Calibration Set
 Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Included as a learning resource.
