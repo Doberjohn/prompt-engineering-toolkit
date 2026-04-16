@@ -54,19 +54,19 @@ A four-dimension model for evaluating and writing AI prompts, extended with seve
 > The Epistemics dimension is the most advanced and the most impactful. It was independently surfaced during iterative development and is not found in most prompting guides. It is the single biggest differentiator between a 7/10 and a 10/10 prompt.
 
 ### The Prompt Evaluator
-A session intro prompt you paste at the start of any AI conversation to activate strict, calibrated prompt evaluation with nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
+A session intro prompt and standalone HTML app for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
 
 ### The UI/UX Evaluation Prompts
 Three production-ready evaluation prompts for auditing user interfaces — one for each evaluation source: URL, Screenshot, and Codebase. Built on Nielsen's heuristics, WCAG 2.2 AA, and a 20-dimension scoring system covering both UI (objective) and UX (heuristic inference).
 
 ### The Issue Evaluator
-A Discernment tool — a session intro prompt and standalone HTML app for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Produces severity findings and generates either targeted improvement suggestions (score >= 7.0) or a full revised issue (score < 7.0). Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
+A Discernment tool — a session intro prompt and standalone HTML app for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Produces severity findings and generates targeted improvement suggestions (score >= 7.0), a full revised issue (2.0 <= score < 7.0), or a structured template (score < 2.0) when context is insufficient for a meaningful rewrite. Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
 
 ### The Prompt Calibration Set
 Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Included as a learning resource.
 
 ### The Issue Calibration Set
-Ten controlled degradations of a real 9.5/10 implementation plan issue (GitHub issue #278), each with a traceable degradation rationale and formula-verified score. Built using the same controlled degradation methodology recommended by NLP evaluation research to avoid central tendency bias. Includes a full methodology section with 25+ citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
+Ten controlled degradations of a real implementation plan issue (GitHub issue #278, formula score 9.44/10), each with a traceable degradation rationale and formula-verified score. Built using the same controlled degradation methodology recommended by NLP evaluation research to avoid central tendency bias. Includes a full methodology section with 25+ citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
 
 ---
 
@@ -107,11 +107,15 @@ All research sources are cited inline in the relevant documents.
 
 Alternatively, use the `issue-evaluator.html` standalone app which includes URL fetching, a progress bar, and structured rendering of section scores and severity findings.
 
+To understand how the scoring is anchored, read `examples/issue-calibration-set.md` — it contains the ten reference issues used to calibrate the evaluator.
+
 **To evaluate a prompt you have written:**
 1. Open `prompts/prompt-evaluator.md`
 2. Copy the full contents
 3. Paste into a new AI session
 4. The AI will confirm it understands the framework, then you paste your prompt
+
+Alternatively, use the `prompt-evaluator.html` standalone app.
 
 **To evaluate a UI/UX interface:**
 1. Open `prompts/uiux-evaluation-prompts.md`
@@ -121,7 +125,7 @@ Alternatively, use the `issue-evaluator.html` standalone app which includes URL 
 
 **To learn the framework before using the tools:**
 1. Start with `framework/ppep-framework.md`
-2. Read through the six integrated techniques
+2. Read through the seven integrated techniques
 3. Study `examples/prompt-calibration-set.md` to calibrate your intuition
 
 ---
@@ -133,10 +137,10 @@ This toolkit draws on the following established research and standards:
 - Nielsen, J. (1994). [10 Usability Heuristics for User Interface Design](https://www.nngroup.com/articles/ten-usability-heuristics/). Nielsen Norman Group.
 - Nielsen, J. (1994). [Severity Ratings for Usability Problems](https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/). Nielsen Norman Group.
 - W3C. (2023). [Web Content Accessibility Guidelines (WCAG) 2.2](https://www.w3.org/TR/WCAG22/).
-- Hertzum, M. (2006). Problem prioritization in usability evaluation. *International Journal of Human-Computer Interaction*, 21(2), 125–146.
+- Hertzum, M. (2006). Problem prioritization in usability evaluation: From severity assessments toward impact on design. *International Journal of Human-Computer Interaction*, 21(2), 125–146.
 - MeasuringU. (2013). [Rating the Severity of Usability Problems](https://measuringu.com/rating-severity/).
 - CorsoUX. (2026). [UX Audit Checklist: 50 Points](https://courseux.com/ux-audit-checklist/).
-- Dakan, R., Feller, J., & Anthropic. (2025). [6 Techniques for Effective Prompt Engineering](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). CC BY-NC-SA 4.0.
+- Dakan, R., Feller, J., & Anthropic. (2025). [AI Fluency: Framework and Foundations](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). CC BY-NC-SA 4.0.
 - Li, X., et al. (2024). [An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub](https://dl.acm.org/doi/10.1145/3643673). ACM Transactions on Software Engineering and Methodology.
 - Sayagh, M., et al. (2025). [What Makes a GitHub Issue Ready for Copilot?](https://arxiv.org/pdf/2512.21426) arXiv preprint.
 - GitHub. (2025). [Best Practices for Using GitHub Copilot to Work on Tasks](https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results). GitHub Docs.
