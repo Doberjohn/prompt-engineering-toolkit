@@ -130,6 +130,9 @@ The second version is verifiable, honest about scope, and actionable.
 Instructing Claude to reason through tradeoffs before recommending is an accessible entry point to the Epistemics dimension. It prevents shallow, fast answers on complex questions and is particularly valuable for architecture decisions, technical comparisons, and strategic recommendations.
 
 **Scoring guidance:**
+
+> Note: Epistemics uses five bands rather than four because the progression from implicit to full epistemic rigor is meaningfully finer-grained. Scores 4-5 and 6-7 are distinct in this dimension in a way they are not in Product, Process, or Performance.
+
 - 1-3: No epistemic instruction. Claude will assert without verifying.
 - 4-5: Some verification implied ("check online", "verify your answer") but not rigorous.
 - 6-7: Explicit verification step present. Negative claims not explicitly addressed.
@@ -169,7 +172,7 @@ It is most useful as a diagnostic tool: reach for it when the six dimension-mapp
 
 ## Scoring the overall prompt
 
-The overall score is the average of the four dimension scores. However, dimension scores are not equally weighted in practice — a prompt with Epistemics at 1/10 on a research or verification task is not a 7/10 prompt regardless of other scores. Use the overall average as a starting point, then apply judgment about which dimensions matter most for the task type.
+The overall score is the average of the active dimension scores. When Epistemics is N/A (see Epistemics scoring guidance above for when this applies), the overall score is the average of the three active dimensions only. However, dimension scores are not equally weighted in practice — a prompt with Epistemics at 1/10 on a research or verification task is not a 7/10 prompt regardless of other scores. Use the overall average as a starting point, then apply judgment about which dimensions matter most for the task type.
 
 **Task type guidance:**
 
@@ -200,4 +203,4 @@ Since this framework uses a single AI evaluator, some scoring variance is unavoi
 
 - Nielsen, J. (1994). Heuristic evaluation. In Nielsen, J. & Mack, R.L. (Eds.), *Usability Inspection Methods*. John Wiley & Sons.
 - Hertzum, M. (2006). Problem prioritization in usability evaluation: From severity assessments toward impact on design. *International Journal of Human-Computer Interaction*, 21(2), 125–146.
-- Dakan, R., Feller, J., & Anthropic. (2025). [6 Techniques for Effective Prompt Engineering](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). Released under CC BY-NC-SA 4.0.
+- Dakan, R., Feller, J., & Anthropic. (2025). [AI Fluency: Framework and Foundations](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). Released under CC BY-NC-SA 4.0.
