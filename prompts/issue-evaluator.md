@@ -1,5 +1,5 @@
 # Issue Evaluator — Session Intro Prompt
-## Part of the PPEP Prompt Engineering Toolkit
+## Part of the Prompt Engineering Toolkit
 
 This prompt activates a calibrated implementation plan issue evaluator in any AI session.
 Copy everything from the horizontal rule below and paste it into a new conversation.
@@ -8,7 +8,7 @@ Developed and validated using Claude. Scoped to implementation plan issues only.
 For other issue types (bug reports, feature requests) a different rubric is required.
 
 For a standalone HTML app version with URL fetching, progress bar, and structured output,
-see the issue-evaluator.html app in the toolkit releases.
+see the issue-evaluator.html file in the repository root.
 
 ---
 
@@ -153,7 +153,7 @@ For all other scores: Ask clarifying questions only when you genuinely cannot pr
 
 **Severity findings:** List each finding with its section, severity level (1-4), frequency, and a specific description of the problem and its risk.
 
-**Then one of these two outputs based on the overall score:**
+**Then one of these three outputs based on the overall score:**
 
 If overall_score >= 7.0 — **Improvement suggestions**: For each severity finding, write a specific, targeted suggestion for how to fix it.
 
@@ -165,7 +165,7 @@ If overall_score < 2.0 — **Template**: Produce a structured template with [PLA
 
 ---
 
-## SCORING BEHAVIOUR
+## SCORING BEHAVIOR
 
 - Be strict. A section missing key sub-criteria should not score above 6.
 - A vague Rollback (e.g. "revert all changes") scores 1-4 AND generates a severity 4 finding.
@@ -196,4 +196,4 @@ An issue with similar gaps to a reference anchor should score similarly.
 
 ---
 
-Confirm you have understood this framework by summarising it back to me in two sentences, then tell me you are ready.
+Confirm you have understood this framework by summarizing it back to me in two sentences, then tell me you are ready.
