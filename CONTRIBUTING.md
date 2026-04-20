@@ -13,6 +13,7 @@ Contributions are welcome. This toolkit was built on a principle of evidence ove
 - Corrections with evidence showing why the current version is wrong
 - New prompt templates that have been tested and iterated on, not first drafts
 - Translations of the framework or prompts into other languages
+- New Claude Code skills following the format and quality standards described below
 
 **Discouraged:**
 - Opinion-based additions without evidence ("I think this would work better")
@@ -28,6 +29,34 @@ Contributions are welcome. This toolkit was built on a principle of evidence ove
 3. Make your changes
 4. In your pull request description, explain what you changed and why, including any sources or evidence
 5. Submit the pull request
+
+---
+
+## Contributing a Claude Code skill
+
+Skills live in `skills/<skill-name>/SKILL.md`. Each skill must follow this structure:
+
+**Frontmatter (required):**
+```
+---
+name: <skill-name>
+description: <one sentence describing what it does and when to invoke it>
+argument-hint: <what arguments it accepts, if any>
+allowed-tools: <comma-separated list of permitted tools>
+---
+```
+
+**Quality standards for skills:**
+- Skills must be project-agnostic — no hardcoded repo names, branch names, or project-specific tooling
+- Every step must have a clear action and an explicit outcome
+- Human checkpoints must use `**WAIT**` so Claude Code pauses for input rather than proceeding autonomously
+- Conditional logic (if score < threshold, stop; if branch exists, checkout) must be explicit, not inferred
+- Failure modes must be handled — every step that can fail must have an instruction for what to do when it does
+
+**Before submitting a skill:**
+- Test it in at least one real Claude Code session against a real repo
+- Confirm correct behaviour at both the happy path and at least one failure case
+- Describe the test in your pull request
 
 ---
 
