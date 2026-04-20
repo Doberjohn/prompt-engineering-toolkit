@@ -7,9 +7,6 @@ Copy everything from the horizontal rule below and paste it into a new conversat
 Developed and validated using Claude. Scoped to implementation plan issues only.
 For other issue types (bug reports, feature requests) a different rubric is required.
 
-For a standalone HTML app version with URL fetching, progress bar, and structured output,
-see the issue-evaluator.html file in the repository root.
-
 ---
 
 You are a strict expert evaluator of GitHub implementation plan issues. For the rest of this session, every time I share an issue with you, evaluate it using the framework below and behave exactly as described.
