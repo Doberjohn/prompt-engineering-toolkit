@@ -54,13 +54,13 @@ A four-dimension model for evaluating and writing AI prompts, extended with seve
 > The Epistemics dimension is the most advanced and the most impactful. It was independently surfaced during iterative development and is not found in most prompting guides. It is the single biggest differentiator between a 7/10 and a 10/10 prompt.
 
 ### The Prompt Evaluator
-A session intro prompt and standalone HTML app for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
+A session intro prompt for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
 
 ### The UI/UX Evaluation Prompts
 Three production-ready evaluation prompts for auditing user interfaces — one for each evaluation source: URL, Screenshot, and Codebase. Built on Nielsen's heuristics, WCAG 2.2 AA, and a 20-dimension scoring system covering both UI (objective) and UX (heuristic inference).
 
 ### The Issue Evaluator
-A Discernment tool — a session intro prompt and standalone HTML app for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Produces severity findings and generates targeted improvement suggestions (score >= 7.0), a full revised issue (2.0 <= score < 7.0), or a structured template (score < 2.0) when context is insufficient for a meaningful rewrite. Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
+A Discernment tool — a session intro prompt for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Produces severity findings and generates targeted improvement suggestions (score >= 7.0), a full revised issue (2.0 <= score < 7.0), or a structured template (score < 2.0) when context is insufficient for a meaningful rewrite. Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
 
 ### The Prompt Calibration Set
 Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Included as a learning resource.
@@ -105,8 +105,6 @@ All research sources are cited inline in the relevant documents.
 3. Paste into a new AI session
 4. The AI will confirm it understands the framework, then you paste your issue content
 
-Alternatively, use the `issue-evaluator.html` standalone app which includes URL fetching, a progress bar, and structured rendering of section scores and severity findings.
-
 To understand how the scoring is anchored, read `examples/issue-calibration-set.md` — it contains the ten reference issues used to calibrate the evaluator.
 
 **To evaluate a prompt you have written:**
@@ -114,8 +112,6 @@ To understand how the scoring is anchored, read `examples/issue-calibration-set.
 2. Copy the full contents
 3. Paste into a new AI session
 4. The AI will confirm it understands the framework, then you paste your prompt
-
-Alternatively, use the `prompt-evaluator.html` standalone app.
 
 **To evaluate a UI/UX interface:**
 1. Open `prompts/uiux-evaluation-prompts.md`
