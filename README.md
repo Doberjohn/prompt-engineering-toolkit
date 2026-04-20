@@ -68,6 +68,13 @@ Nine real prompts evaluated and scored during framework development, spanning sc
 ### The Issue Calibration Set
 Ten controlled degradations of a real implementation plan issue (GitHub issue #278, formula score 9.44/10), each with a traceable degradation rationale and formula-verified score. Built using the same controlled degradation methodology recommended by NLP evaluation research to avoid central tendency bias. Includes a full methodology section with 25+ citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
 
+### The Claude Code Skills
+Two project-agnostic Claude Code skills that close the write → evaluate → implement loop end to end. Both skills are Claude Code only and cannot run in chat interfaces.
+
+**`draft-issue`** (`skills/draft-issue/SKILL.md`) — invoke at the end of any Claude Code session where scope has been agreed. Reads context from the conversation, asks up to three clarifying questions when needed, drafts a full eight-section issue, scores it against the weighted rubric, iterates until approved, then publishes via `gh issue create`.
+
+**`implement-issue`** (`skills/implement-issue/SKILL.md`) — invoke when starting work on an issue. Runs session hygiene, fetches the issue, evaluates it against the eight-section rubric with a 7.0 quality gate, rewrites and updates the GitHub issue if it scores below the threshold, reads `CLAUDE.md` for project conventions, creates the branch, and presents a full implementation brief.
+
 ---
 
 ## Confidence and limitations
@@ -90,10 +97,14 @@ All research sources are cited inline in the relevant documents.
 | UI/UX URL Mode | Full | Full | Full | Full |
 | UI/UX Screenshot Mode | Full | Full | Full | Full |
 | UI/UX Codebase Mode | Full | Partial** | Partial** | Full |
+| `draft-issue` skill | N/A | N/A | N/A | Full*** |
+| `implement-issue` skill | N/A | N/A | N/A | Full*** |
 
 *The calibration anchors were developed and validated using Claude. Scoring consistency may vary on other models.
 
 **Codebase mode uses grep commands and file:line references that require an agentic coding environment (Claude Code, Cursor, GitHub Copilot Workspace). Standard chat interfaces cannot execute these commands.
+
+***Skills are Claude Code only. They cannot run in any chat interface because they depend on local tool access (git, gh, file system) and conversation context.
 
 ---
 
@@ -118,6 +129,23 @@ To understand how the scoring is anchored, read `examples/issue-calibration-set.
 2. Choose the mode that matches your available input (URL, Screenshot, or Codebase)
 3. Copy that mode's prompt
 4. Paste into a new AI session alongside your URL, screenshots, or codebase access
+
+**To draft an implementation plan issue from a Claude Code conversation:**
+1. In your Claude Code terminal, agree on the scope of the upcoming work
+2. Invoke `/draft-issue` (optionally with a brief title hint)
+3. The skill reads the conversation, asks clarifying questions if needed, and produces a scored draft
+4. Review, request changes, approve
+5. The skill publishes the issue via `gh issue create`
+
+Install: copy `skills/draft-issue/SKILL.md` to `.claude/commands/draft-issue/SKILL.md` in your repo, or to `~/.claude/commands/draft-issue/SKILL.md` for global access.
+
+**To start implementing an issue with the quality gate:**
+1. In your Claude Code terminal, invoke `/implement-issue <number>`
+2. The skill evaluates the issue against the eight-section rubric
+3. If the score is >= 7.0 it proceeds to branch setup with an implementation brief
+4. If the score is < 7.0 it produces a rewrite, asks for approval, updates the GitHub issue, then branches
+
+Install: copy `skills/implement-issue/SKILL.md` to `.claude/commands/implement-issue/SKILL.md` in your repo, or to `~/.claude/commands/implement-issue/SKILL.md` for global access.
 
 **To learn the framework before using the tools:**
 1. Start with `framework/ppep-framework.md`
