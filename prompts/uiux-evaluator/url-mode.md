@@ -2,7 +2,7 @@
 
 Use when you have a live, publicly accessible URL to evaluate. Part of the Prompt Engineering Toolkit. See `screenshot-mode.md` and `codebase-mode.md` in this folder for other evaluation contexts.
 
-Copy everything from the horizontal rule below and paste it into a new AI session.
+Copy everyone from the horizontal rule below and paste it into a new AI session.
 
 ---
 
