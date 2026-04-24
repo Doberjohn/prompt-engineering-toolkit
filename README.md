@@ -38,6 +38,14 @@ The result is a framework you can trust, teach, and build on.
 
 ---
 
+## Live demo
+
+See the toolkit in action at https://prompt-engineering-toolkit-companio.vercel.app. The companion app ships three of the evaluators as a hosted web app, powered by Claude. No API key required. 
+
+Source: [Doberjohn/prompt-engineering-toolkit-companion](https://github.com/Doberjohn/prompt-engineering-toolkit-companion).
+
+---
+
 ## What is in this toolkit
 
 ### The Framework
