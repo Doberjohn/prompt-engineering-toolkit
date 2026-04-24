@@ -1,0 +1,12 @@
+name: Trigger companion app rebuild
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'prompts/**'
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Vercel deploy hook
+        run: curl -X POST ${{ secrets.COMPANION_DEPLOY_HOOK }}
