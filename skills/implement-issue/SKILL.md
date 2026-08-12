@@ -149,6 +149,10 @@ overall_score = max(
 
 Round to two decimal places.
 
+**Critical-section cap:** if Implementation Steps, Acceptance Criteria, or Rollback scores 0
+(section absent), cap the overall score at 3.9 regardless of the formula result — a missing
+critical section cannot be compensated by strong scores elsewhere.
+
 ### Severity findings
 
 For each issue found, assign:

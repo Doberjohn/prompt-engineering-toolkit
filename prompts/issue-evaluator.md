@@ -110,7 +110,9 @@ overall_score = max(
 )
 ```
 
-Round to two decimal places. The floor of 0.5 applies only when all sections are entirely absent.
+Round to two decimal places. The max(..., 0.5) floor applies whenever the weighted sum falls below 0.5.
+
+**Critical-section cap:** if Implementation Steps, Acceptance Criteria, or Rollback scores 0 (section absent), cap the overall score at 3.9 regardless of the formula result. A missing critical section cannot be compensated by strong scores elsewhere — this keeps the formula consistent with the scoring-scale bands in the calibration set.
 
 ---
 

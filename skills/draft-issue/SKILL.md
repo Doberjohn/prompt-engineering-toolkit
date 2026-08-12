@@ -195,6 +195,9 @@ overall_score = max(
 )
 ```
 
+If Implementation Steps, Acceptance Criteria, or Rollback scores 0 (section absent), cap the
+overall score at 3.9 regardless of the formula result.
+
 Present the score card alongside the draft:
 
 ```
