@@ -5,7 +5,7 @@
 
 ## Overview
 
-The PPEP Framework is a four-dimension model for writing and evaluating prompts for AI language models. It was developed through iterative testing, scored against real examples, and grounded in established research from usability, communication, and epistemology.
+The PPEP Framework is a four-dimension model for writing and evaluating prompts for AI language models. Three of its four dimensions — Product, Process, and Performance — come directly from the three named components of the Description competency in the AI Fluency framework (Dakan, Feller, and Anthropic, 2025): Product Description, Process Description, and Performance Description. The fourth dimension (Epistemics), the per-dimension scoring rubrics, and the calibration sets are this toolkit's additions, developed through iterative testing against real examples.
 
 > **Scope note:** The PPEP framework covers the **Description** competency of the AI Fluency 4D Framework (Dakan, Feller, and Anthropic, 2025). The three peer competencies — Delegation (deciding when and how to involve AI), Discernment (evaluating AI outputs), and Diligence (responsible use) — are not covered by this framework. PPEP addresses the question: once you have decided to use AI for a task, how do you communicate your intent effectively?
 
@@ -104,7 +104,7 @@ When the desired output style, tone, or quality is hard to describe in words, pr
 
 ## Dimension 4: Epistemics
 
-**What it covers:** How Claude should know things and how it should prove them. This is the most advanced dimension and the one most absent from standard prompting guides.
+**What it covers:** How Claude should know things and how it should prove them. This is the toolkit's own addition to the three AI Fluency components. The concepts it covers (verification, grounding, hallucination reduction) appear across major prompting guides; what is distinctive here is scoring them as a named rubric dimension.
 
 **Sub-criteria:**
 - Inventory before judging: Claude must gather evidence before drawing conclusions, not conclude and then justify
@@ -143,7 +143,7 @@ Instructing Claude to reason through tradeoffs before recommending is an accessi
 
 ## The seven integrated techniques
 
-The PPEP framework integrates seven evidence-based prompting techniques from Anthropic's prompting research (Dakan, Feller, & Anthropic, 2025). Six map directly to PPEP dimensions. The seventh is a meta-technique that operates across all dimensions simultaneously.
+The PPEP framework integrates seven prompting techniques taught in Anthropic's AI Fluency course materials (Dakan, Feller, & Anthropic, 2025). Six map directly to PPEP dimensions. The seventh is a meta-technique that operates across all dimensions simultaneously.
 
 ### Dimension-mapped techniques
 
@@ -172,7 +172,7 @@ It is most useful as a diagnostic tool: reach for it when the six dimension-mapp
 
 ## Scoring the overall prompt
 
-The overall score is the average of the active dimension scores. When Epistemics is N/A (see Epistemics scoring guidance above for when this applies), the overall score is the average of the three active dimensions only. However, dimension scores are not equally weighted in practice — a prompt with Epistemics at 1/10 on a research or verification task is not a 7/10 prompt regardless of other scores. Use the overall average as a starting point, then apply judgment about which dimensions matter most for the task type.
+The overall score is the average of the active dimension scores. When Epistemics is N/A (see the Epistemics N/A rule in `prompts/prompt-evaluator.md` and `examples/prompt-calibration-set.md` for when this applies), the overall score is the average of the three active dimensions only. However, dimension scores are not equally weighted in practice — a prompt with Epistemics at 1/10 on a research or verification task is not a 7/10 prompt regardless of other scores. Use the overall average as a starting point, then apply judgment about which dimensions matter most for the task type.
 
 **Task type guidance:**
 
@@ -187,15 +187,9 @@ The overall score is the average of the active dimension scores. When Epistemics
 
 ---
 
-## Confidence and limitations
+## Limitations
 
-**Framework confidence: 93%**
-
-The remaining 7% reflects the irreducible subjectivity inherent in single-evaluator heuristic assessment. This is a documented limitation in the usability research literature:
-
-> "There tends to be disagreement between evaluators when assigning severity, and reliability improves when averaging ratings from independent evaluators." — Nielsen (1993), as discussed in Hertzum (2006)
-
-Since this framework uses a single AI evaluator, some scoring variance is unavoidable by definition. The calibration set (see `examples/prompt-calibration-set.md`) reduces this variance by providing nine concrete reference points, but does not eliminate it.
+This framework's scores rest on single-evaluator judgment — the anchors were scored by one person, and the evaluator runs as one model in one pass. The usability literature is clear that single-evaluator severity assessment is unreliable and that reliability improves when independent evaluators are averaged (Nielsen 1994; Hertzum 2006 documents substantial evaluator disagreement). No formal reliability measurement (test-retest variance, inter-rater agreement against human labels) has been performed on this framework; until one is, treat scores as structured judgment, not measurement. The calibration set (see `examples/prompt-calibration-set.md`) aims to reduce scoring variance by providing nine concrete reference points, but does not eliminate it.
 
 ---
 

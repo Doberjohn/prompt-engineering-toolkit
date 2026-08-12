@@ -9,13 +9,13 @@ This calibration set was built on a foundation of primary research across four d
 
 ### How this was built
 
-The calibration set uses controlled degradation of a single real issue (Inkweave #278, produced by Claude Code) rather than synthetic generation. This approach is grounded in NLP evaluation research which shows that synthetic low-quality examples tend to be theatrically bad rather than realistically bad, producing central tendency bias in evaluators. The degradation approach ensures every anchor traces to a real artifact with a known quality baseline.
+The calibration set uses controlled degradation of a single real issue (Inkweave #278, produced by Claude Code) rather than synthetic generation. This is a design choice, not a method prescribed by the literature: degrading a real artifact keeps every anchor traceable to a known quality baseline and avoids hand-written "bad examples" that fail in unrealistic ways. The sources below support anchor-based calibration generally; the specific degradation design is this toolkit's own.
 
-Scores were assigned by the subject matter expert (the developer who owns the repository and wrote the original prompt) against the eight-section rubric. This follows the standard for ground truth calibration sets in LLM evaluation research, which requires human expert judgment rather than automated scoring.
+Scores were assigned by the subject matter expert (the developer who owns the repository and wrote the original prompt) against the eight-section rubric. LLM evaluation practice grounds calibration in human judgment rather than automated scoring; note, however, that the calibration literature typically uses multiple human judges and models their disagreement, whereas this set has a single evaluator — a known limitation, restated below.
 
-Sources used to verify this approach:
-- Eisenstein, J., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
-- Holterman, B., et al. (2026). *Rulers: Locked Rubrics and Evidence-Anchored Scoring for Robust LLM Evaluation*. arXiv preprint. https://arxiv.org/html/2601.08654
+Sources on anchor-based, rubric-driven calibration:
+- Hashemi, H., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
+- Hong, Y., et al. (2026). *Rulers: Locked Rubrics and Evidence-Anchored Scoring for Robust LLM Evaluation*. arXiv preprint. https://arxiv.org/html/2601.08654
 - Label Studio. (2026). *How to Scale Evaluation for RAG and Agent Workflows*. https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
 
 ---
@@ -38,13 +38,13 @@ The eight sections were derived from three converging research areas: GitHub iss
   - Confirms: GitHub Copilot's own planning mode generates four sections: Overview, Requirements, Implementation Steps, Testing. This is the direct source for including Testing/Verification as a mandatory section.
 - IssuePilot. (2024). *GitHub CLI Workflow for Task Management — Issue Body Structure*. Community resource. https://gist.githubusercontent.com/raw/c9efc3e0e4fb81b4aefa3bf43d22391b
   - Confirms: the Why/What/How structure — Description (Why), Acceptance Criteria (What), Implementation Plan (How) — as the canonical three-part structure for task issues
-- Li, X., et al. (2024). *An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub*. ACM Transactions on Software Engineering and Methodology. https://dl.acm.org/doi/10.1145/3643673
+- Sülün, E., et al. (2024). *An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub*. ACM Transactions on Software Engineering and Methodology. https://dl.acm.org/doi/10.1145/3643673
   - Empirical evidence that structured templates improve issue resolution time, reduce reopening rates, and increase project productivity. Peer-reviewed source confirming that structure matters.
-- Wang, Y., et al. (2024). *Empirical Study on GitHub Issue Report Templates*. IEEE Conference Publication. https://ieeexplore.ieee.org/document/10633301/
+- Zhang, J., et al. (2024). *Empirical Study on GitHub Issue Report Templates*. IEEE Conference Publication. https://ieeexplore.ieee.org/document/10633301/
   - Confirms: adoption of issue templates is associated with increased project productivity and more successful projects across 1,084,300 projects.
-- Arya, D., et al. (2018). *An empirical study on the issue reports with questions raised during the issue resolving process*. Empirical Software Engineering. https://link.springer.com/article/10.1007/s10664-018-9636-3
+- Huang, Y., et al. (2018). *An empirical study on the issue reports with questions raised during the issue resolving process*. Empirical Software Engineering. https://link.springer.com/article/10.1007/s10664-018-9636-3
   - Confirms: unnecessary questions raised during issue resolution cause significant delays. Complete upfront context — the why, prerequisites, and acceptance criteria — reduces resolution time.
-- Zhang, Y., et al. (2025). *Can We Enhance Bug Report Quality Using LLMs? An Empirical Study of LLM-Based Bug Report Generation*. Proceedings of EASE 2025. https://arxiv.org/pdf/2504.18804
+- Acharya, J., & Ginde, G. (2025). *Can We Enhance Bug Report Quality Using LLMs? An Empirical Study of LLM-Based Bug Report Generation*. Proceedings of EASE 2025. https://arxiv.org/pdf/2504.18804
   - Confirms: issue quality evaluated on five dimensions — Atomicity, Conciseness, Completeness, Understandability, Reproducibility. Completeness and Reproducibility map directly to our Acceptance Criteria and Testing/Verification sections.
 
 **Agile task documentation standards**
@@ -79,7 +79,7 @@ The severity scale (1-4) is directly derived from Jakob Nielsen's original usabi
 
 - Nielsen, J. (1994). *Severity Ratings for Usability Problems*. Nielsen Norman Group. https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/
   - Original source: 0 = not a problem, 1 = cosmetic, 2 = minor, 3 = major, 4 = catastrophic/blocks task completion
-  - Our mapping preserves this scale exactly, applied to issue sections rather than UI elements
+  - Our mapping adapts levels 1-4 of this scale (level 0, "not a problem", is not used), applied to issue sections rather than UI elements
 - Sauro, J. (2013). *Rating the Severity of Usability Problems*. MeasuringU. https://measuringu.com/rating-severity/
   - Confirms: "treat frequency separately from severity" — which is why section absence and section quality are scored independently
 - Nielsen, J. (1993). *Usability Engineering*. Academic Press. ISBN: 978-0125184069.
@@ -91,7 +91,7 @@ The mapping of sections to severity levels was determined by applying Nielsen's 
 
 ### Calibration method
 
-Controlled degradation as a method for building evaluation calibration sets is documented in NLP evaluation research as more reliable than synthetic generation for the reasons described above. The specific degradation plan follows a principle of single-change-per-anchor, ensuring each score difference is traceable to exactly one variable. This is consistent with controlled experiment design principles in software engineering research.
+Controlled degradation is this calibration set's own method, inspired by anchor-based calibration practice rather than prescribed by it. The degradation plan aims for a principle of single-change-per-anchor so that each score difference is traceable to a small number of variables; readers auditing the anchor texts should note that some anchors carry incidental text differences beyond the declared change.
 
 The five patterns documented at the end of the calibration set are observations derived from scoring the anchors, not pre-specified claims. They are offered as heuristics for human evaluators, not as formal findings.
 

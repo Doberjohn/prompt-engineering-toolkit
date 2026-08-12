@@ -1,6 +1,6 @@
 # Prompt Engineering Toolkit
 
-A research-backed toolkit covering the **Description** competency of the AI Fluency 4D Framework — with calibrated evaluation tools, real-world examples, and production-ready prompt templates.
+A calibration-first toolkit covering the **Description** competency of the AI Fluency 4D Framework — with anchored evaluation tools, real-world examples, and ready-to-use prompt templates.
 
 ---
 
@@ -13,7 +13,7 @@ This toolkit is a practitioner's implementation built on top of the **AI Fluency
 - **Discernment** — evaluating AI outputs with critical judgment
 - **Diligence** — taking responsibility for AI-assisted work
 
-This toolkit covers **Description** in depth — the competency concerned with writing prompts that produce the results you need. The PPEP framework, prompt evaluator, and calibration sets all operate within this competency. The issue evaluator is a **Discernment** tool — it supports human judgment over AI-destined documents before execution begins.
+This toolkit covers **Description** in depth — the competency concerned with writing prompts that produce the results you need. The PPEP framework, prompt evaluator, and calibration sets all operate within this competency. The toolkit's Product, Process, and Performance dimensions come directly from the AI Fluency course's own three components of Description; the Epistemics dimension, the scoring rubrics, and the calibration sets are this toolkit's additions. The issue evaluator is a **Discernment** tool — it supports human judgment over AI-destined documents before execution begins.
 
 The three remaining competencies (Delegation, full Discernment coverage, and Diligence) are not covered by this toolkit. The full AI Fluency course is available through Anthropic and covers all four competencies with structured exercises and project-based learning.
 
@@ -23,18 +23,16 @@ The three remaining competencies (Delegation, full Discernment coverage, and Dil
 
 ## Why this exists
 
-Most prompt engineering guides are opinion-based. They tell you what to do without explaining why, without evidence, and without a way to measure whether your prompts are actually improving.
+Most prompt engineering guides tell you what to do without a way to measure whether your prompts are actually improving.
 
-This toolkit was built differently.
+This toolkit was built around measurement:
 
-Every decision in this framework was:
+- **Sourced from established material** — Anthropic's AI Fluency framework, Nielsen's usability heuristics, WCAG 2.2, and issue-quality research, cited inline
+- **Iterated against a consistent rubric** — prompts were evaluated, scored, revised, and rescored until the framework stabilized
+- **Calibrated against real examples** — a set of nine anchor prompts spanning the quality range from 1/10 to 10/10 was developed to reduce scoring subjectivity
+- **Honest about limitations** — the scores rest on single-evaluator judgment and no formal reliability study has been run yet; this is documented where it applies
 
-- **Grounded in established research** — Nielsen's 10 Usability Heuristics, WCAG 2.2 AA, NN/G studies, peer-reviewed usability literature
-- **Validated through iteration** — prompts were evaluated, scored, revised, and rescored against a consistent rubric until the framework stabilized
-- **Calibrated against real examples** — a set of nine anchor prompts spanning the full quality range (1/10 to 10/10) was developed to reduce scoring subjectivity
-- **Honest about limitations** — confidence intervals, epistemic uncertainty, and the 7% irreducible subjectivity inherent in single-evaluator heuristic assessment are documented throughout
-
-The result is a framework you can trust, teach, and build on.
+The result is a framework you can teach, use, and build on — and a calibration methodology you can challenge.
 
 ---
 
@@ -59,7 +57,7 @@ A four-dimension model for evaluating and writing AI prompts, extended with seve
 - **Performance** — how the AI should behave: tone, role, collaboration style, depth
 - **Epistemics** — how the AI should know things: inventory before judging, proof for negative claims, reasoning before concluding
 
-> The Epistemics dimension is the most advanced and the most impactful. It was independently surfaced during iterative development and is not found in most prompting guides. It is the single biggest differentiator between a 7/10 and a 10/10 prompt.
+> The Epistemics dimension is this toolkit's own addition to the AI Fluency components. The concepts it scores — verification, grounding, proof for negative claims — appear across major prompting guides, but scoring them as a named rubric dimension is what is distinctive here. On research, audit, and analysis tasks it is the biggest differentiator between a 7/10 and a 10/10 prompt.
 
 ### The Prompt Evaluator
 A session intro prompt for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
@@ -74,7 +72,7 @@ A Discernment tool — a session intro prompt for exercising human judgment over
 Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Included as a learning resource.
 
 ### The Issue Calibration Set
-Ten controlled degradations of a real implementation plan issue (GitHub issue #278, formula score 9.44/10), each with a traceable degradation rationale and formula-verified score. Built using the same controlled degradation methodology recommended by NLP evaluation research to avoid central tendency bias. Includes a full methodology section with 25+ citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
+A real implementation plan issue (GitHub issue #278, formula score 9.44/10) plus nine controlled degradations of it, each with a traceable degradation rationale and formula-verified score. Built by degrading a real artifact rather than generating synthetic examples, so every anchor traces to a known quality baseline. Includes a full methodology section with 25+ citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
 
 ### The Claude Code Skills
 Two project-agnostic Claude Code skills that close the write → evaluate → implement loop end to end. Both skills are Claude Code only and cannot run in chat interfaces.
@@ -85,13 +83,11 @@ Two project-agnostic Claude Code skills that close the write → evaluate → im
 
 ---
 
-## Confidence and limitations
+## Limitations
 
-This toolkit was built with explicit confidence tracking. Current confidence level in the framework: **93%**.
+The framework's scores rest on single-evaluator judgment: the calibration anchors were scored by one person, and the evaluators run as one model in one pass. The usability literature documents that single-evaluator assessment is unreliable and improves with independent-evaluator averaging (Nielsen 1994; Hertzum 2006). No formal reliability study (test-retest variance, inter-rater agreement against human labels) has been run on this framework yet — that is the most important piece of validation work still to do, and contributions toward it are welcome.
 
-The remaining 7% is the irreducible subjectivity inherent in single-evaluator heuristic assessment, documented in peer-reviewed literature (Nielsen 1993, Hertzum 2006). This is not a failure of the framework — it is an honest acknowledgment of the limits of any expert-led evaluation method without multi-evaluator aggregation.
-
-All research sources are cited inline in the relevant documents.
+All sources are cited inline in the relevant documents.
 
 ---
 
@@ -133,10 +129,9 @@ To understand how the scoring is anchored, read `examples/issue-calibration-set.
 4. The AI will confirm it understands the framework, then you paste your prompt
 
 **To evaluate a UI/UX interface:**
-1. Open `prompts/uiux-evaluation-prompts.md`
-2. Choose the mode that matches your available input (URL, Screenshot, or Codebase)
-3. Copy that mode's prompt
-4. Paste into a new AI session alongside your URL, screenshots, or codebase access
+1. Open the mode in `prompts/uiux-evaluator/` that matches your available input: `url-mode.md`, `screenshot-mode.md`, or `codebase-mode.md`
+2. Copy the full contents of that mode's file
+3. Paste into a new AI session alongside your URL, screenshots, or codebase access
 
 **To draft an implementation plan issue from a Claude Code conversation:**
 1. In your Claude Code terminal, agree on the scope of the upcoming work
@@ -173,10 +168,10 @@ This toolkit draws on the following established research and standards:
 - MeasuringU. (2013). [Rating the Severity of Usability Problems](https://measuringu.com/rating-severity/).
 - CorsoUX. (2026). [UX Audit Checklist: 50 Points](https://courseux.com/ux-audit-checklist/).
 - Dakan, R., Feller, J., & Anthropic. (2025). [AI Fluency: Framework and Foundations](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). CC BY-NC-SA 4.0.
-- Li, X., et al. (2024). [An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub](https://dl.acm.org/doi/10.1145/3643673). ACM Transactions on Software Engineering and Methodology.
-- Sayagh, M., et al. (2025). [What Makes a GitHub Issue Ready for Copilot?](https://arxiv.org/pdf/2512.21426) arXiv preprint.
+- Sülün, E., et al. (2024). [An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub](https://dl.acm.org/doi/10.1145/3643673). ACM Transactions on Software Engineering and Methodology.
+- Sayagh, M. (2025). [What Makes a GitHub Issue Ready for Copilot?](https://arxiv.org/pdf/2512.21426) arXiv preprint.
 - GitHub. (2025). [Best Practices for Using GitHub Copilot to Work on Tasks](https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results). GitHub Docs.
-- Eisenstein, J., et al. (2024). [LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts](https://aclanthology.org/2024.acl-long.745.pdf). Proceedings of ACL 2024.
+- Hashemi, H., et al. (2024). [LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts](https://aclanthology.org/2024.acl-long.745.pdf). Proceedings of ACL 2024.
 - ReliablePenguin. (2025). [What Is a Runbook? History, Template, and Best Practices](https://blogs.reliablepenguin.com/2025/10/29/what-is-a-runbook-history-template-and-best-practices).
 - Atlassian. (2025). [What is Acceptance Criteria?](https://www.atlassian.com/work-management/project-management/acceptance-criteria)
 

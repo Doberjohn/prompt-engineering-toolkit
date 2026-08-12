@@ -9,9 +9,9 @@
 
 These nine prompts are real prompts written and iteratively improved during live development sessions. They are not synthetic examples. Each represents a genuine use case encountered during framework development, and they were scored against the PPEP rubric as the framework was being stabilised.
 
-Scores were assigned by the subject matter expert who developed the PPEP framework — a single evaluator. This follows the standard for calibration set construction described in LLM evaluation research, which requires human expert judgment rather than automated scoring as the ground truth source:
+Scores were assigned by the subject matter expert who developed the PPEP framework — a single evaluator. LLM evaluation practice grounds calibration in human judgment rather than automated scoring; note, however, that the calibration literature typically uses multiple human judges and models their disagreement, so a single-evaluator ground truth is a real limitation of this set, not a standard it satisfies:
 
-- Eisenstein, J., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
+- Hashemi, H., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
 - Label Studio. (2026). *How to Scale Evaluation for RAG and Agent Workflows*. https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
 
 ### Known limitations
@@ -20,7 +20,7 @@ Single-evaluator scoring carries irreducible subjectivity. This is a documented 
 
 > "There tends to be disagreement between evaluators when assigning severity, and reliability improves when averaging ratings from independent evaluators." — Nielsen (1993), as discussed in Hertzum (2006). *International Journal of Human-Computer Interaction*, 21(2), 125–146.
 
-The calibration set reduces scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity. The framework confidence is documented as 93% in `framework/ppep-framework.md`, with the remaining 7% reflecting this irreducible gap.
+The calibration set aims to reduce scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity, and no formal reliability measurement (test-retest, inter-rater agreement) has been performed on this set. See the limitations section of `framework/ppep-framework.md`.
 
 These anchors were calibrated against Claude's behavior specifically. Scoring consistency may vary on other models.
 
