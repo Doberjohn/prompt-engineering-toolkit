@@ -57,6 +57,7 @@ the new session is told to use. The two fix commits (§4) were deliberately kept
 | `1724d8a` | Final synthesized report (`analysis/REPORT.md`, 515 lines) |
 | `88fd244` | **FIX COMMIT 1** — citations, attribution, unsupported claims (toolkit files only) |
 | `ed9742b` | **FIX COMMIT 2** — critical-section cap in the scoring formula (toolkit files only) |
+| `3a1a7c8`+ | This handoff document and any later commits |
 
 (Verify hashes with `git log --oneline` — trust the log over this table.)
 
@@ -80,8 +81,9 @@ the new session is told to use. The two fix commits (§4) were deliberately kept
   **quality gate**: `implement-issue` scores the issue first and **refuses to proceed below
   7.0/10**, telling the user what to fix. This gate is the heart of the talk.
 - **`examples/prompt-calibration-set.md`** — 9 anchor prompts, 1/10→10/10.
-- **`examples/issue-calibration-set.md`** — real Inkweave issue #278 (expert-scored 9.44)
-  + 9 controlled degradations, each with declared change and formula-verified score.
+- **`examples/issue-calibration-set.md`** — real Inkweave issue #278 (formula score 9.44,
+  published anchor label 10/10 via a documented expert-judgment override) + 9 controlled
+  degradations, each with a declared change and formula-verified score.
 
 ---
 
@@ -113,9 +115,11 @@ re-verified before inclusion; maintain that standard.**
 5. **Formula hole** — weighted averaging let an issue with a critical section entirely
    absent score up to ~8.4 and pass the 7.0 gate. → **FIXED** in `ed9742b` (cap at 3.9 when
    Steps/AC/Rollback = 0). Verified: changes no published anchor score.
-6. **Single-change-per-anchor violated** in some calibration anchors (incidental text
-   diffs beyond the declared change). → Disclosed in `88fd244` wording; regenerating
-   anchors is an open Tier-2 item.
+6. **Single-change-per-anchor violated** in some calibration anchors — substantively, not
+   cosmetically (e.g. Anchor 2's declared change is "References removed" but its SQL also
+   drops 10 of 20 columns and a security policy; Anchor 3 restores a policy Anchor 2
+   removed, impossible under cumulative degradation — see `REPORT.md` §4.4). → Disclosed
+   in `88fd244` wording; regenerating anchors is an open Tier-2 item (P6).
 7. **Expert-anchor offset** — fresh evaluator runs score the reference issue ~1.3 points
    below John's 9.44 (see §9). Open item; feeds the talk's "not sufficient" thesis.
 8. **README pointed to a deleted file** for the UI/UX evaluator. → **FIXED** in `88fd244`.
@@ -123,8 +127,10 @@ re-verified before inclusion; maintain that standard.**
    Fanidis. Only John can say which name is legally right. → **OPEN (John)**.
 10. **Inkweave is private** but the calibration set's ground-truth issue #278 lives there
     — external readers can't verify the set's foundation. → **OPEN (John)**.
-11. **An Anthropic CDN PDF citation** couldn't be fetched/verified from the sandbox.
-    → **OPEN (John: download and confirm what it is)**.
+11. **An Anthropic CDN PDF citation** couldn't be fetched from the sandbox, and per
+    `REPORT.md` §4.2 it appears to actually be a course handout titled "6 Techniques for
+    Effective Prompt Engineering" — i.e. the citation's title is likely wrong, not merely
+    unverified. → **OPEN (John: download, confirm, retitle the citation)**.
 
 ---
 
@@ -189,10 +195,10 @@ none of which are recorded in the repo. His paraphrased claims:
 | 1 | Confident failure on underspecified input | ✅ Solid; literature supports (Sayagh 2025, GitHub Copilot guidance) |
 | 2 | Quality-gate pattern | ✅ Real, works, demo-able; formula hole now patched |
 | 3 | Calibration methodology | ⚠️ Present as **his design** + audit disclosure. Sections ARE synthesized from GitHub/Agile/SRE sources (true, citations now correct). Do NOT claim the degradation method comes from research. |
-| 4 | Live demo | ✅ Feasible — skill install empirically verified. Needs rehearsal (§8, P4). Variance: evaluator asks 0–3 clarifying questions run to run. |
+| 4 | Live demo | ✅ Feasible — skill install empirically verified. Needs rehearsal (§8, P4). Note: run-to-run variance is real but the measured 0–3 clarifying-questions range comes from the PROMPT evaluator (Test A1), not the issue evaluator the demo uses — P4 rehearsal must characterize the demo path's own variance. |
 | 5 | **Four months of production data** | 🔴 **BIGGEST RISK.** No recorded data exists in this repo, and those months are the repo's dormancy window. Either mine `inkweave` (lead: July 2026 session artifacts show active Inkweave issue work, e.g. #472 — toolkit-era usage likely exists there) or replace with the controlled experiments, honestly labeled. **Never let this claim reach the stage unbacked.** |
 | 6 | Opus 4.7 refusal of a 10/10 prompt | ⚠️ Great story IF receipts (prompt + transcript) exist. Ask John. If reproducible → slide; if not → cut or one-line aside. |
-| 7 | Necessary but not sufficient | ✅ Excellent thesis. The audit **strengthens** it: the ~1.3-point cross-model anchor offset is quantified evidence that rubric calibration is model-relative. |
+| 7 | Necessary but not sufficient | ✅ Excellent thesis. The audit **strengthens** it: the ~1.3-point offset between the author's anchor scores and fresh evaluator runs (consistent across runs AND models — cross-model spread was only ~0.3–0.4) is quantified evidence that a rubric calibrated by its author does not transfer unchanged to independent evaluators. |
 
 ### 6.3 Proposed talk structure (agreed direction; works with or without production data)
 
@@ -265,16 +271,20 @@ prompt calibration set; consider model-version pinning notes in the evaluators.
   median); max per-dimension spread 1 point; 0–3 clarifying questions across runs; all
   runs respected the "missing sub-criteria caps at 6" strictness rule.
 - **Test A2** (Anchor 5 with exactly its named gaps closed, 3 runs): the named dimension
-  moved as predicted in all runs; untouched dimensions stayed put.
+  moved as predicted in all runs; Process and Epistemics held at the anchor's values in
+  all runs, while Performance varied by 1 point in one of the three runs.
 - **Test B** (gate test: reference issue with Rollback deleted, 3 runs): scores
   **6.24–6.68 < 7.0** — the gate held in practice in all runs (though pre-`ed9742b` the
   formula alone did not guarantee it).
-- **Expert-anchor offset**: fresh runs score the reference issue **~1.3 points below**
-  John's expert score of 9.44 — consistent across runs and models. Partly model drift
-  across generations, which is itself a versioning finding for the talk.
+- **Expert-anchor offset**: fresh runs score the reference issue **~1.3 points below** its
+  formula score of 9.44 (published anchor label: 10/10 via expert override) — consistent
+  across runs and models; cross-model spread in Test B was only ~0.3–0.4 points. The
+  sources hedge the cause: it **may** be partly model drift since April, which — if
+  confirmed — is itself a versioning finding for the talk.
 - Formula: `max(weighted_sum/25, 0.5)`; gate threshold **7.0**; critical-section cap
   **3.9** (added in `ed9742b`).
-- Issue #278 expert score: **9.44/10**. Calibration sets: 9 prompt anchors; 1+9 issue anchors.
+- Issue #278: formula score **9.44/10**, published anchor label **10/10** (expert
+  override). Calibration sets: 9 prompt anchors; 1+9 issue anchors.
 
 ---
 
