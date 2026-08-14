@@ -2,7 +2,9 @@
 
 **Written:** 2026-08-14, by the Claude session that ran the full toolkit audit.
 **For:** the next Claude session (cloud) continuing this work with John, and for John himself.
-**Read order for a fresh session:** this file → `analysis/REPORT.md` → whatever the current task needs.
+**Read order for a fresh session:** this file → `analysis/REPORT.md` →
+`analysis/03-abstract-and-decisions.md` (2026-08-14 update: exact abstract text +
+John's decisions — supersedes §6.1 and parts of §5/§7 below) → whatever the task needs.
 
 ---
 
@@ -34,7 +36,7 @@ scrutiny the audit applied to the repo. Do not let convenient claims back in.
 | Thing | Value |
 |---|---|
 | Main repo | `Doberjohn/prompt-engineering-toolkit` (public) |
-| Working branch | `claude/prompt-toolkit-analysis-jybfdm` (pushed, tracks origin) |
+| Working branch | `claude/prompt-toolkit-analysis-jybfdm` (pushed, tracks origin); continued 2026-08-14 on `claude/handoff-analysis-review-czbm3s`, which contains it plus later commits |
 | Default branch | `main` — do **not** push to it without John's explicit OK |
 | Related private repo | `Doberjohn/inkweave` — NOT in session scope; use `add_repo` if John approves mining it |
 | Published audit artifact | "The PPEP Audit" — https://claude.ai/code/artifact/b96ceb32-d793-4d15-9b8b-d0285e5bfbbe (John can read it from his phone; a future session can update it in place by passing this URL to the Artifact tool) |
@@ -160,13 +162,14 @@ re-verified before inclusion; maintain that standard.**
 
 ## 5. Open items only John can do
 
-1. **LICENSE** — fix holder name (Giannelos vs Fanidis) and year. Claude should not guess.
+1. **LICENSE** — ~~fix holder name and year~~ **DONE 2026-08-14**: John confirmed
+   "John Fanidis, 2026"; fixed in commit `fabad28` (toolkit-only, cherry-pickable).
 2. **Inkweave #278 visibility** — either make `inkweave` public, or copy issue #278's full
    text into `examples/` as the canonical reference artifact (recommended: the copy).
 3. **Anthropic CDN PDF** — download it, confirm it is the AI Fluency course material the
    citation claims, adjust the citation title if not.
-4. **Cherry-pick fixes to `main`** — `git cherry-pick 88fd244 ed9742b` (or ask a session
-   to do it with explicit permission to push `main`).
+4. **Cherry-pick fixes to `main`** — `git cherry-pick 88fd244 ed9742b fabad28` (or ask a
+   session to do it with explicit permission to push `main`).
 
 ---
 
@@ -215,17 +218,20 @@ none of which are recorded in the repo. His paraphrased claims:
 
 ---
 
-## 7. Decisions blocked on John (ask these first)
+## 7. Decisions blocked on John — status 2026-08-14 (details in `03-abstract-and-decisions.md`)
 
-a. Does **production data** exist (in Inkweave or anywhere)? If plausibly yes → approve
-   adding `inkweave` via `add_repo` and run work package **P2**.
-b. Do the **Opus 4.7 refusal receipts** exist (prompt + transcript)?
-c. Is the **abstract locked or editable**? If editable → run **P3** (redraft).
-d. **Event logistics**: talk length, date, audience, live-demo feasibility (projector,
-   network, Claude Code access on stage vs. recorded fallback).
-e. LICENSE name (§5.1).
+a. Production data: **answered** — "likely yes" it exists in Inkweave, but mining
+   **deferred by John**; P1 controlled experiments are the working fallback. Revisit
+   before the talk — claim 5 must not reach the stage unbacked.
+b. Opus 4.7 refusal receipts: **answered — none exist.** Cut or one-line unverified
+   aside; see the P7 reproduction-probe proposal.
+c. Abstract: **text obtained verbatim** (recorded in `03-abstract-and-decisions.md`);
+   **editability still unknown** — now the top open question.
+d. **Event logistics** — still open: talk length, date, audience, live-demo feasibility
+   (projector, network, Claude Code access on stage vs. recorded fallback).
+e. LICENSE: **answered and fixed** (`fabad28`).
 f. Preferred slide tooling (pptx? reveal.js artifact? — the `pptx` skill is available in
-   cloud sessions).
+   cloud sessions) — still open.
 
 ---
 
