@@ -55,11 +55,13 @@ A four-dimension model for evaluating and writing AI prompts, extended with seve
 
 **Core dimensions:**
 - **Product** — what you want: output, format, audience, scope, constraints
-- **Process** — how the AI should approach the task: steps, order, methodology
-- **Performance** — how the AI should behave: tone, role, collaboration style, depth
-- **Epistemics** — how the AI should know things: inventory before judging, proof for negative claims, reasoning before concluding
+- **Process** — how the work should be structured: checkpoints, deliverable order, completion conditions
+- **Performance** — how the AI should behave: audience, depth, tone, collaboration style (a persona only when voice matters)
+- **Epistemics** — how the AI should know things: inventory before judging, proof for negative claims, evidence shown, inferences labelled
 
-> The Epistemics dimension is the most advanced and the most impactful. It was independently surfaced during iterative development and is not found in most prompting guides. It is the single biggest differentiator between a 7/10 and a 10/10 prompt.
+> Product, Process, and Performance are the AI Fluency framework's own Description components; Epistemics is this toolkit's extension. Its content (investigate before answering, show evidence, say what is unverified) now also appears in official prompting guidance; what the toolkit adds is making it scoreable. In the calibration set, it is the dimension that most often separates strong prompts from gold-standard ones.
+>
+> The criteria were revised in September 2026 for current reasoning models: Process no longer rewards step-by-step thinking instructions, a persona is optional, and generic "verify your answer" lines earn little. See "What changed and why" in `framework/ppep-framework.md`.
 
 ### The Prompt Evaluator
 A session intro prompt for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
@@ -71,7 +73,7 @@ Three production-ready evaluation prompts for auditing user interfaces (`prompts
 A Discernment tool — a session intro prompt for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Also runs a separate agent readiness check (runnable done-when command, environment or instruction file, out-of-scope list, boundaries, human-only steps, scope) with a verdict of ready, supervise, or not ready. Produces severity findings and generates targeted improvement suggestions (score >= 7.0), a full revised issue (2.0 <= score < 7.0), or a structured template (score < 2.0) when context is insufficient for a meaningful rewrite. Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
 
 ### The Prompt Calibration Set
-Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Included as a learning resource.
+Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Re-scored in September 2026 against the revised criteria, with the original scores kept for traceability. Included as a learning resource.
 
 ### The Issue Calibration Set
 A real implementation plan issue ([Doberjohn/inkweave#278](https://github.com/Doberjohn/inkweave/issues/278), formula score 9.44/10) plus nine controlled degradations of it, each with a traceable degradation rationale and formula score. Built by controlled degradation of a known-good artifact, following the logic of perturbation-based meta-evaluation (Karpinska et al., 2022). Includes a full methodology section with 28 citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
@@ -159,7 +161,7 @@ Install: copy `skills/implement-issue/SKILL.md` to `.claude/skills/implement-iss
 
 **To learn the framework before using the tools:**
 1. Start with `framework/ppep-framework.md`
-2. Read through the seven integrated techniques
+2. Read through the seven integrated techniques and "What changed and why"
 3. Study `examples/prompt-calibration-set.md` to calibrate your intuition
 
 ---

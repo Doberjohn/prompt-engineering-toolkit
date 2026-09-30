@@ -22,7 +22,21 @@ Evaluators frequently disagree when assigning severity ratings (Sauro, J. (2014)
 
 The calibration set reduces scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity. The framework confidence is documented as 93% in `framework/ppep-framework.md`, with the remaining 7% reflecting this irreducible gap.
 
-These anchors were calibrated against Claude's behavior specifically. Scoring consistency may vary on other models.
+These anchors were calibrated against Claude's behavior specifically. Scoring consistency may vary on other models. The model and version used for the original calibration were not recorded; record them when re-running the anchors.
+
+### Revision history
+
+**April 2026:** original scores assigned by the framework author.
+
+**September 2026:** criteria revised for current reasoning models (see "What changed and why" in `framework/ppep-framework.md`) and anchors re-scored against the revised criteria. Only scores affected by a changed criterion were revisited; every other score is the author's original. The re-scored values are proposed changes for the author to confirm.
+
+| Anchor | Dimension | Original | Revised | Reason |
+|---|---|---|---|---|
+| 6 | Epistemics | 8 | 7 | "Check your answers online for outdated docs" is a specific evidence requirement but does not address negative claims, which the 8-9 band requires (this was already true under the original bands) |
+| 7 | Process | 10 | 5 | "Explain each step with code examples" and "a structured report" are output format, not work structure; no checkpoint or completion condition |
+| 7 | Epistemics | N/A | 2 | Asking for "the latest best practices on React 19" depends on current facts the prompt does not supply, with no instruction to check them |
+
+Overall effect: Anchor 6 stays 8/10 (7.75). Anchor 7 moves from 9/10 to 6/10, which leaves the set without a 9/10 anchor; a real prompt at that level should be added. Several notes were also reworded because a missing persona is no longer a gap on its own and tone belongs to Performance, not Product; those changes did not move any score.
 
 ### Relationship to the framework
 
@@ -40,7 +54,7 @@ Use these anchors to calibrate your intuition before evaluating your own prompts
 
 Each dimension (Product, Process, Performance, Epistemics) is scored 1-10. The overall score is the average of the active dimensions (see Epistemics N/A note below).
 
-The four bands below correspond to the behavioral anchor pattern used in the PPEP framework for Product, Process, and Performance. They are an application of rubric-based scoring principles from educational measurement and psychometrics, adapted for prompt evaluation. **Epistemics uses a five-band scale** (1-3, 4-5, 6-7, 8-9, 10) defined in the framework document because the progression from implicit to full epistemic rigor is finer-grained. The framework document (`framework/ppep-framework.md`) provides the full theoretical basis for both scales.
+The four bands below correspond to the behavioral anchor pattern used in the PPEP framework for Product, Process, and Performance. They follow the pattern of a behaviorally anchored rating scale, adapted for prompt evaluation. **Epistemics uses a five-band scale** (1-3, 4-5, 6-7, 8-9, 10) defined in the framework document because the progression from implicit to full epistemic rigor is finer-grained. The framework document (`framework/ppep-framework.md`) provides the full theoretical basis for both scales.
 
 | Score | Meaning | Observable signal |
 |---|---|---|
@@ -78,9 +92,9 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 **Scores:**
 | Dimension | Score | Notes |
 |---|---|---|
-| Product | 7 | Tech stack, experience, soft skills specified. Missing format, length, tone, location. |
-| Process | 2 | No process. Claude decides its own approach. |
-| Performance | 3 | No role, no tone, no collaboration style. |
+| Product | 7 | Tech stack, experience, soft skills specified. Missing format, length, location. |
+| Process | 2 | No draft checkpoint or completion condition. The AI delivers one finished posting on its own assumptions. |
+| Performance | 3 | No audience depth, tone, or collaboration style. |
 | Epistemics | 1 | No verification, no research instruction. |
 
 **Why this score:** Strong domain knowledge in Product but Process, Performance, and Epistemics are almost entirely absent. This is the most common real-world failure pattern — the person knows their domain but does not think about how Claude should approach it. High Product score masks three empty dimensions.
@@ -115,8 +129,8 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 | Dimension | Score | Notes |
 |---|---|---|
 | Product | 6 | Format (structured report) added. Topic still unspecified. |
-| Process | 5 | Web search and verification is a genuine process instruction. No ordered steps. |
-| Performance | 3 | No role, no tone beyond "analytical". |
+| Process | 5 | Research-then-report sequence implied. No checkpoint or completion condition. |
+| Performance | 3 | No audience depth or collaboration style; no tone beyond "analytical". |
 | Epistemics | 7 | Web search and verification against others is a real epistemic instruction. |
 
 **Why this score:** The notable thing about this prompt is that Epistemics (7) outscores Performance (3). The person naturally reached for verification before thinking about role or tone. This is an unusual but real pattern — strong instinct for evidence, weak instinct for behavioral calibration. The jump in Epistemics from Anchor 3 (1) to this version (7) came from a single addition.
@@ -132,17 +146,17 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 **Scores:**
 | Dimension | Score | Notes |
 |---|---|---|
-| Product | 7 | Strong content but missing format, length, tone, and location. |
+| Product | 7 | Strong content but missing format, length, and location. |
 | Process | 8 | Draft questions first, verify with user, then produce — real iterative process with a checkpoint. |
-| Performance | 7 | Ask-first instruction and verification loop are solid. No role defined, no tone specified. |
+| Performance | 7 | Ask-first instruction and verification loop are solid. Tone and depth not specified. |
 | Epistemics | 6 | Web search and comparison present. No inventory-before-judging, no negative claims proof. |
 
-**Why this score:** This is what a well-structured prompt with one persistent gap looks like. Process and Performance improved dramatically from earlier versions through the addition of an iterative loop. Product is held back by missing constraints that seem obvious in hindsight (format, location, tone). The lesson: even when you know your domain well, Product gaps about format and constraints are easy to miss.
+**Why this score:** This is what a well-structured prompt with one persistent gap looks like. Process and Performance improved dramatically from earlier versions through the addition of an iterative loop. Product is held back by missing constraints that seem obvious in hindsight (format, length, location). The lesson: even when you know your domain well, Product gaps about format and constraints are easy to miss.
 
 ---
 
 ## ANCHOR 6 — Overall: 8/10
-### Failure mode: Strong role, weak Product angle
+### Failure mode: Strong audience, weak Product angle
 
 **Prompt:**
 > "Act as an experienced tech author working for 10+ years covering tech news. Write a 2000 word detailed technical article about React Server Components for our engineering blog for senior devs that want to get new knowledge. Create a draft version first and verify it with me. Check your answers online for outdated docs."
@@ -151,16 +165,16 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 | Dimension | Score | Notes |
 |---|---|---|
 | Product | 9 | Word count, audience, format all specified. Missing specific angle or argument. |
-| Process | 7 | Draft and verify present. No outline step before drafting. |
-| Performance | 8 | Strong specific role. Missing tone calibration beyond what the role implies. |
-| Epistemics | 8 | Mandatory online verification present. Does not cover negative claims or inventory-before-judging. |
+| Process | 7 | Draft checkpoint present. No completion condition; an outline checkpoint would catch a wrong angle earlier. |
+| Performance | 8 | Audience (senior developers) and depth (detailed, technical) specified. Tone left to what the persona implies. |
+| Epistemics | 7 (originally 8) | Specific evidence requirement (check against current docs). Does not cover negative claims or inventory-before-judging. |
 
-**Why this score:** Three dimensions at 8+ with one clear remaining gap in each — this is the signature of an 8/10 prompt. Strong role definition, solid process, good verification. The only meaningful weakness is that no specific angle or argument is defined for the article, leaving Claude to decide what to say about RSC rather than defending a specific position.
+**Why this score:** (9 + 7 + 8 + 7) / 4 = 7.75, rounded to 8. Clear audience and depth, a real checkpoint, and a specific verification source, each with one clear remaining gap. The most consequential weakness is that no specific angle or argument is defined for the article, leaving Claude to decide what to say about RSC rather than defending a specific position.
 
 ---
 
-## ANCHOR 7 — Overall: 9/10
-### Failure mode: Strong but missing feature scope
+## ANCHOR 7 — Overall: 6/10 (originally 9/10)
+### Failure mode: Current-practice claims with no verification, no completion condition
 
 **Prompt:**
 > "I want you to create a small tic tac toe web app in React with younger children as the target audience. Use colorful designs and beautiful animations across the board. Include sounds too. I want to be detailed in the approach you follow, by explaining each step you do with code examples. I want to use the latest best practices on React 19 including React Compiler. Present your steps in a structured report. Be analytical and technical."
@@ -169,15 +183,15 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 | Dimension | Score | Notes |
 |---|---|---|
 | Product | 9 | Clear deliverable, audience, tech stack, visual direction. Missing game feature list (score tracking, win detection, reset button). |
-| Process | 10 | Step by step with code examples, structured report — explicit methodology throughout. |
-| Performance | 8 | Technical depth and analytical tone specified. No role defined. |
-| Epistemics | N/A | Not applicable for a pure code generation task with no research or verification component. |
+| Process | 5 (originally 10) | "Explain each step with code examples" and "a structured report" are mainly output format, credited under Product; they imply an order of work. No checkpoint and no completion condition (a playable build, passing tests). |
+| Performance | 8 | Technical depth and analytical tone specified. No collaboration style. |
+| Epistemics | 2 (originally N/A) | Asks for "the latest best practices on React 19 including React Compiler" with no instruction to check current documentation. |
 
-**Note on Epistemics N/A:** Do not penalize prompts for missing Epistemics when the task does not require knowledge verification. A task has a meaningful epistemic dimension when it requires the AI to make factual claims, retrieve or verify information, evaluate existing artifacts, or draw conclusions about the state of a system. Pure code generation from a complete specification, creative writing, and formatting tasks have no meaningful epistemic dimension — the AI is producing content from instructions, not asserting facts about the world.
+**Why this score:** (9 + 5 + 8 + 2) / 4 = 6.0. This anchor was originally scored 9/10 with Epistemics N/A and Process 10. Under the revised criteria, a request for step-by-step explanation is output format rather than work structure, and a request for "latest" practices is exactly the kind of claim that needs checking.
 
-When Epistemics is N/A, the overall score is the average of the three active dimensions only. For Anchor 7: (9 + 10 + 8) / 3 = 9.0.
+**Note on Epistemics N/A:** Do not penalize prompts for missing Epistemics when the task does not require knowledge verification. A task has a meaningful epistemic dimension when it requires the AI to make factual claims, retrieve or verify information, evaluate existing artifacts, or draw conclusions about the state of a system, including claims about current or "latest" practices. Pure code generation from a complete, self-contained specification, creative writing, and formatting tasks have no meaningful epistemic dimension: the AI is producing content from instructions, not asserting facts about the world.
 
-Applying the dimension to tasks where it does not fit will artificially deflate scores and create false incentives to add verification instructions where they add no value.
+When Epistemics is N/A, the overall score is the average of the active dimensions only. Applying the dimension to tasks where it does not fit will artificially deflate scores and create false incentives to add verification instructions where they add no value.
 
 ---
 
@@ -195,7 +209,7 @@ Applying the dimension to tasks where it does not fit will artificially deflate 
 | Performance | 10 | Collaboration style, verification behavior, and creative direction all defined. |
 | Epistemics | 10 | Inventory before judging, negative claims require proof, no summarizing as facts — full epistemic rigor. |
 
-**Why this is the technical 10/10:** The defining characteristic is not just that it covers all four dimensions — it is the depth of the Epistemics dimension. This prompt does not just tell Claude what to do; it tells Claude how to know things and how to prove them. The instruction "do not summarize agent exploration results as facts" is a level of epistemic precision rarely seen in prompts written by anyone.
+**Why this is the technical 10/10:** The defining characteristic is not just that it covers all four dimensions — it is the depth of the Epistemics dimension. This prompt does not just tell Claude what to do; it tells Claude how to know things and how to prove them. The instruction "do not summarize agent exploration results as facts" anticipates guidance that now appears in official documentation for agentic work: ground every claim in evidence from the session.
 
 ---
 
@@ -210,7 +224,7 @@ Applying the dimension to tasks where it does not fit will artificially deflate 
 |---|---|---|
 | Product | 10 | Word count, specific job target, format, structured segments, domain all specified. |
 | Process | 10 | Clarifying questions before writing, draft iterations, back-and-forth loop, defined completion condition. |
-| Performance | 10 | Role with three layers of context (HR manager + academic background + former direct manager), collaborative and iterative tone fully defined. |
+| Performance | 10 | A role that carries real context (HR manager + academic background + former direct manager who knows the candidate's work), collaborative and iterative tone fully defined. |
 | Epistemics | 10 | Online search, verification against current standards, proof for positive and negative claims. |
 
 **Why this is the non-technical 10/10:** This prompt reaches the same score as Anchor 8 through entirely different means. No grep commands, no file references, no agentic tools — just a precisely specified role, a fully defined iterative process, and explicit epistemic requirements for a collaborative writing task. The two 10/10 anchors together demonstrate that perfect prompts look very different depending on the task type.
@@ -228,10 +242,13 @@ Anchor 2 scores 7 on Product but only 3 overall. The developer knew their domain
 Between Anchor 3 and Anchor 4, one addition — web search and verification — jumped Epistemics from 1 to 7. The largest score improvements in this set came from targeting the single weakest dimension rather than incrementally improving all dimensions simultaneously.
 
 **Observation 3: In this set, Epistemics was consistently the last dimension addressed.**
-No anchor before the 7/10 range has meaningful Epistemics. This is consistent with the framework's design: Epistemics is the most advanced dimension and the one least present in general prompting guidance. Whether this reflects general user behaviour is not claimed here — it reflects the development trajectory of these nine specific prompts.
+Apart from Anchor 4, no anchor before the 7/10 range has meaningful Epistemics. Whether this reflects general user behaviour is not claimed here — it reflects the development trajectory of these nine specific prompts.
 
 **Observation 4: Two structurally different prompts reached 10/10.**
 Anchors 8 and 9 both score 10/10 through entirely different approaches. One uses grep commands and file references in an agentic codebase context. The other uses role layers and iterative collaboration in a non-technical writing context. This suggests the framework is task-agnostic in its application, though two examples are insufficient to establish this as a general claim.
 
-**Observation 5: Epistemics N/A is methodologically valid for some task types.**
-Anchor 7 scores N/A on Epistemics for a code generation task. Forcing the dimension where it does not apply would artificially deflate the score and create a false incentive. See the scoring scale section above for the definition of when Epistemics applies and how N/A affects the overall average.
+**Observation 5: Epistemics N/A is valid for some task types, but narrower than it first appears.**
+Anchor 7 was originally scored N/A on Epistemics as a code generation task. On re-scoring, its request for "the latest best practices" made the dimension applicable. N/A remains valid for generation from a complete, self-contained specification; forcing the dimension there would artificially deflate the score.
+
+**Observation 6: The revised criteria mostly moved notes, not scores.**
+Of 36 dimension scores, three changed in the September 2026 re-score, all in Anchors 6 and 7. The larger shift was in what the notes credit: checkpoints and completion conditions rather than numbered steps, audience and depth rather than a persona, and specific evidence rather than generic verification.
