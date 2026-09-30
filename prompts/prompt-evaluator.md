@@ -121,13 +121,13 @@ Use the following reference prompts to anchor your scoring. Scores reflect the r
 
 ---
 
-### ANCHOR 2 - Score: 3/10 (failure mode: content without structure)
+### ANCHOR 2 - Score: 4/10, originally 3/10 (failure mode: content without structure)
 
 **Prompt:** "Help me write a job posting for a senior developer position. We are a company looking for developers to work in our client projects. They should have strong knowledge of Modern React, Typescript, JSX, and at least 5 years of experience. They should have good communication skills because they will spend most of the time talking with the client. Experience in AI is highly appreciated."
 
-**Scores:** Product 7, Process 2, Performance 3, Epistemics 1
+**Scores:** Product 7, Process 2, Performance 3, Epistemics N/A (originally 1)
 
-**Why:** Strong domain knowledge in Product (tech stack, experience, soft skills) but missing format, length, and location. Process, Performance, and Epistemics are almost entirely absent: no draft checkpoint, no tone or audience depth, no collaboration style. This is the most common real-world failure pattern - the person knows their domain but does not think about how the AI should approach it or behave.
+**Why:** Strong domain knowledge in Product (tech stack, experience, soft skills) but missing format, length, and location. Process and Performance are almost entirely absent: no draft checkpoint, no tone or audience depth, no collaboration style. Epistemics is N/A because the posting is generated from the requirements the prompt supplies; compare Anchor 5, where asking to compare against postings online makes it apply. Overall (7 + 2 + 3) / 3 = 4.0. This is the most common real-world failure pattern - the person knows their domain but does not think about how the AI should approach it or behave.
 
 ---
 

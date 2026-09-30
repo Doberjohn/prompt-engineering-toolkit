@@ -52,6 +52,14 @@ These anchors were calibrated against Claude's behavior specifically. Scoring co
 
 Overall: Anchor 8 from 10/10 to 8/10 (8.25); Anchor 9 from 10/10 to 7/10 (7.25).
 
+**September 2026, last:** Anchor 2's Epistemics changed from 1 to N/A at the author's request, after two of three blind validation raters marked it N/A under the tightened N/A rule (see `examples/prompt-calibration-agreement.md`).
+
+| Anchor | Dimension | Original | Revised | Reason |
+|---|---|---|---|---|
+| 2 | Epistemics | 1 | N/A | The posting is generated from requirements the prompt supplies; no research or factual claims are requested |
+
+Overall: Anchor 2 from 3/10 (3.25) to 4/10 (4.0).
+
 Overall effect of the re-score: Anchor 6 stays 8/10 (7.75). Anchor 7 moves from 9/10 to 6/10, which leaves the set without a 9/10 anchor; a real prompt at that level should be added. Several notes were also reworded because a missing persona is no longer a gap on its own and tone belongs to Performance, not Product; those changes did not move any score.
 
 ### Relationship to the framework
@@ -99,7 +107,7 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 
 ---
 
-## ANCHOR 2 — Overall: 3/10
+## ANCHOR 2 — Overall: 4/10 (originally 3/10)
 ### Failure mode: Content without structure
 
 **Prompt:**
@@ -111,9 +119,9 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 | Product | 7 | Tech stack, experience, soft skills specified. Missing format, length, location. |
 | Process | 2 | No draft checkpoint or completion condition. The AI delivers one finished posting on its own assumptions. |
 | Performance | 3 | No audience depth, tone, or collaboration style. |
-| Epistemics | 1 | No verification, no research instruction. |
+| Epistemics | N/A (originally 1) | The posting is generated from requirements the prompt supplies (stack, experience, soft skills); no research or factual claims are requested. |
 
-**Why this score:** Strong domain knowledge in Product but Process, Performance, and Epistemics are almost entirely absent. This is the most common real-world failure pattern — the person knows their domain but does not think about how Claude should approach it. High Product score masks three empty dimensions.
+**Why this score:** (7 + 2 + 3) / 3 = 4.0. Strong domain knowledge in Product, but Process and Performance are almost entirely absent. This is the most common real-world failure pattern — the person knows their domain but does not think about how the AI should approach the task or behave. The high Product score masks two empty dimensions. Epistemics is N/A because the task is to generate from the supplied requirements; compare Anchor 5, where "compare your posting against others you find online" makes Epistemics apply.
 
 ---
 
@@ -131,7 +139,7 @@ The four bands below correspond to the behavioral anchor pattern used in the PPE
 | Performance | 3 | "Be analytical" touches Performance but specifies nothing actionable. |
 | Epistemics | 1 | Nothing. |
 
-**Why this score:** Different failure profile from Anchor 2. Weaker Product (no specific deliverable) but the same weak Process and Epistemics. The word "analytical" gives a false sense of Performance completeness — it sounds like an instruction but gives Claude no real guidance on depth, approach, or tone. A useful lesson: vague adjectives do not substitute for real Performance instructions.
+**Why this score:** Different failure profile from Anchor 2. Weaker Product (no specific deliverable) and the same weak Process. Unlike Anchor 2, Epistemics applies: an "analytical" blog post makes claims about the world that the prompt does not supply. The word "analytical" gives a false sense of Performance completeness — it sounds like an instruction but gives Claude no real guidance on depth, approach, or tone. A useful lesson: vague adjectives do not substitute for real Performance instructions.
 
 ---
 
@@ -295,7 +303,7 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 The following patterns were observed during the scoring of Anchors 1-9 by a single subject matter expert (Observation 7 covers Anchor 10). They are not formal research findings — they are heuristics surfaced from this specific set of nine real prompts. Observation 4 was revised after Anchors 8 and 9 were lowered. They are offered as calibration guidance, not as general claims about all prompts or all users.
 
 **Observation 1: In this set, strong Product without the other dimensions produced low overall scores.**
-Anchor 2 scores 7 on Product but only 3 overall. The developer knew their domain well but did not address how Claude should approach the task, behave, or verify its knowledge. Whether this reflects a general pattern in real-world prompts is not claimed here — it is a structural consequence of the four-dimension framework applied to these specific examples.
+Anchor 2 scores 7 on Product but only 4 overall. The developer knew their domain well but did not address how the AI should approach the task or behave. Whether this reflects a general pattern in real-world prompts is not claimed here — it is a structural consequence of the four-dimension framework applied to these specific examples.
 
 **Observation 2: In this set, a single addition produced the largest dimension jumps.**
 Between Anchor 3 and Anchor 4, one addition — web search and verification — jumped Epistemics from 1 to 7. The largest score improvements in this set came from targeting the single weakest dimension rather than incrementally improving all dimensions simultaneously.
