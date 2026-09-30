@@ -79,6 +79,8 @@ Nine real prompts evaluated and scored during framework development, spanning sc
 A real implementation plan issue ([Doberjohn/inkweave#278](https://github.com/Doberjohn/inkweave/issues/278), formula score 9.44/10) plus nine controlled degradations of it, each with a traceable degradation rationale and formula score. Built by controlled degradation of a known-good artifact, following the logic of perturbation-based meta-evaluation (Karpinska et al., 2022). Includes a full methodology section with 28 citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.
 
 ### The Claude Code Skills
+Both skills and the Issue Evaluator share one rubric, maintained in `rubric/issue-rubric.md` and copied into each of them by `scripts/sync-issue-rubric.py`. A CI check fails if any copy drifts.
+
 Two project-agnostic Claude Code skills that close the write → evaluate → implement loop end to end. Both skills need a repository checkout plus `git` and the GitHub CLI (`gh`), so they run in Claude Code (local, or cloud sessions at claude.ai/code) rather than in plain chat interfaces. The SKILL.md format itself follows the open [Agent Skills](https://agentskills.io) standard.
 
 **`draft-issue`** (`skills/draft-issue/SKILL.md`) — invoke at the end of any Claude Code session where scope has been agreed. Reads context from the conversation, asks up to three clarifying questions when needed, drafts a full eight-section issue, scores it against the weighted rubric, iterates until approved, then publishes via `gh issue create`.
@@ -153,7 +155,7 @@ To understand how the scoring is anchored, read `examples/issue-calibration-set.
 4. Review, request changes, approve
 5. The skill publishes the issue via `gh issue create`
 
-Install: copy `skills/draft-issue/SKILL.md` to `.claude/skills/draft-issue/SKILL.md` in your repo, or to `~/.claude/skills/draft-issue/SKILL.md` for global access. (Do not place it under `.claude/commands/`: a file in a subfolder there is invoked as `/<folder>:<filename>`, so it would become `/draft-issue:SKILL`.)
+Install: copy the whole `skills/draft-issue/` folder (`SKILL.md` and `issue-rubric.md`) to `.claude/skills/draft-issue/` in your repo, or to `~/.claude/skills/draft-issue/` for global access. (Do not place it under `.claude/commands/`: a file in a subfolder there is invoked as `/<folder>:<filename>`, so it would become `/draft-issue:SKILL`.)
 
 **To start implementing an issue with the quality gate:**
 1. In your Claude Code terminal, invoke `/implement-issue <number>`
@@ -161,7 +163,7 @@ Install: copy `skills/draft-issue/SKILL.md` to `.claude/skills/draft-issue/SKILL
 3. If the score is >= 7.0 it proceeds to branch setup with an implementation brief
 4. If the score is < 7.0 it produces a rewrite, asks for approval, updates the GitHub issue, then branches
 
-Install: copy `skills/implement-issue/SKILL.md` to `.claude/skills/implement-issue/SKILL.md` in your repo, or to `~/.claude/skills/implement-issue/SKILL.md` for global access.
+Install: copy the whole `skills/implement-issue/` folder (`SKILL.md` and `issue-rubric.md`) to `.claude/skills/implement-issue/` in your repo, or to `~/.claude/skills/implement-issue/` for global access.
 
 **To learn the framework before using the tools:**
 1. Start with `framework/ppep-framework.md`

@@ -58,129 +58,14 @@ Extract and hold internally (do not present yet):
 
 ## Step 3: Evaluate issue quality
 
-Evaluate the issue body against the eight-section implementation plan rubric below.
-Score each section, calculate the weighted overall score, identify severity findings,
-and decide whether to proceed or trigger the soft gate.
+Read `${CLAUDE_SKILL_DIR}/issue-rubric.md` before scoring. It is the single source of truth for the
+section weights, per-section scoring criteria, the weighted formula, severity findings, and
+the agent readiness check. Apply it exactly: score each section 0-10, calculate the weighted
+overall score, identify severity findings, run the agent readiness check (it does not change
+the score), and decide whether to proceed or trigger the soft gate.
 
-### Rubric
-
-Score each section 0–10. A section that does not exist scores 0.
-
-**Section weights:**
-
-| Section | Weight | Critical if absent |
-|---|---|---|
-| Implementation Steps | 4 | Yes — without steps this is not a runbook |
-| Acceptance Criteria | 4 | Yes — no definition of done |
-| Rollback | 4 | Yes — production process is dangerous without it |
-| Context | 3 | Important — future developers cannot understand why |
-| Prerequisites | 3 | Important — process cannot be safely started |
-| Testing / Verification | 3 | Important — no way to confirm success |
-| Files Affected | 2 | Supporting |
-| References | 2 | Supporting |
-
-**Scoring per section:**
-
-Implementation Steps
-- Strong (8-10): Numbered imperative steps, code block per command/SQL/path, expected output per step, verification instruction per step, logically ordered
-- Acceptable (5-7): Numbered and ordered but missing code blocks, expected output, or per-step verification
-- Poor (1-4): Prose bullets or vague descriptions, no commands, cannot be followed without prior knowledge
-- Absent (0): Section does not exist
-
-Acceptance Criteria
-- Strong (8-10): Checkboxes, outcome-oriented, pass/fail testable, no implementation details, covers all primary constraints
-- Acceptable (5-7): Checkboxes present but one or more criteria are vague or a primary constraint is missing
-- Poor (1-4): Prose statements, no checkboxes, not independently testable
-- Absent (0): Section does not exist
-
-Rollback
-- Strong (8-10): Separate instruction per track or phase, exact command or file per instruction, covers partial and full rollback
-- Acceptable (5-7): Present but covers only one track when multiple exist, or partially specific
-- Poor (1-4): Single vague sentence such as "revert all changes" — worse than absent because it implies safety without delivering it. Flag as severity 4.
-- Absent (0): Section does not exist
-- Single-track, code-only changes delivered as one PR (no migrations, data changes, infrastructure, or dashboard actions): naming the revert of that PR plus a check that confirms the revert worked scores Strong. Multi-track plans still need a rollback per track. The severity 4 vague-rollback rule applies to issues with irreversible or out-of-repo operations.
-
-Context
-- Strong (8-10): States why the process exists, when to trigger it, what outcome it achieves
-- Acceptable (5-7): Covers why and when but one element is missing or vague
-- Poor (1-4): Single sentence, no trigger conditions, no motivation
-- Absent (0): Section does not exist
-
-Prerequisites
-- Strong (8-10): Checkboxes covering required access (specific roles), required tools (specific names), required knowledge
-- Acceptable (5-7): Checkboxes present but one category missing or items vague
-- Poor (1-4): General statement, no checkboxes, no specific named requirements
-- Absent (0): Section does not exist
-
-Testing / Verification
-- Strong (8-10): Pass/fail checkboxes grouped by track or phase, observable objective outcomes, covers success and failure
-- Acceptable (5-7): Checkboxes present but subjective language or a track is missing
-- Poor (1-4): Single vague sentence, no checkboxes, no observable outcomes
-- Absent (0): Section does not exist
-
-Files Affected
-- Strong (8-10): Split into Created and Modified, exact file paths, purpose per file
-- Acceptable (5-7): Files listed but paths partial or purpose absent
-- Poor (1-4): Directory names or component names, no exact paths
-- Absent (0): Section does not exist
-
-References
-- Strong (8-10): Links to related issues/PRs and specific internal files, plus official docs for external systems the repo cannot explain — all links specific. Do not reward link volume.
-- Acceptable (5-7): Present but incomplete
-- Poor (1-4): One or two vague links that do not materially help an executor
-- Absent (0): Section does not exist
-
-### Scoring formula
-
-```
-overall_score = max(
-  (
-    (Implementation Steps × 4) +
-    (Acceptance Criteria  × 4) +
-    (Rollback             × 4) +
-    (Context              × 3) +
-    (Prerequisites        × 3) +
-    (Testing/Verification × 3) +
-    (Files Affected       × 2) +
-    (References           × 2)
-  ) / 25,
-  0.5
-)
-```
-
-Round to two decimal places.
-
-### Severity findings
-
-For each issue found, assign:
-- Severity 4 — Catastrophic: blocks safe execution or creates production risk
-- Severity 3 — Major: significant confusion or unsafe inference required
-- Severity 2 — Minor: inconvenience but does not block execution
-- Severity 1 — Cosmetic: does not affect execution
-
-Key severity 4 triggers:
-- Rollback present but single vague sentence
-- Acceptance Criteria as prose with no checkboxes
-- Implementation Steps as bullets with no commands
-
-### Agent readiness check
-
-Rate each check Pass / Partial / Fail / N/A with a one-line note. This does not change
-the section scores or the overall score. It decides what you must settle with the user
-before writing code.
-
-| # | Check | Pass means |
-|---|---|---|
-| R1 | Executable done-when | At least one runnable command (tests, build, lint, typecheck, or a script) with its expected result, covering the primary acceptance criteria. Manual-only checks are Partial at best. |
-| R2 | Environment and instructions | Setup, build, and test commands stated, or a pointer to CLAUDE.md, AGENTS.md, or `.github/copilot-instructions.md` that holds them. |
-| R3 | Out of scope | Explicit non-goals. |
-| R4 | Boundaries | What must not be done without a human: production data, secrets, deploys, migrations against shared environments, dashboard actions. N/A only if none are touched. |
-| R5 | Human-only steps marked | Steps needing access or judgment the agent lacks are labelled as human steps. N/A if none. |
-| R6 | Scoped for one change | One coherent change that fits a single reviewable PR, or the issue says how to split it. |
-
-Verdict: **Ready to delegate** (score >= 7.0 and every check Pass or N/A), **Delegate with
-supervision** (score >= 7.0, R1 and R4 not Fail), or **Not ready to delegate** (score < 7.0,
-or R1 Fail, or R4 Fail).
+If the file cannot be read, stop and tell the user the skill is installed incompletely:
+the whole `implement-issue` folder, including `issue-rubric.md`, must be copied.
 
 ### Decision after scoring
 

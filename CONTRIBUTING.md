@@ -32,9 +32,21 @@ Contributions are welcome. This toolkit was built on a principle of evidence ove
 
 ---
 
+## Changing the issue rubric
+
+The implementation plan issue rubric (section weights, scoring criteria, formula, severity findings, and the agent readiness check) lives in one file: `rubric/issue-rubric.md`. Do not edit the copies in `prompts/issue-evaluator.md` or `skills/*/issue-rubric.md` directly.
+
+1. Edit `rubric/issue-rubric.md`
+2. Run `python3 scripts/sync-issue-rubric.py` to update every copy
+3. Commit the source and the updated copies together
+
+CI runs `python3 scripts/sync-issue-rubric.py --check` and fails if a copy is out of date. If a rubric change could move calibration anchor scores, update `examples/issue-calibration-set.md` in the same pull request.
+
+---
+
 ## Contributing a Claude Code skill
 
-Skills live in `skills/<skill-name>/SKILL.md`. Each skill must follow this structure:
+Skills live in `skills/<skill-name>/SKILL.md`, with any supporting files in the same folder (reference them from `SKILL.md` as `${CLAUDE_SKILL_DIR}/<file>`). Each skill must follow this structure:
 
 **Frontmatter (required):**
 ```

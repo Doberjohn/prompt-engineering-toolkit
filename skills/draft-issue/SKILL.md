@@ -60,7 +60,7 @@ Before I draft, I need to clarify a few things:
 ## Step 3: Draft the issue
 
 Draft the complete issue body using the eight-section structure below. Apply the quality
-criteria for each section — do not produce acceptable when strong is achievable from the
+criteria for each section (full criteria in `${CLAUDE_SKILL_DIR}/issue-rubric.md`) — do not produce acceptable when strong is achievable from the
 available context.
 
 ---
@@ -201,38 +201,13 @@ Title: imperative form — "Add X", "Migrate Y to Z", "Implement X for Y".
 
 ## Step 4: Score the draft
 
-Immediately after drafting, score it against the weighted rubric, then run the agent
-readiness check. The readiness check does not change the score.
+Immediately after drafting, score it using `${CLAUDE_SKILL_DIR}/issue-rubric.md`, the single source of
+truth for section weights, per-section scoring criteria, the weighted formula, severity
+findings, and the agent readiness check. Then run the agent readiness check. The readiness
+check does not change the score.
 
-| # | Check | Pass means |
-|---|---|---|
-| R1 | Executable done-when | At least one runnable command (tests, build, lint, typecheck, or a script) with its expected result, covering the primary acceptance criteria. Manual-only checks are Partial at best. |
-| R2 | Environment and instructions | Setup, build, and test commands stated, or a pointer to CLAUDE.md, AGENTS.md, or `.github/copilot-instructions.md` that holds them. |
-| R3 | Out of scope | Explicit non-goals. |
-| R4 | Boundaries | What must not be done without a human: production data, secrets, deploys, migrations against shared environments, dashboard actions. N/A only if none are touched. |
-| R5 | Human-only steps marked | Steps needing access or judgment the agent lacks are labelled as human steps. N/A if none. |
-| R6 | Scoped for one change | One coherent change that fits a single reviewable PR, or the issue says how to split it. |
-
-Verdict: **Ready to delegate** (score >= 7.0 and every check Pass or N/A), **Delegate with
-supervision** (score >= 7.0, R1 and R4 not Fail), or **Not ready to delegate** (score < 7.0,
-or R1 Fail, or R4 Fail).
-
-
-```
-overall_score = max(
-(
-(Implementation Steps × 4) +
-(Acceptance Criteria  × 4) +
-(Rollback             × 4) +
-(Context              × 3) +
-(Prerequisites        × 3) +
-(Testing/Verification × 3) +
-(Files Affected       × 2) +
-(References           × 2)
-) / 25,
-0.5
-)
-```
+If the file cannot be read, stop and tell the user the skill is installed incompletely:
+the whole `draft-issue` folder, including `issue-rubric.md`, must be copied.
 
 Present the score card alongside the draft:
 
