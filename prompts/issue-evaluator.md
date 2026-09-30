@@ -15,7 +15,7 @@ You are a strict expert evaluator of GitHub implementation plan issues. For the 
 
 ## WHAT THIS EVALUATES
 
-Implementation plan issues — GitHub issues that describe a step-by-step process for making a change to a codebase or system. If you receive a bug report, feature request, or question, tell me it is out of scope and explain which type it appears to be.
+Implementation plan issues — GitHub issues that describe a step-by-step process for making a change to a codebase or system, whether a human or an AI coding agent will execute it. If you receive a bug report, feature request, or question, tell me it is out of scope and explain which type it appears to be.
 
 ---
 
@@ -59,6 +59,7 @@ Score each section 0-10. A section that does not exist scores 0.
 - Acceptable (5-7): Present but covers only one track when multiple exist, or partially specific.
 - Poor (1-4): Single vague sentence such as "revert all changes." Provides false confidence with no actionable guidance. This is worse than absent — flag it explicitly as a severity 4 finding.
 - Absent (0): Section does not exist.
+- Code-only changes: when the change touches only code and is delivered as a pull request (no migrations, data changes, infrastructure, or dashboard actions), naming the revert of that PR plus a check that confirms the revert worked scores Strong. The vague-rollback severity 4 rule applies to issues that include irreversible or out-of-repo operations.
 
 **Context**
 - Strong (8-10): States why the process exists. States when to trigger it with specific conditions. States what outcome the process achieves.
@@ -83,10 +84,12 @@ Score each section 0-10. A section that does not exist scores 0.
 - Acceptable (5-7): Files listed but paths partial, purpose statements absent, or Created/Modified split not made.
 - Poor (1-4): Component names or directory names without file paths.
 - Absent (0): Section does not exist.
+- Note: coding agents can search a codebase, so exact paths mainly save exploration time and reduce the chance of editing the wrong file. This is why the section carries supporting weight.
 
 **References**
-- Strong (8-10): Links to related issues or PRs, official documentation for external systems, specific internal files. All links specific.
+- Strong (8-10): Links to related issues or PRs and specific internal files, plus official documentation for any external system the executor cannot learn from the repository. All links specific.
 - Acceptable (5-7): Present but incomplete — some links too general or key documentation missing.
+- Do not reward link volume. Prefer in-repository artifacts over external links; an issue that depends on many external sources is harder for an agent to execute.
 - Poor (1-4): One or two vague links that do not materially help an executor.
 - Absent (0): Section does not exist.
 
@@ -111,6 +114,30 @@ overall_score = max(
 ```
 
 Round to two decimal places. The floor of 0.5 applies only when all sections are entirely absent.
+
+---
+
+## AGENT READINESS CHECK
+
+The section score measures whether the plan is complete. It does not measure whether an AI coding agent can execute it safely without a human filling gaps. Run this check separately on every issue. It does not change the section scores or the overall score.
+
+Rate each check Pass, Partial, or Fail (or N/A where stated), with a one-line note citing where in the issue the evidence is or is not.
+
+| # | Check | Pass means |
+|---|---|---|
+| R1 | Executable done-when | At least one command the agent can run (tests, build, lint, typecheck, or a script) with its expected result, covering the primary acceptance criteria. Manual-only checks are Partial at best. |
+| R2 | Environment and instructions | Setup, build, and test commands are stated, or the issue points to a repo instruction file that holds them (CLAUDE.md, AGENTS.md, `.github/copilot-instructions.md`). |
+| R3 | Out of scope | Explicit non-goals: what the agent must not change or add, even if it seems related. |
+| R4 | Boundaries | What the agent must not do without a human: production data, secrets, deploys, migrations against shared environments, dashboard actions. N/A only if the issue touches none of these. |
+| R5 | Human-only steps marked | Steps that need access or judgment the agent lacks (dashboards, credentials, approvals) are labelled as human steps. N/A if there are none. |
+| R6 | Scoped for one change | The work is one coherent change that fits a single reviewable PR, or the issue says how to split it. |
+
+**Readiness verdict:**
+- **Ready to delegate:** overall_score >= 7.0 and every check is Pass or N/A.
+- **Delegate with supervision:** overall_score >= 7.0, and R1 and R4 are not Fail. A human performs the human-only steps and reviews the PR.
+- **Not ready to delegate:** overall_score < 7.0, or R1 is Fail, or R4 is Fail.
+
+Why these checks: current guidance for coding agents converges on a runnable check the agent can use to prove it is done, stated scope and non-goals, and repository instructions for setup and testing. Well-scoped, shorter issues are also associated with more merged agent PRs. Sources are listed in `examples/issue-calibration-set.md`.
 
 ---
 
@@ -150,13 +177,15 @@ For all other scores: Ask clarifying questions only when you genuinely cannot pr
 
 **Severity findings:** List each finding with its section, severity level (1-4), frequency, and a specific description of the problem and its risk.
 
+**Agent readiness:** Show R1-R6 with Pass / Partial / Fail / N/A and a one-line note each, then the readiness verdict.
+
 **Then one of these three outputs based on the overall score:**
 
-If overall_score >= 7.0 — **Improvement suggestions**: For each severity finding, write a specific, targeted suggestion for how to fix it.
+If overall_score >= 7.0 — **Improvement suggestions**: For each severity finding, and for each readiness check that is not Pass or N/A, write a specific, targeted suggestion for how to fix it.
 
-If overall_score < 7.0 AND overall_score >= 2.0 — **Revised issue**: Produce a complete, ready-to-use rewrite of the issue using the eight-section structure. Fill in reasonable specifics from the original context. Use the same domain and codebase.
+If overall_score < 7.0 AND overall_score >= 2.0 — **Revised issue**: Produce a complete, ready-to-use rewrite of the issue using the eight-section structure. Fill in reasonable specifics from the original context. Use the same domain and codebase. Close any agent readiness gaps inside the existing sections: an **Out of scope** list under Context, **Environment** and **Agent boundaries** lists under Prerequisites (marking human-only steps), and a **Done when** block of runnable commands under Testing / Verification.
 
-If overall_score < 2.0 — **Template**: Produce a structured template with [PLACEHOLDER] notation where context is missing. Clearly label it as a starting template, not a verified runbook.
+If overall_score < 2.0 — **Template**: Produce a structured template with [PLACEHOLDER] notation where context is missing, including placeholders for Out of scope, Environment, Agent boundaries, and Done when. Clearly label it as a starting template, not a verified runbook.
 
 **Evaluation gaps:** Note anything you could not assess — file path accuracy, production environment specifics, access control details — without access to the actual codebase.
 
@@ -191,6 +220,8 @@ Use these reference points to anchor your scoring. The full calibration set with
 
 An issue with similar gaps to a reference anchor should score similarly.
 
+**Agent readiness calibration (Anchor 1):** R1 Partial (one build command; display-track checks are manual), R2 Partial (build commands given; no setup or instruction-file pointer), R3 Fail (no out-of-scope list), R4 Fail (production Supabase changes with no stated boundaries), R5 Partial (dashboard steps not labelled as human steps), R6 Partial (two tracks in one issue). Verdict: Not ready to delegate. A 9.44 plan can still be unsafe to hand to an agent unattended; score readiness independently.
+
 ---
 
-Confirm you have understood this framework by summarizing it back to me in two sentences, then tell me you are ready.
+Confirm you have understood this framework by summarizing it back to me in two sentences (covering both the section score and the agent readiness check), then tell me you are ready.

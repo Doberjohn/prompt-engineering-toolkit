@@ -98,6 +98,7 @@ Rollback
 - Acceptable (5-7): Present but covers only one track when multiple exist, or partially specific
 - Poor (1-4): Single vague sentence such as "revert all changes" — worse than absent because it implies safety without delivering it. Flag as severity 4.
 - Absent (0): Section does not exist
+- Code-only changes delivered as a PR (no migrations, data changes, infrastructure, or dashboard actions): naming the revert of that PR plus a check that confirms the revert worked scores Strong. The severity 4 vague-rollback rule applies to issues with irreversible or out-of-repo operations.
 
 Context
 - Strong (8-10): States why the process exists, when to trigger it, what outcome it achieves
@@ -124,7 +125,7 @@ Files Affected
 - Absent (0): Section does not exist
 
 References
-- Strong (8-10): Links to related issues/PRs, official docs for external systems, specific internal files — all links specific
+- Strong (8-10): Links to related issues/PRs and specific internal files, plus official docs for external systems the repo cannot explain — all links specific. Do not reward link volume.
 - Acceptable (5-7): Present but incomplete
 - Poor (1-4): One or two vague links that do not materially help an executor
 - Absent (0): Section does not exist
@@ -162,6 +163,25 @@ Key severity 4 triggers:
 - Acceptance Criteria as prose with no checkboxes
 - Implementation Steps as bullets with no commands
 
+### Agent readiness check
+
+Rate each check Pass / Partial / Fail / N/A with a one-line note. This does not change
+the section scores or the overall score. It decides what you must settle with the user
+before writing code.
+
+| # | Check | Pass means |
+|---|---|---|
+| R1 | Executable done-when | At least one runnable command (tests, build, lint, typecheck, or a script) with its expected result, covering the primary acceptance criteria. Manual-only checks are Partial at best. |
+| R2 | Environment and instructions | Setup, build, and test commands stated, or a pointer to CLAUDE.md, AGENTS.md, or `.github/copilot-instructions.md` that holds them. |
+| R3 | Out of scope | Explicit non-goals. |
+| R4 | Boundaries | What must not be done without a human: production data, secrets, deploys, migrations against shared environments, dashboard actions. N/A only if none are touched. |
+| R5 | Human-only steps marked | Steps needing access or judgment the agent lacks are labelled as human steps. N/A if none. |
+| R6 | Scoped for one change | One coherent change that fits a single reviewable PR, or the issue says how to split it. |
+
+Verdict: **Ready to delegate** (score >= 7.0 and every check Pass or N/A), **Delegate with
+supervision** (score >= 7.0, R1 and R4 not Fail), or **Not ready to delegate** (score < 7.0,
+or R1 Fail, or R4 Fail).
+
 ### Decision after scoring
 
 **If overall_score >= 7.0:**
@@ -169,6 +189,7 @@ Present a compact quality note in the Step 6 brief and proceed to Step 4. Format
 ```
 Issue quality: <score>/10 — <one-line assessment>
 Gaps noted: <severity findings if any, or "None">
+Agent readiness: <verdict> — <checks that are not Pass or N/A, or "None">
 ```
 
 **If overall_score < 7.0:**
@@ -190,7 +211,9 @@ Sev <N> | <section> | <description>
 
 **Rewritten issue:**
 <complete rewritten issue using the eight-section structure, filled with all
-available context from the original body, comments, and linked issues>
+available context from the original body, comments, and linked issues. Close agent
+readiness gaps inside the existing sections: Out of scope under Context, Environment
+and Agent boundaries under Prerequisites, Done when under Testing / Verification>
 ```
 
 Then ask:
@@ -208,12 +231,15 @@ Then proceed to Step 4.
 
 ## Step 4: Read project conventions
 
-Read `CLAUDE.md` to establish:
+Read whichever of these repo instruction files exist: `CLAUDE.md`, `AGENTS.md`,
+`.github/copilot-instructions.md`. Use them to establish:
 - Branch naming convention for this project
 - Architecture overview relevant to the issue
 - Any workflow rules that affect implementation
+- Setup, build, test, lint, and typecheck commands (these close readiness check R2 and
+  supply the done-when commands for the brief if the issue has none)
 
-Use the branch naming convention from CLAUDE.md in Step 5. If CLAUDE.md does not specify
+Use the branch naming convention from CLAUDE.md in Step 5. If none of these files specifies
 a branch naming convention, fall back to `feature/<number>-<slugified-title>` (lowercase,
 hyphens, max 40 chars for slug).
 
@@ -256,8 +282,21 @@ Present the full brief:
 **Context from comments**:
 <notable decisions, scope changes, or constraints added after the original issue>
 
+**Done when**:
+<runnable commands and expected results, from the issue or the repo instruction files;
+mark any you proposed yourself as "proposed">
+
+**Out of scope**:
+<non-goals from the issue, or "Not stated. Proposed:" followed by your proposal>
+
+**Human-only steps and boundaries**:
+<steps you will not perform yourself (production data, secrets, deploys, dashboard
+actions) and where you will stop and hand over, or "None">
+
 **Suggested approach**:
-<brief suggestion grounded in the issue content and CLAUDE.md architecture only>
+<brief suggestion grounded in the issue content and the repo instruction files only>
 ```
 
-Then ask: "Ready to start, or do you want to discuss the approach first?"
+Then ask: "Ready to start, or do you want to discuss the approach first?" If any proposed
+done-when commands, out-of-scope items, or boundaries appear above, ask the user to
+confirm them in the same question.

@@ -72,6 +72,21 @@ The eight sections were derived from three converging research areas: GitHub iss
 - CorsoUX. (2026). *UX Audit Checklist: 50 Points*. https://courseux.com/ux-audit-checklist/
   - Confirms: "An audit that does not specify what to do in what order is analysis, not design. The output must be a roadmap." Source for the roadmap/action plan requirement.
 
+**Agent readiness (separate, unscored check)**
+
+The agent readiness check in `prompts/issue-evaluator.md` does not change section scores; it asks whether an AI coding agent could execute the issue without a human filling gaps.
+
+- Anthropic. (n.d.). *Best practices for Claude Code*. Claude Code Docs. https://code.claude.com/docs/en/best-practices
+  - Confirms: "Give Claude a check it can run: tests, a build, a screenshot to compare." Also: "The most useful specs are self-contained: they name the files and interfaces involved, state what is out of scope, and end with an end-to-end verification step that proves the feature works." Source for checks R1 (executable done-when) and R3 (out of scope).
+- GitHub. (2025). *Best Practices for Using GitHub Copilot to Work on Tasks* (cited above).
+  - Confirms: repository custom instructions that tell the agent how to build and test the project. Source for check R2.
+- AGENTS.md. (n.d.). *AGENTS.md: an open format for guiding coding agents*. https://agents.md/
+  - A README-style file for agents that holds setup, build, and test instructions, read by multiple coding agents. Source for check R2 alongside CLAUDE.md and `.github/copilot-instructions.md`.
+- Sayagh, M. (2025). *What Makes a GitHub Issue Ready for Copilot?* arXiv preprint. https://arxiv.org/abs/2512.21426
+  - Confirms: issues leading to merged agent PRs tend to be shorter and well scoped, with hints about relevant artifacts; issues with external references are associated with lower merge rates. Source for check R6 and for not rewarding link volume in References.
+
+Checks R4 (boundaries) and R5 (human-only steps) follow from the Rollback rationale above: an agent that can run commands can also run irreversible ones, so the issue must say which operations need a human.
+
 ---
 
 ### Research basis for the severity scale
@@ -143,6 +158,8 @@ Adapted from Nielsen's 0-4 usability severity scale (Nielsen, J. 1994. *Severity
 **Degradation applied:** None. This is the reference issue.
 
 **Failure mode:** None. Minor gap in Prerequisites (missing local environment setup) noted but insufficient to reduce score below 10 in context of a solo developer who owns the repo. Expert judgment override: formula score 9.44 rounded to 10/10 given that the gap is context-specific and does not reduce actionability.
+
+**Agent readiness (unscored):** R1 Partial (one build command; display-track checks are manual), R2 Partial (build commands given; no setup or instruction-file pointer), R3 Fail (no out-of-scope list), R4 Fail (production Supabase changes with no stated boundaries), R5 Partial (dashboard steps not labelled as human steps), R6 Partial (two tracks in one issue). Verdict: Not ready to delegate. The issue was written for, and executed by, a developer working interactively with Claude Code, where these gaps were filled in conversation; handed to an unattended agent, they would not be.
 
 **Source:** https://github.com/Doberjohn/inkweave/issues/278
 
