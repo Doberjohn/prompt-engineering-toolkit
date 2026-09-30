@@ -1,8 +1,8 @@
 # UI/UX Evaluation — Codebase Mode
 
-Use in Claude Code with repository access. This mode provides the deepest, most verifiable evaluation. Part of the Prompt Engineering Toolkit. See `url-mode.md` and `screenshot-mode.md` in this folder for other evaluation contexts.
+Use in an agentic coding tool with repository and shell access (for example Claude Code, OpenAI Codex, GitHub Copilot coding agent or CLI, Cursor). This mode provides the deepest, most verifiable evaluation. Part of the Prompt Engineering Toolkit. See `url-mode.md` and `screenshot-mode.md` in this folder for other evaluation contexts.
 
-Copy everything from the horizontal rule below and paste it into a Claude Code session with repo access.
+Copy everything from the horizontal rule below and paste it into a session of that tool with repo access.
 
 ---
 
@@ -17,6 +17,7 @@ These rules govern how you know things. Violating them invalidates the evaluatio
 3. **Every finding requires a file:line reference.** Do not make claims about the code without citing the exact file and line number.
 4. **Do not summarize exploration results as facts.** If you grepped for something and found no results, show the empty result. Do not say "there are no X" without showing the search.
 5. **Infer nothing you can verify.** If the answer is in the code, find it. Only use Inferred or Suspected labels for things that genuinely cannot be determined from the codebase alone.
+6. **Evidence and reliability.** See the evidence and reliability rule after Step 3.
 
 ---
 
@@ -42,19 +43,20 @@ Read the root directory and document the project structure: framework, major dir
 Read the routing file(s) and list every route in the application. Every route must appear in the evaluation report. Do not skip routes you consider less important.
 
 **3. Animation inventory**
-Run: `grep -r "@keyframes" --include="*.css" --include="*.scss" --include="*.js" --include="*.ts" --include="*.tsx" -l`
+Run: `grep -r "@keyframes" --include="*.css" --include="*.scss" --include="*.js" --include="*.ts" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
 Run: `grep -r "transition:" --include="*.css" --include="*.scss" -l`
 Run: `grep -r "animation:" --include="*.css" --include="*.scss" -l`
 List every file containing animations or transitions.
 
 **4. Accessibility attribute inventory**
-Run: `grep -r "alt=" --include="*.tsx" --include="*.jsx" --include="*.html" -l`
-Run: `grep -r "aria-" --include="*.tsx" --include="*.jsx" --include="*.html" -l`
-Run: `grep -r "role=" --include="*.tsx" --include="*.jsx" --include="*.html" -l`
+Run: `grep -r "alt=" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l`
+Run: `grep -r "aria-" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l`
+Run: `grep -r "role=" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l`
 Run: `grep -r "focus" --include="*.css" --include="*.scss" -l`
-Run: `grep -r "draggable\|onDrag\|dragstart\|useDrag\|useSortable" --include="*.tsx" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 2.5.7)
-Run: `grep -ri "onPaste\|captcha\|turnstile" --include="*.tsx" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 3.3.8)
-Run: `grep -r "autocomplete=\|autoComplete=" --include="*.tsx" --include="*.jsx" --include="*.html" -l` (WCAG 3.3.7)
+Run: `grep -r "focus:\|focus-visible:\|focus-within:" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l` (utility-class focus styles, e.g. Tailwind)
+Run: `grep -r "draggable\|onDrag\|dragstart\|useDrag\|useSortable" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 2.5.7)
+Run: `grep -ri "onPaste\|captcha\|turnstile" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 3.3.8)
+Run: `grep -r "autocomplete=\|autoComplete=" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l` (WCAG 3.3.7)
 Run: `grep -r "position: *sticky\|position: *fixed\|scroll-padding\|scroll-margin" --include="*.css" --include="*.scss" -l` (WCAG 2.4.11)
 Document what was found and what was not found.
 
@@ -68,7 +70,7 @@ Locate and read the typography definitions. Document font families, sizes, line 
 Locate the components directory. List all UI components that will be evaluated.
 
 **8. Dark pattern check inventory**
-Run: `grep -r "urgency\|countdown\|limited\|only.*left\|expires" --include="*.tsx" --include="*.jsx" --include="*.html" -i -l`
+Run: `grep -r "urgency\|countdown\|limited\|only.*left\|expires" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -i -l`
 Document any results for investigation.
 
 ---
@@ -83,6 +85,7 @@ Score each dimension 1-10. Every score must reference specific file:line evidenc
 Evaluation method: Read primary page components and inspect size, weight, and contrast relationships between elements. Check for competing focal points. Apply the blur test mentally: do primary actions and groupings remain distinguishable by contrast and scale alone?
 Sub-criteria: Single dominant focal point per screen, intentional contrast between hierarchy levels, F/Z-pattern alignment, no competing primary elements, blur test passes.
 10/10 definition: Every screen has a clear single focal point. Blur test passes. No competing primary elements.
+Maps to: Nielsen H8 (Aesthetic and Minimalist Design).
 Evidence required: Reference the specific component files and CSS rules that define the hierarchy of each primary screen.
 
 **2. Typography**
@@ -96,7 +99,7 @@ Evaluation method: Extract exact hex values from design tokens or CSS. Calculate
 Sub-criteria: All text/background combinations pass WCAG 2.2 AA, color not sole means of conveying information.
 10/10 definition: Every text/background combination verified to pass WCAG 2.2 AA.
 Evidence required: Exact hex values with file:line references. Contrast ratio calculation shown for each combination.
-Note: This is the only mode that can produce VERIFIED contrast findings.
+Note: This is the only static mode that can produce VERIFIED contrast findings. Contrast that depends on opacity, overlays, gradients, or background images cannot be verified from token values alone; flag it for runtime verification (for example axe or Lighthouse in a browser).
 
 **4. Spacing and Layout**
 Evaluation method: Read spacing tokens or CSS custom properties. Verify consistent spacing scale is used. Check for inline styles that break the system.
@@ -108,6 +111,7 @@ Evidence required: File:line references for spacing definitions and any violatio
 Evaluation method: Read component files. Check that components used across routes are the same instances, not duplicated implementations with variations.
 Sub-criteria: No duplicate component implementations, identical components used consistently, no visual regressions introduced by local overrides.
 10/10 definition: No duplicate implementations or override inconsistencies found.
+Maps to: Nielsen H4 (Consistency and Standards).
 Evidence required: File:line references for any inconsistencies. Grep results for duplicated patterns.
 Negative claim rule: If claiming "no inconsistencies", show the search that confirmed it.
 
@@ -136,6 +140,7 @@ Sub-criteria: All animations have clear purpose, prefers-reduced-motion respecte
 10/10 definition: All animations verified as purposeful. prefers-reduced-motion implemented. No infinite loops.
 Evidence required: File:line for every animation definition and the prefers-reduced-motion implementation (or its absence, proven by grep).
 Negative claim rule: If claiming prefers-reduced-motion is not implemented, show the grep result confirming absence.
+Note: prefers-reduced-motion support is a best practice here; the related WCAG criterion (2.3.3) is AAA, so do not score its absence as a WCAG 2.2 AA failure.
 
 **10. Dark Pattern Detection**
 Evaluation method: Read all CTA and marketing components. Check results from Step 1 dark pattern inventory. Read form components for trick questions or pre-checked consent boxes.
@@ -152,8 +157,8 @@ Note: UX dimensions in codebase mode are the most deeply informed of any mode be
 
 **11. System Status Visibility (Nielsen H1)**
 Evaluation method: Search for loading state components, error boundary implementations, progress indicators, and toast/notification systems.
-Run: `grep -r "loading\|isLoading\|spinner\|skeleton" --include="*.tsx" --include="*.jsx" -l`
-Run: `grep -r "error\|ErrorBoundary" --include="*.tsx" --include="*.jsx" -l`
+Run: `grep -r "loading\|isLoading\|spinner\|skeleton" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" -l`
+Run: `grep -r "error\|ErrorBoundary" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" -l`
 10/10 definition: Loading, error, and success states implemented for every async operation. No silent failures.
 
 **12. Real-World Language Match (Nielsen H2)**
@@ -163,12 +168,12 @@ Evidence required: File:line for any jargon or system-oriented language found.
 
 **13. User Control and Freedom (Nielsen H3)**
 Evaluation method: Read navigation components. Check for back/cancel/undo implementations. Check destructive action components for confirmation dialogs.
-Run: `grep -r "confirm\|undo\|cancel\|goBack" --include="*.tsx" --include="*.jsx" -l`
+Run: `grep -r "confirm\|undo\|cancel\|goBack" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" -l`
 10/10 definition: Undo, cancel, and back mechanisms implemented for all flows. Destructive actions confirmed.
 
 **14. Error Prevention and Recovery (Nielsen H5 + H9)**
 Evaluation method: Read form components. Check for inline validation, input constraints, and error message implementations.
-Run: `grep -r "validation\|validate\|required\|error" --include="*.tsx" --include="*.jsx" -l`
+Run: `grep -r "validation\|validate\|required\|error" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" -l`
 10/10 definition: All forms implement inline validation. All error messages are specific and constructive. No dead ends.
 Evidence required: File:line for validation implementations and error message strings.
 
@@ -188,6 +193,7 @@ Evidence required: File:line references for each step in the primary flows trace
 
 **18. Microcopy and Content Quality**
 Evaluation method: Read all string constants, button labels, error messages, empty state components, and placeholder text. Evaluate for clarity, action-orientation, and tone consistency.
+Sub-criteria: Labels and CTAs are action-oriented and specific, error messages are human and constructive, empty states provide guidance, tone is consistent, help and documentation exist where tasks are complex (help components, FAQ or support routes, contextual tooltips; Nielsen H10).
 10/10 definition: Every label, error, empty state, CTA, and tooltip is clear, consistent in tone, and action-oriented. No jargon, no ambiguity, no missing states.
 Evidence required: File:line references for any microcopy issues found.
 
@@ -198,7 +204,7 @@ Evidence required: File:line references for trust signal implementations or thei
 
 **20. Flexibility for Different User Types (Nielsen H7)**
 Evaluation method: Check for keyboard shortcuts, advanced settings, user preference storage, and role-based rendering logic.
-Run: `grep -r "shortcut\|hotkey\|advanced\|role\|permission" --include="*.tsx" --include="*.jsx" -l`
+Run: `grep -r "shortcut\|hotkey\|advanced\|role\|permission" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" -l`
 10/10 definition: Shortcuts and advanced options implemented for experienced users. Novice and expert paths both supported.
 
 ---
@@ -215,6 +221,10 @@ Format: "INFERRED: [Finding]. Reasoning: [which heuristic or principle, and what
 
 **SUSPECTED:** Finding is a potential issue suggested by code patterns but requiring further investigation.
 Format: "SUSPECTED: [Finding]. Basis: [specific code pattern that triggered this concern, with file:line]. To confirm: [specific investigation method]."
+
+---
+
+**Evidence and reliability rule:** Every VERIFIED finding must quote or point to the exact element, text, or code it rests on; if you cannot, it is not Verified. AI evaluations of interfaces miss a meaningful share of the issues expert evaluators find and also report issues that are not there. Treat this evaluation as a first pass: every Severity 3 or 4 finding that is not VERIFIED must be confirmed by a human before anyone acts on it, and the roadmap must say so.
 
 ---
 
@@ -242,13 +252,14 @@ Rate every finding using Nielsen's severity scale. Report severity and frequency
 After completing all dimension scores, produce a mandatory disclosure section titled "EVALUATION GAPS - WHAT THIS MODE CANNOT ASSESS" covering:
 
 - Actual visual rendering (colors, spacing, typography render differently in browser than in code)
+- Actual keyboard operation, focus order, and screen reader output in the running app (requires manual and assistive technology testing)
 - User perception and subjective experience (requires user testing)
 - Real-world task completion behavior (requires user testing)
 - Performance under real network conditions (requires Lighthouse or field data)
 - Cross-browser rendering differences (requires browser testing)
 - Any runtime behavior that depends on real data not present in the codebase
 
-For each gap, specify: "To evaluate this, use: [URL Mode / Screenshot Mode / User Testing / Lighthouse]."
+For each gap, specify: "To evaluate this, use: [URL Mode / Screenshot Mode / Manual Testing / User Testing / Lighthouse]."
 
 ---
 

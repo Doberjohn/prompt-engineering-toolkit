@@ -23,6 +23,11 @@ Do not proceed until target audience is confirmed.
 
 Before scoring anything, declare what you were able to access and what you could not. Structure this as:
 
+**Access method:** State exactly how you accessed the URL. This decides what can be labelled VERIFIED.
+- (a) Fetched text or HTML only (a web fetch tool). You can verify markup-level facts (page title, alt attributes, form label association, heading order, `lang` attribute, link text) by quoting the markup. You cannot see layout, rendering, or motion, so visual, responsive, performance, and motion findings are Inferred at best.
+- (b) Rendered in a real browser (a browser tool, browser agent, or computer use). State the viewport size(s) used. Visual observations can be VERIFIED by citing the page and element.
+- (c) No live access. Stop and say so. Do not evaluate from memory, training data, or the URL's reputation. Ask the user for screenshots (Screenshot Mode) or repository access (Codebase Mode) instead.
+
 **Accessible:** List every route, page, or section you could reach and evaluate.
 
 **Inaccessible:** List any routes, sections, or states you could not reach, including:
@@ -44,6 +49,7 @@ Score each dimension on a 1-10 scale. For each score, reference the specific sub
 **1. Visual Hierarchy**
 Sub-criteria: Single dominant focal point per screen, intentional size and weight contrast between primary/secondary/tertiary elements, F-pattern or Z-pattern alignment with content type, no two elements competing for primary attention at the same level, blur test: primary actions and groupings remain distinguishable when mentally blurred.
 10/10 definition: Every element has a clear and intentional weight. The blur test passes at every primary screen. No competing focal points. Eye is guided through content in the intended order without ambiguity.
+Maps to: Nielsen H8 (Aesthetic and Minimalist Design).
 
 **2. Typography**
 Sub-criteria: Maximum 2-3 typefaces, consistent typographic scale, sufficient line height (at least 1.5 for body text as a readability best practice; WCAG 1.4.12 separately requires that content survives user-applied spacing overrides without loss), line length between 50-75 characters, heading hierarchy (H1-H6) used semantically, readable font sizes (around 16px or larger for body text as a best practice; not a WCAG requirement).
@@ -60,26 +66,27 @@ Sub-criteria: Consistent spacing scale (8px grid or similar), generous negative 
 **5. Component and Design System Consistency**
 Sub-criteria: Identical components look and behave identically across all pages, button styles are consistent, form elements are consistent, icon style is consistent, no visual regressions between pages.
 10/10 definition: No inconsistencies detected across all accessible pages.
+Maps to: Nielsen H4 (Consistency and Standards).
 
 **6. Accessibility (WCAG 2.2 AA)**
 Sub-criteria: Images have descriptive alt text, form fields have visible labels, keyboard navigation is logical, focus indicators are visible, color contrast passes, no content flashes more than 3 times per second, page has a meaningful title. WCAG 2.2 additions: focused elements are not hidden behind sticky headers, cookie banners, or other overlays (2.4.11), drag-only interactions have a single-pointer alternative (2.5.7), targets at least 24x24 CSS px or adequately spaced (2.5.8; see Responsive Design), help mechanisms appear in a consistent location across pages (3.2.6), information already entered in a flow is not requested again (3.3.7), login does not require a cognitive test such as a puzzle CAPTCHA and allows pasting and password managers (3.3.8).
 10/10 definition: All checked criteria pass across all accessible pages. This checklist covers a subset of WCAG 2.2 AA. Do not claim full conformance; that requires a manual audit with assistive technology.
-Note: URL mode can infer some accessibility issues visually but cannot verify semantic HTML, keyboard navigation, or screen reader compatibility. Flag all accessibility findings as Inferred unless visually verifiable.
+Note: What can be VERIFIED depends on the access method declared in Step 1. With fetched HTML, verify markup-level criteria (alt attributes, page title, label association, heading order) by quoting the markup. Keyboard operation, focus visibility, and screen reader behavior need a rendered browser or manual testing; without one, label them Inferred or Suspected.
 
 **7. Responsive and Mobile Behavior**
 Sub-criteria: Content reflows at mobile breakpoints without horizontal scrolling, interactive targets at least 24x24 CSS px or adequately spaced (WCAG 2.5.8, AA), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text remains readable at mobile sizes, navigation adapts appropriately for small screens.
 10/10 definition: Interface is fully usable on mobile with no loss of content or functionality.
-Note: URL mode can only evaluate the viewport it renders in. Flag mobile findings as Suspected unless you can verify at multiple breakpoints.
+Note: URL mode can only evaluate the viewport(s) it renders in. Flag mobile findings as Suspected unless you rendered the page at multiple viewport sizes. With fetched text only (access method a), responsive findings are Suspected.
 
 **8. Performance Indicators**
 Sub-criteria: Page appears to load within 2.5 seconds (LCP threshold), no visible layout shift after initial load (CLS), interactions appear to respond without noticeable delay (INP, good at or below 200 ms), images appear optimized, no render-blocking indicators visible.
 10/10 definition: No visible performance issues on any accessible page.
-Note: URL mode cannot measure Core Web Vitals precisely. All performance findings are Inferred.
+Note: URL mode cannot measure Core Web Vitals precisely. All performance findings are Inferred, or Suspected if the page was not rendered in a browser.
 
 **9. Motion and Animation Quality**
 Sub-criteria: Animations have a clear purpose, motion does not distract from primary content, no animations that loop indefinitely without user control, transitions feel smooth and intentional.
 10/10 definition: All motion has purpose, is consistent, and does not distract. No accessibility concerns from motion.
-Note: URL mode cannot verify prefers-reduced-motion CSS support. Flag as Inferred.
+Note: URL mode cannot verify prefers-reduced-motion CSS support. Flag as Inferred. prefers-reduced-motion support is a best practice here; the related WCAG criterion (2.3.3) is AAA, so do not score its absence as a WCAG 2.2 AA failure.
 
 **10. Dark Pattern Detection**
 Sub-criteria: No hidden costs or fees revealed late in flows, no disguised ads, no trick questions in forms, no roach motels (easy to get in, hard to get out), no confirm-shaming, no misdirection, no false urgency or artificial scarcity.
@@ -118,7 +125,7 @@ Sub-criteria: Primary user tasks can be completed without instructions, no unexp
 10/10 definition: All primary tasks completable without instructions or backtracking for the target audience.
 
 **18. Microcopy and Content Quality**
-Sub-criteria: Button labels are action-oriented and specific (not just "Submit" or "Click here"), error messages are human and constructive, empty states are handled with guidance, tooltips and helper text are present where needed, tone is consistent with brand voice throughout.
+Sub-criteria: Button labels are action-oriented and specific (not just "Submit" or "Click here"), error messages are human and constructive, empty states are handled with guidance, tooltips and helper text are present where needed, tone is consistent with brand voice throughout, help and documentation is findable where tasks are complex (contextual help, FAQ, or support links; Nielsen H10).
 10/10 definition: Every label, error, empty state, CTA, and tooltip is clear, consistent in tone, and action-oriented. No jargon, no ambiguity, no missing states.
 
 **19. Trust Signals and Conversion Path Clarity**
@@ -146,6 +153,10 @@ Format: "SUSPECTED: [Finding]. Basis: [what triggered this concern]. To confirm:
 
 ---
 
+**Evidence and reliability rule:** Every VERIFIED finding must quote or point to the exact element, text, or code it rests on; if you cannot, it is not Verified. AI evaluations of interfaces miss a meaningful share of the issues expert evaluators find and also report issues that are not there. Treat this evaluation as a first pass: every Severity 3 or 4 finding that is not VERIFIED must be confirmed by a human before anyone acts on it, and the roadmap must say so.
+
+---
+
 ## STEP 4 — SEVERITY RATING
 
 Rate every finding using Nielsen's severity scale. Report severity and frequency as separate fields.
@@ -170,15 +181,15 @@ Rate every finding using Nielsen's severity scale. Report severity and frequency
 After completing all dimension scores, produce a mandatory disclosure section titled "EVALUATION GAPS - WHAT THIS MODE CANNOT ASSESS" covering:
 
 - Authenticated states and gated content
-- Keyboard navigation and screen reader compatibility (requires codebase mode)
-- Exact contrast ratio values (requires codebase mode for hex verification)
+- Keyboard operation and screen reader compatibility (requires manual keyboard and screen reader testing, or a browser agent; codebase mode can check focus styles and tabindex statically)
+- Exact contrast ratio values (computable only if color values were available in fetched CSS; otherwise requires codebase mode)
 - prefers-reduced-motion support (requires codebase mode)
 - Core Web Vitals precise measurements (requires Lighthouse or codebase mode)
 - Mobile breakpoint behavior beyond the current viewport (requires screenshot mode at multiple sizes)
 - Dynamic interaction states (hover, focus, active, loading, error) not triggered during evaluation
 - Any page or flow listed as inaccessible in the pre-flight inventory
 
-For each gap, specify: "To evaluate this, use: [Screenshot Mode / Codebase Mode / User Testing]."
+For each gap, specify: "To evaluate this, use: [Screenshot Mode / Codebase Mode / Manual Testing / User Testing]."
 
 ---
 
@@ -197,8 +208,8 @@ Produce a prioritized action list ordered by Severity (4 first) then Frequency (
 - Severity and Frequency
 - Confidence label
 - Recommended fix
-- Effort estimate: Low (CSS/copy change), Medium (component change), High (architectural change)
+- Effort estimate: Low (CSS/copy change, < 1 hour), Medium (component change, 1-4 hours), High (architectural change, > 4 hours)
 
 ---
 
-Confirm you understand this framework by stating the target audience and the URL you are evaluating, then begin the pre-flight inventory.
+Confirm you understand this framework by stating the target audience, the URL you are evaluating, and your access method, then begin the pre-flight inventory.
