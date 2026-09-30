@@ -82,7 +82,9 @@ Current models plan and reason before answering. Anthropic's guidance for its cu
 - 7-8: Checkpoints or deliverable order defined. Completion condition missing or vague.
 - 9-10: Checkpoints, deliverable order, and completion conditions all present, with the method left to the model where it can plan well.
 
-**Process N/A:** When the task is small enough that no checkpoint, intermediate deliverable, or completion condition would add anything (a one-line answer, a quick rewrite, a lookup), score Process N/A and average the active dimensions.
+**Process N/A:** Only when the task is fully specified and so small that the answer is a single short output with nothing to review in stages: a one-line answer, a rewrite of text supplied in the prompt, a factual lookup. A vague or underspecified prompt is never Process N/A, because its missing structure is exactly what should be scored; a request for a document, posting, article, report, or code is never Process N/A. When in doubt, score it. Average the active dimensions when it applies.
+
+**Autonomous briefs (no human in the loop):** When the prompt is written for an agent that runs without anyone available to answer (a background task, a subagent, a scheduled run), the checkpoint sub-criterion is N/A: score deliverable order, completion conditions, and method only, so such a brief can reach 9-10. A stop condition (when to halt and report instead of continuing, such as before an irreversible action or when blocked) counts toward the completion condition. Only apply this when the prompt itself makes clear no human will be available; an ordinary chat prompt with no checkpoints is not autonomous.
 
 **No credit for thinking choreography:** Instructions that dictate how to reason ("first think about X, then consider Y, then decide") earn no Process credit. Note them as a risk: on current models they are redundant at best and can lower quality.
 
@@ -151,7 +153,7 @@ For architecture decisions, technical comparisons, and strategic recommendations
 - 8-9: Evidence required and negative claims require proof.
 - 10: Full epistemic rigor. Inventory before judging. Negative claims require proof with shown evidence. Inferences labelled; nothing summarized as fact without evidence.
 
-**Epistemics N/A:** Epistemics is N/A when the prompt supplies everything the output depends on and the task is to generate or transform from it (code from a complete specification, creative writing, formatting). It is applicable whenever the output depends on facts the prompt does not supply: current or "latest" practices, the state of a codebase or system, market norms, or claims about the world.
+**Epistemics N/A:** Epistemics is N/A when the prompt supplies everything the output depends on and the task is to generate or transform from it (code from a complete specification, creative writing, formatting). It is applicable whenever the output depends on facts the prompt does not supply: current or "latest" practices, the state of a codebase or system, market norms, or claims about the world. A prompt too vague to tell what the output depends on is never Epistemics N/A.
 
 ---
 
@@ -232,6 +234,8 @@ Since this framework uses a single AI evaluator, some scoring variance is unavoi
 | Epistemics scoring | Generic "verify your answer" scored 4-5 as partial rigor | Earns little; specific evidence requirements score higher | Current models verify their own work unprompted, and generic re-check instructions cause over-verification (Anthropic, n.d.-c) |
 | Epistemics N/A | Defined only in the calibration set | Defined here; "latest/current" requirements make it applicable | Claims about fast-moving practice are exactly what needs checking |
 | Confidence | Unmeasured "93% framework confidence" | Measured agreement from five blind rater runs | The figure had no measurement or source behind it |
+| Process N/A | "Small enough that no checkpoint would add anything" | Only fully specified single-output tasks; vague prompts and requests for documents or code are never N/A | Blind raters applied the looser rule to vague prompts, hiding their missing structure |
+| Autonomous briefs | Process 9-10 required checkpoints, capping unattended agent briefs at 8 | Checkpoints N/A when the prompt makes clear no human is available; stop conditions count toward completion | Current agentic guidance favours stating boundaries and when to stop over pausing for input (Anthropic, n.d.-b) |
 | Attribution | Four dimensions presented as original | Dimensions 1-3 attributed to AI Fluency; Epistemics as the extension | Accurate attribution of a CC BY-NC-SA source |
 
 The effect on the calibration anchors is documented in `examples/prompt-calibration-set.md`.

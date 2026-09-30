@@ -286,7 +286,7 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 
 **Why this score:** (8 + 8 + 6 + 10) / 4 = 8.0. The author's pre-registered score was Product 10 and 8.5 overall; all three blind raters (see `examples/prompt-calibration-agreement.md`) independently flagged the missing audience, which the rubric counts under Product, so Product was lowered to 8. Epistemics is as strong as Anchor 8. The lesson is that a prompt can be rigorous about evidence and still leave the reader of the output undefined.
 
-**Note on Process for autonomous briefs:** The Process 9-10 band requires checkpoints. A brief for an agent that runs without a human in the loop cannot have them, so it tops out at 8 however well it structures deliverables and completion. This is a known limitation of the current rubric, not a flaw in the prompt.
+**Note on Process for autonomous briefs:** The rubric now treats checkpoints as N/A when a prompt makes clear the agent runs with no human available. This prompt was sent to an unattended subagent, but its text never says so, so the rule does not apply and Process stays at 8. One added sentence (for example "You are running unattended; no one can answer questions, so do not ask") would make it eligible for 9-10. The rule deliberately depends on the prompt's own text, because the evaluator sees nothing else.
 
 ---
 
@@ -313,4 +313,4 @@ Anchor 7 was originally scored N/A on Epistemics as a code generation task. On r
 Of 36 dimension scores, three changed in the first September 2026 re-score, all in Anchors 6 and 7 (a later change to Anchors 8 and 9 is covered in Observation 4). The larger shift was in what the notes credit: checkpoints and completion conditions rather than numbered steps, audience and depth rather than a persona, and specific evidence rather than generic verification.
 
 **Observation 7: A prompt can be rigorous about evidence and still leave the audience undefined.**
-Anchors 8 and 10 share the same profile: Epistemics 10, Product 8, and Performance 6, because neither says who the output is for, how deep to go, or in what tone. Blind raters converged on this gap without seeing the reference scores. Anchor 10 also exposes a rubric limit: autonomous agent briefs cannot have checkpoints, so Process caps at 8 for them.
+Anchors 8 and 10 share the same profile: Epistemics 10, Product 8, and Performance 6, because neither says who the output is for, how deep to go, or in what tone. Blind raters converged on this gap without seeing the reference scores. Anchor 10 also exposed a rubric limit, since fixed: autonomous agent briefs cannot have checkpoints, so Process capped at 8 for them. Checkpoints are now N/A when the prompt says no human is available.

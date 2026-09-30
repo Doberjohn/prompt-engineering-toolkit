@@ -38,7 +38,8 @@ Sub-criteria:
 - Completion conditions stated: what done looks like, ideally something checkable
 - Method left to the model where it plans well: ordered steps are prescribed only where order or completeness matters
 Bands: 1-3 the task needs checkpoints or ordered deliverables and none are given; 4-6 some structure implied but not explicit; 7-8 checkpoints or deliverable order defined, completion condition missing or vague; 9-10 checkpoints, deliverable order, and completion conditions all present.
-Process N/A: when the task is small enough that no checkpoint, intermediate deliverable, or completion condition would add anything (a one-line answer, a quick rewrite, a lookup).
+Process N/A: only when the task is fully specified and so small that the answer is a single short output with nothing to review in stages (a one-line answer, a rewrite of text supplied in the prompt, a factual lookup). A vague or underspecified prompt is never Process N/A; neither is any request for a document, posting, article, report, or code. When in doubt, score it.
+Autonomous briefs: when the prompt makes clear the agent runs with no human available (a background task, a subagent, a scheduled run), the checkpoint sub-criterion is N/A and Process can reach 9-10 on deliverable order, completion conditions, and method alone. A stop condition (when to halt and report instead of continuing) counts toward the completion condition. An ordinary chat prompt with no checkpoints is not autonomous.
 No credit for thinking choreography: instructions that dictate how to reason ("first think about X, then consider Y") earn no Process credit. Flag them as a risk: current models reason before answering, and prescriptive reasoning steps are redundant at best and can lower quality.
 
 **3. Performance Description**
@@ -59,7 +60,7 @@ Sub-criteria:
 - Evidence shown: sources, searches, quotes, or file:line references accompany claims, and tradeoffs are laid out in the answer
 - Inferences labelled: nothing presented as verified fact without evidence; say what could not be verified
 Bands: 1-3 no epistemic instruction; 4-5 generic verification only ("check online", "verify your answer", "double-check"), which earns little because current models already self-check; 6-7 a specific evidence requirement (named sources, comparison with current documentation, evidence to show), negative claims not addressed; 8-9 evidence required and negative claims require proof; 10 inventory before judging, negative claims proven with shown evidence, inferences labelled.
-Epistemics N/A: when the prompt supplies everything the output depends on and the task is to generate or transform from it (code from a complete specification, creative writing, formatting). It applies whenever the output depends on facts the prompt does not supply, including any request for "latest" or "current" practices.
+Epistemics N/A: when the prompt supplies everything the output depends on and the task is to generate or transform from it (code from a complete specification, creative writing, formatting). It applies whenever the output depends on facts the prompt does not supply, including any request for "latest" or "current" practices. A prompt too vague to tell what the output depends on is never Epistemics N/A.
 
 ---
 
@@ -208,7 +209,7 @@ Use the following reference prompts to anchor your scoring. Scores reflect the r
 
 **Scores:** Product 8, Process 8, Performance 6, Epistemics 10
 
-**Why:** Written by an AI coding assistant for a research subagent during a real audit of this toolkit (the others were written by the framework author). Scope, inputs, table columns, and status vocabulary are fully specified, and Epistemics is as strong as Anchor 8: inventory first, evidence per item, negative results checked, and "do not guess ... mark it UNVERIFIED". Product and Performance lose points because the report's audience, depth, and tone are never stated; a role alone does not supply them. Process is 8 because an unattended agent brief cannot have checkpoints, which the 9-10 band requires. Overall (8 + 8 + 6 + 10) / 4 = 8.0.
+**Why:** Written by an AI coding assistant for a research subagent during a real audit of this toolkit (the others were written by the framework author). Scope, inputs, table columns, and status vocabulary are fully specified, and Epistemics is as strong as Anchor 8: inventory first, evidence per item, negative results checked, and "do not guess ... mark it UNVERIFIED". Product and Performance lose points because the report's audience, depth, and tone are never stated; a role alone does not supply them. Process is 8: deliverable order is explicit, but there are no checkpoints and the prompt never says it runs unattended, so the autonomous-brief rule does not apply. Overall (8 + 8 + 6 + 10) / 4 = 8.0.
 
 ---
 
