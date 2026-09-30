@@ -178,8 +178,9 @@ Separate instruction per track or phase. Exact command, file change, or dashboar
 per instruction. Covers partial and full rollback.
 
 A single vague sentence like "revert all changes" is not acceptable — it implies safety
-without providing it. For code-only changes delivered as a PR, naming the PR revert plus
-a check that confirms it is enough.
+without providing it. For single-track, code-only changes delivered as one PR, naming the PR
+revert plus a check that confirms it is enough. Multi-track plans still need a rollback
+per track.
 
 ```
 - **<Track name>:** `<exact command or action>` → <what this undoes>

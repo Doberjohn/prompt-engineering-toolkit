@@ -59,7 +59,7 @@ Score each section 0-10. A section that does not exist scores 0.
 - Acceptable (5-7): Present but covers only one track when multiple exist, or partially specific.
 - Poor (1-4): Single vague sentence such as "revert all changes." Provides false confidence with no actionable guidance. This is worse than absent — flag it explicitly as a severity 4 finding.
 - Absent (0): Section does not exist.
-- Code-only changes: when the change touches only code and is delivered as a pull request (no migrations, data changes, infrastructure, or dashboard actions), naming the revert of that PR plus a check that confirms the revert worked scores Strong. The vague-rollback severity 4 rule applies to issues that include irreversible or out-of-repo operations.
+- Code-only changes: when the change touches only code, has a single track, and is delivered as one pull request (no migrations, data changes, infrastructure, or dashboard actions), naming the revert of that PR plus a check that confirms the revert worked scores Strong. Multi-track plans still need a rollback per track, because one PR revert cannot undo a single track on its own. The vague-rollback severity 4 rule applies to issues that include irreversible or out-of-repo operations.
 
 **Context**
 - Strong (8-10): States why the process exists. States when to trigger it with specific conditions. States what outcome the process achieves.

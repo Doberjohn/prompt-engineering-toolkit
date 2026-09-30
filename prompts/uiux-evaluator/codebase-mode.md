@@ -44,8 +44,8 @@ Read the routing file(s) and list every route in the application. Every route mu
 
 **3. Animation inventory**
 Run: `grep -r "@keyframes" --include="*.css" --include="*.scss" --include="*.js" --include="*.ts" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
-Run: `grep -r "transition:" --include="*.css" --include="*.scss" -l`
-Run: `grep -r "animation:" --include="*.css" --include="*.scss" -l`
+Run: `grep -r "transition:" --include="*.css" --include="*.scss" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
+Run: `grep -r "animation:" --include="*.css" --include="*.scss" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
 List every file containing animations or transitions.
 
 **4. Accessibility attribute inventory**
@@ -53,10 +53,10 @@ Run: `grep -r "alt=" --include="*.tsx" --include="*.vue" --include="*.svelte" --
 Run: `grep -r "aria-" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l`
 Run: `grep -r "role=" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l`
 Run: `grep -r "focus" --include="*.css" --include="*.scss" -l`
-Run: `grep -r "focus:\|focus-visible:\|focus-within:" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l` (utility-class focus styles, e.g. Tailwind)
+Run: `grep -r "focus:\|focus-visible:\|focus-within:" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (utility-class focus styles, e.g. Tailwind)
 Run: `grep -r "draggable\|onDrag\|dragstart\|useDrag\|useSortable" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 2.5.7)
 Run: `grep -ri "onPaste\|captcha\|turnstile" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 3.3.8)
-Run: `grep -r "autocomplete=\|autoComplete=" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l` (WCAG 3.3.7)
+Run: `grep -r "autocomplete=\|autoComplete=" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.jsx" --include="*.html" -l` (supporting evidence only for WCAG 3.3.7: also trace multi-step flows to see whether information entered earlier is requested again)
 Run: `grep -r "position: *sticky\|position: *fixed\|scroll-padding\|scroll-margin" --include="*.css" --include="*.scss" -l` (WCAG 2.4.11)
 Document what was found and what was not found.
 
@@ -117,7 +117,7 @@ Negative claim rule: If claiming "no inconsistencies", show the search that conf
 
 **6. Accessibility (WCAG 2.2 AA)**
 Evaluation method: Use the inventory from Step 1. Read every image component and verify alt text. Check every form field for labels. Grep for focus styles. Check for ARIA roles. Verify semantic HTML structure. Use the WCAG 2.2 greps from Step 1 to check the criteria new in 2.2.
-Sub-criteria: All images have descriptive alt text, all form fields have visible labels, keyboard focus styles defined, ARIA roles used correctly, semantic heading structure followed, no positive tabindex values. WCAG 2.2 additions: sticky or fixed elements do not obscure focused elements, for example scroll-padding offsets sticky headers (2.4.11); every drag interaction has a single-pointer alternative (2.5.7); interactive targets are at least 24x24 CSS px or adequately spaced (2.5.8); help and contact links sit in a consistent place in shared layout components (3.2.6); multi-step forms prefill or offer previously entered data (3.3.7); login does not block paste on password fields or require a puzzle CAPTCHA without an alternative (3.3.8).
+Sub-criteria: All images have descriptive alt text, all form fields have visible labels, keyboard focus styles defined, ARIA roles used correctly, semantic heading structure followed, no positive tabindex values. WCAG 2.2 additions: a focused element is never entirely hidden by sticky or fixed content, for example scroll-padding offsets sticky headers (2.4.11; keeping it fully visible is a stronger recommendation, not an AA requirement); every drag interaction has a single-pointer alternative (2.5.7); interactive targets are at least 24x24 CSS px or adequately spaced (2.5.8); help and contact links sit in a consistent place in shared layout components (3.2.6); information already entered earlier in the same process is auto-populated or available for selection when it is needed again, unless re-entry is essential, needed for security, or the earlier value is no longer valid (3.3.7); login does not block paste on password fields or require a puzzle CAPTCHA without an alternative (3.3.8).
 10/10 definition: All code-verifiable criteria pass. Code review cannot establish full WCAG 2.2 AA conformance: list the manual checks still required (screen reader testing, keyboard operation in the running app, reading order, alt text quality).
 Evidence required: File:line for every accessibility attribute found and not found.
 Negative claim rule: Every "missing" accessibility attribute must be confirmed with a grep showing no results.

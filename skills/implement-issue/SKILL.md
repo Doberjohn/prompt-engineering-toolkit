@@ -98,7 +98,7 @@ Rollback
 - Acceptable (5-7): Present but covers only one track when multiple exist, or partially specific
 - Poor (1-4): Single vague sentence such as "revert all changes" — worse than absent because it implies safety without delivering it. Flag as severity 4.
 - Absent (0): Section does not exist
-- Code-only changes delivered as a PR (no migrations, data changes, infrastructure, or dashboard actions): naming the revert of that PR plus a check that confirms the revert worked scores Strong. The severity 4 vague-rollback rule applies to issues with irreversible or out-of-repo operations.
+- Single-track, code-only changes delivered as one PR (no migrations, data changes, infrastructure, or dashboard actions): naming the revert of that PR plus a check that confirms the revert worked scores Strong. Multi-track plans still need a rollback per track. The severity 4 vague-rollback rule applies to issues with irreversible or out-of-repo operations.
 
 Context
 - Strong (8-10): States why the process exists, when to trigger it, what outcome it achieves
@@ -239,7 +239,7 @@ Read whichever of these repo instruction files exist: `CLAUDE.md`, `AGENTS.md`,
 - Setup, build, test, lint, and typecheck commands (these close readiness check R2 and
   supply the done-when commands for the brief if the issue has none)
 
-Use the branch naming convention from CLAUDE.md in Step 5. If none of these files specifies
+Use the branch naming convention from these files in Step 5. If none of these files specifies
 a branch naming convention, fall back to `feature/<number>-<slugified-title>` (lowercase,
 hyphens, max 40 chars for slug).
 
