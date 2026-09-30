@@ -60,6 +60,14 @@ Overall: Anchor 8 from 10/10 to 8/10 (8.25); Anchor 9 from 10/10 to 7/10 (7.25).
 
 Overall: Anchor 2 from 3/10 (3.25) to 4/10 (4.0).
 
+**September 2026, Anchor 10:** Epistemics lowered from 10 to 9 at the author's request, after all three validation raters scored it 8 or 9.
+
+| Anchor | Dimension | Original | Revised | Reason |
+|---|---|---|---|---|
+| 10 | Epistemics | 10 | 9 | DEAD and NOT FOUND statuses do not require showing the check that established them; only fetch failures are labelled as unverified |
+
+Overall: Anchor 10 stays 8/10 (8.0 to 7.75).
+
 Overall effect of the re-score: Anchor 6 stays 8/10 (7.75). Anchor 7 moves from 9/10 to 6/10, which leaves the set without a 9/10 anchor; a real prompt at that level should be added. Several notes were also reworded because a missing persona is no longer a gap on its own and tone belongs to Performance, not Product; those changes did not move any score.
 
 ### Relationship to the framework
@@ -290,9 +298,9 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 | Product | 8 | Every file listed, scope explicit, table columns and status vocabulary fixed, summary and ranked list named. The report's audience is never stated, and the summary length is unbounded. |
 | Process | 8 | Ordered deliverables (inventory, fetch, confirm, targeted checks, table) and a completion condition implied by "EVERY" item getting a row. No checkpoint, because it runs unattended. Steps 1-3 prescribe method, which is acceptable here because completeness matters. |
 | Performance | 6 | A role only. No audience or depth, no tone, no collaboration style beyond read-only. |
-| Epistemics | 10 | Inventory before judging (Step 1 table first), evidence recorded for every item (status, final URL, title match, year), negative results require a check (DEAD, NOT FOUND), and inferences labelled: "Do not guess: if you cannot fetch a source, mark it UNVERIFIED and say why." |
+| Epistemics | 9 (originally 10) | Inventory before judging (Step 1 table first), evidence recorded for every item (status, final URL, title match, year), and unverifiable items labelled: "Do not guess: if you cannot fetch a source, mark it UNVERIFIED and say why." But negative results (DEAD, NOT FOUND) do not have to show the check that established them, and only fetch failures are labelled as unverified, not other inferences. |
 
-**Why this score:** (8 + 8 + 6 + 10) / 4 = 8.0. The author's pre-registered score was Product 10 and 8.5 overall; all three blind raters (see `examples/prompt-calibration-agreement.md`) independently flagged the missing audience, which the rubric counts under Product, so Product was lowered to 8. Epistemics is as strong as Anchor 8. The lesson is that a prompt can be rigorous about evidence and still leave the reader of the output undefined.
+**Why this score:** (8 + 8 + 6 + 9) / 4 = 7.75, rounded to 8. The author's pre-registered score was Product 10, Epistemics 10, and 8.5 overall. All three blind raters in the follow-up run flagged the missing audience, which the rubric counts under Product, so Product was lowered to 8. In the validation run, all three scored Epistemics 8 or 9 because negative statuses need no shown evidence, so Epistemics was lowered to 9 (see `examples/prompt-calibration-agreement.md`). Its Epistemics is close to Anchor 8's, which does require showing the search behind a negative claim. The lesson is that a prompt can be rigorous about evidence and still leave the reader of the output undefined.
 
 **Note on Process for autonomous briefs:** The rubric now treats checkpoints as N/A when a prompt makes clear the agent runs with no human available. This prompt was sent to an unattended subagent, but its text never says so, so the rule does not apply and Process stays at 8. One added sentence (for example "You are running unattended; no one can answer questions, so do not ask") would make it eligible for 9-10. The rule deliberately depends on the prompt's own text, because the evaluator sees nothing else.
 
@@ -321,4 +329,4 @@ Anchor 7 was originally scored N/A on Epistemics as a code generation task. On r
 Of 36 dimension scores, three changed in the first September 2026 re-score, all in Anchors 6 and 7 (a later change to Anchors 8 and 9 is covered in Observation 4). The larger shift was in what the notes credit: checkpoints and completion conditions rather than numbered steps, audience and depth rather than a persona, and specific evidence rather than generic verification.
 
 **Observation 7: A prompt can be rigorous about evidence and still leave the audience undefined.**
-Anchors 8 and 10 share the same profile: Epistemics 10, Product 8, and Performance 6, because neither says who the output is for, how deep to go, or in what tone. Blind raters converged on this gap without seeing the reference scores. Anchor 10 also exposed a rubric limit, since fixed: autonomous agent briefs cannot have checkpoints, so Process capped at 8 for them. Checkpoints are now N/A when the prompt says no human is available.
+Anchors 8 and 10 share the same profile: Epistemics 9 or 10, Product 8, and Performance 6, because neither says who the output is for, how deep to go, or in what tone. Blind raters converged on this gap without seeing the reference scores. Anchor 10 also exposed a rubric limit, since fixed: autonomous agent briefs cannot have checkpoints, so Process capped at 8 for them. Checkpoints are now N/A when the prompt says no human is available.

@@ -115,7 +115,7 @@ Two rubric changes were made in response to the follow-up run: Process N/A was r
 1. **The tightened Process N/A rule works.** Misuse fell from six instances to none, and raters cited the rule directly ("too vague for N/A").
 2. **The autonomous-brief rule is not over-applied.** All three runs declined to apply it to Anchor 10 because its text never states that it runs unattended, and scored its Process 7.
 3. **Anchor 2's Epistemics is genuinely ambiguous.** Both remaining Epistemics N/A uses were on Anchor 2, with the reason that the job posting is generated from requirements the prompt supplies. Under the current N/A rule that reading is defensible; the reference score of 1 may need to become N/A. *Update:* the author changed it to N/A, moving Anchor 2 from 3/10 to 4/10. The tables in this document keep the reference scores as they were at the time of each run.
-4. **New disagreement on Anchor 10's Epistemics.** Runs scored it 8 or 9 (reference 10), noting that DEAD and NOT FOUND statuses do not require showing the search that established them, and that inferences are only partly labelled. Runs also scored its Performance 4 or 5 (reference 6).
+4. **New disagreement on Anchor 10's Epistemics.** Runs scored it 8 or 9 (reference 10), noting that DEAD and NOT FOUND statuses do not require showing the search that established them, and that inferences are only partly labelled. Runs also scored its Performance 4 or 5 (reference 6). *Update:* the author lowered Anchor 10's Epistemics to 9; it stays 8/10 overall (7.75).
 5. **Absolute agreement did not change much.** The average gap stayed near one point, consistent with the earlier conclusion: trust rankings over single absolute scores.
 
 ---
