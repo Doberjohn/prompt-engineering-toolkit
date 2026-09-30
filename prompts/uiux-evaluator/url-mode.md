@@ -26,7 +26,14 @@ Before scoring anything, declare what you were able to access and what you could
 **Access method:** State exactly how you accessed the URL. This decides what can be labelled VERIFIED.
 - (a) Fetched text or HTML only (a web fetch tool). You can verify markup-level facts (page title, alt attributes, form label association, heading order, `lang` attribute, link text) by quoting the markup. You cannot see layout, rendering, or motion, so visual, responsive, performance, and motion findings are Inferred at best.
 - (b) Rendered in a real browser (a browser tool, browser agent, or computer use). State the viewport size(s) used. Visual observations can be VERIFIED by citing the page and element.
-- (c) No live access. Stop and say so. Do not evaluate from memory, training data, or the URL's reputation. Ask the user for screenshots (Screenshot Mode) or repository access (Codebase Mode) instead.
+- (c) No live access: context-only evaluation. If you cannot fetch or render the page, do not stop, and do not evaluate from memory, training data, or the site's reputation. Evaluate only what the user has described (the page's purpose, audience, flows, content, known problems) and follow the context-only rules below.
+
+**Context-only rules (access method c):**
+- Open the report with this line: "CONTEXT-ONLY EVALUATION: the page itself was not observed. Every finding below is based on the description provided and must be confirmed against the live page."
+- No finding may be labelled VERIFIED. Use INFERRED when the user's description supports it and SUSPECTED for common risks for this kind of page that the description neither confirms nor rules out.
+- Do not describe specific elements, text, colours, or layout of the page unless the user described them.
+- Score a dimension only when the description gives evidence for it; otherwise write "Not assessable from context" instead of a number, and list it in the evaluation gaps.
+- If the user gave no description beyond the URL, do not invent one: say that a context-only evaluation needs a description, list the questions that would make it useful (purpose, audience, primary flow, known problems), and recommend Screenshot Mode for an evidence-based audit.
 
 **Accessible:** List every route, page, or section you could reach and evaluate.
 
@@ -42,7 +49,7 @@ Before scoring anything, declare what you were able to access and what you could
 
 ## STEP 2 — DIMENSION SCORES
 
-Score each dimension on a 1-10 scale. For each score, reference the specific sub-criteria that are strong or missing. Do not give a score without evidence.
+Score each dimension on a 1-10 scale. For each score, reference the specific sub-criteria that are strong or missing. Do not give a score without evidence. Under access method (c), write "Not assessable from context" for any dimension the user's description gives no evidence for.
 
 ### UI DIMENSIONS (Objective where possible, flagged where inferred)
 
