@@ -44,8 +44,8 @@ Read the routing file(s) and list every route in the application. Every route mu
 
 **3. Animation inventory**
 Run: `grep -r "@keyframes" --include="*.css" --include="*.scss" --include="*.js" --include="*.ts" --include="*.tsx" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
-Run: `grep -r "transition:" --include="*.css" --include="*.scss" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
-Run: `grep -r "animation:" --include="*.css" --include="*.scss" --include="*.vue" --include="*.svelte" --include="*.astro" -l`
+Run: `grep -r "transition:" --include="*.css" --include="*.scss" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.js" --include="*.ts" --include="*.jsx" --include="*.tsx" -l`
+Run: `grep -r "animation:" --include="*.css" --include="*.scss" --include="*.vue" --include="*.svelte" --include="*.astro" --include="*.js" --include="*.ts" --include="*.jsx" --include="*.tsx" -l`
 List every file containing animations or transitions.
 
 **4. Accessibility attribute inventory**
@@ -117,7 +117,7 @@ Negative claim rule: If claiming "no inconsistencies", show the search that conf
 
 **6. Accessibility (WCAG 2.2 AA)**
 Evaluation method: Use the inventory from Step 1. Read every image component and verify alt text. Check every form field for labels. Grep for focus styles. Check for ARIA roles. Verify semantic HTML structure. Use the WCAG 2.2 greps from Step 1 to check the criteria new in 2.2.
-Sub-criteria: All images have descriptive alt text, all form fields have visible labels, keyboard focus styles defined, ARIA roles used correctly, semantic heading structure followed, no positive tabindex values. WCAG 2.2 additions: a focused element is never entirely hidden by sticky or fixed content, for example scroll-padding offsets sticky headers (2.4.11; keeping it fully visible is a stronger recommendation, not an AA requirement); every drag interaction has a single-pointer alternative (2.5.7); interactive targets are at least 24x24 CSS px or adequately spaced (2.5.8); help and contact links sit in a consistent place in shared layout components (3.2.6); information already entered earlier in the same process is auto-populated or available for selection when it is needed again, unless re-entry is essential, needed for security, or the earlier value is no longer valid (3.3.7); login does not block paste on password fields or require a puzzle CAPTCHA without an alternative (3.3.8).
+Sub-criteria: All images have descriptive alt text, all form fields have visible labels, keyboard focus styles defined, ARIA roles used correctly, semantic heading structure followed, no positive tabindex values. WCAG 2.2 additions: a focused element is never entirely hidden by sticky or fixed content, for example scroll-padding offsets sticky headers (2.4.11; keeping it fully visible is a stronger recommendation, not an AA requirement); every drag interaction has a single-pointer alternative (2.5.7); interactive targets are at least 24x24 CSS px or adequately spaced, unless a 2.5.8 exception applies (an equivalent control meets the size, the target is inline in text, it is an unmodified browser control, or its size is essential) (2.5.8); help and contact links sit in a consistent place in shared layout components (3.2.6); information already entered earlier in the same process is auto-populated or available for selection when it is needed again, unless re-entry is essential, needed for security, or the earlier value is no longer valid (3.3.7); login does not block paste on password fields or require a puzzle CAPTCHA without an alternative (3.3.8).
 10/10 definition: All code-verifiable criteria pass. Code review cannot establish full WCAG 2.2 AA conformance: list the manual checks still required (screen reader testing, keyboard operation in the running app, reading order, alt text quality).
 Evidence required: File:line for every accessibility attribute found and not found.
 Negative claim rule: Every "missing" accessibility attribute must be confirmed with a grep showing no results.
@@ -125,7 +125,7 @@ Regulatory note (status as of September 2026; check for changes): this evaluatio
 
 **7. Responsive and Mobile Behavior**
 Evaluation method: Read CSS breakpoints and media queries. Check component behavior at each breakpoint. Verify tap target sizes on interactive elements.
-Sub-criteria: Content reflows at mobile breakpoints, interactive targets at least 24x24 CSS px or adequately spaced (WCAG 2.5.8, AA), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text readable at all breakpoints, navigation adapts for small screens.
+Sub-criteria: Content reflows at mobile breakpoints, interactive targets at least 24x24 CSS px or adequately spaced, unless a 2.5.8 exception applies (an equivalent control meets the size, the target is inline in text, it is an unmodified browser control, or its size is essential) (WCAG 2.5.8, AA), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text readable at all breakpoints, navigation adapts for small screens.
 10/10 definition: All breakpoints verified. All interactive targets meet 24x24 CSS px or the spacing exception. No overflow or scroll issues in code.
 Evidence required: File:line for breakpoint definitions and tap target size values.
 

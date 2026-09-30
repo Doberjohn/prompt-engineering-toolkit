@@ -213,7 +213,7 @@ The overall score is the average of the active dimension scores. When Process or
 
 In practice: trust the evaluator's ranking of prompts more than any single absolute score, keep the calibration anchors in the evaluator, and treat differences of about one point as noise.
 
-A single evaluator's scores remain a known limitation. Evaluators frequently disagree when assigning severity ratings (Sauro, 2014, citing Nielsen, 1993; see also Hertzum, 2006), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, 1994b). Averaging several evaluator runs is the practical equivalent here.
+A single evaluator's scores remain a known limitation. Evaluators frequently disagree when assigning severity ratings (Sauro, 2014, citing Nielsen, 1993; see also Hertzum, 2006), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, 1994b). Averaging several runs of one model reduces run-to-run noise but does not remove that model's shared biases; independent raters (different models, or people) are closer to what Nielsen recommends.
 
 Earlier versions of this document stated a "framework confidence" of 93%. That figure was not measured and has been replaced by the results above.
 
