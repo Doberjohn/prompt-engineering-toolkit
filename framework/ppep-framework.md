@@ -203,11 +203,17 @@ The overall score is the average of the active dimension scores. When Process or
 
 ## Confidence and limitations
 
-**Framework confidence: 93%**
+**Measured agreement (September 2026).** Five blind rater runs scored the nine calibration prompts using only the rubric, without the anchors (full method and data in `examples/prompt-calibration-agreement.md`):
 
-The remaining 7% reflects the irreducible subjectivity inherent in single-evaluator heuristic assessment. This is a documented limitation in the usability research literature:
+- The rubric orders prompts reliably: Spearman correlation with the reference overall scores was 0.95 to 1.00 in every run.
+- Scores are highly repeatable within one model: in pairwise comparisons, three runs of the same model gave identical dimension scores 80% of the time (Krippendorff's alpha 0.98).
+- Absolute scores vary: without anchors, runs were 0.5 to 1.4 points from the reference overall scores on average, and scored the two 10/10 anchors between 6.25 and 9.0.
 
-Evaluators frequently disagree when assigning severity ratings (Sauro, 2014, citing Nielsen, 1993; see also Hertzum, 2006), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, 1994b).
+In practice: trust the evaluator's ranking of prompts more than any single absolute score, keep the calibration anchors in the evaluator, and treat differences of about one point as noise.
+
+A single evaluator's scores remain a known limitation. Evaluators frequently disagree when assigning severity ratings (Sauro, 2014, citing Nielsen, 1993; see also Hertzum, 2006), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, 1994b). Averaging several evaluator runs is the practical equivalent here.
+
+Earlier versions of this document stated a "framework confidence" of 93%. That figure was not measured and has been replaced by the results above.
 
 Since this framework uses a single AI evaluator, some scoring variance is unavoidable by definition. The calibration set (see `examples/prompt-calibration-set.md`) reduces this variance by providing nine concrete reference points, but does not eliminate it.
 
@@ -225,6 +231,7 @@ Since this framework uses a single AI evaluator, some scoring variance is unavoi
 | Epistemics technique | "Ask it to think first"; "reasoning before answering" sub-criterion | "Ask for tradeoffs and evidence in the answer"; "evidence shown" sub-criterion | Current models reason before answering by default; asking for a reasoning transcript can trigger refusals on some models (Anthropic, n.d.-b) |
 | Epistemics scoring | Generic "verify your answer" scored 4-5 as partial rigor | Earns little; specific evidence requirements score higher | Current models verify their own work unprompted, and generic re-check instructions cause over-verification (Anthropic, n.d.-c) |
 | Epistemics N/A | Defined only in the calibration set | Defined here; "latest/current" requirements make it applicable | Claims about fast-moving practice are exactly what needs checking |
+| Confidence | Unmeasured "93% framework confidence" | Measured agreement from five blind rater runs | The figure had no measurement or source behind it |
 | Attribution | Four dimensions presented as original | Dimensions 1-3 attributed to AI Fluency; Epistemics as the extension | Accurate attribution of a CC BY-NC-SA source |
 
 The effect on the calibration anchors is documented in `examples/prompt-calibration-set.md`.

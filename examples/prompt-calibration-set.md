@@ -20,7 +20,7 @@ Single-evaluator scoring carries irreducible subjectivity. This is a documented 
 
 Evaluators frequently disagree when assigning severity ratings (Sauro, J. (2014), *Journal of Usability Studies*, 10(1), citing Nielsen, 1993; see also Hertzum, M. (2006), *International Journal of Human-Computer Interaction*, 21(2), 125–146), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, J. (1994), *Severity Ratings for Usability Problems*, Nielsen Norman Group).
 
-The calibration set reduces scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity. The framework confidence is documented as 93% in `framework/ppep-framework.md`, with the remaining 7% reflecting this irreducible gap.
+The calibration set reduces scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity. `examples/prompt-calibration-agreement.md` measures how well independent raters reproduce these scores: they rank the anchors almost identically (Spearman 0.95 to 1.00) but score the two 10/10 anchors lower when they cannot see the anchors.
 
 These anchors were calibrated against Claude's behavior specifically. Scoring consistency may vary on other models. The model and version used for the original calibration were not recorded; record them when re-running the anchors.
 
