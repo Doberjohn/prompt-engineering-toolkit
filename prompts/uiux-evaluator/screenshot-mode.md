@@ -54,7 +54,7 @@ Sub-criteria: Maximum 2-3 typefaces visible, consistent typographic scale, suffi
 Note: Screenshot mode cannot verify exact font sizes, line heights, or semantic HTML structure. Flag technical typography findings as Inferred.
 
 **3. Color and Contrast**
-Sub-criteria: Text and background combinations appear to meet WCAG 2.2 AA (4.5:1 for normal text, 3:1 for large text and UI components), color is not the sole means of conveying information, consistent color meaning across all screenshots.
+Sub-criteria: Text and background combinations appear to meet WCAG 2.2 AA (SC 1.4.3: 4.5:1 for normal text, 3:1 for large text of at least 24px regular or 18.66px bold; SC 1.4.11: 3:1 for UI components and graphical objects), color is not the sole means of conveying information, consistent color meaning across all screenshots.
 10/10 definition: All visible color combinations appear to pass WCAG 2.2 AA. Color meaning is consistent.
 Note: Screenshot mode cannot measure exact contrast ratios. All contrast findings are Inferred. Codebase mode is required for verified contrast values.
 
@@ -68,12 +68,12 @@ Sub-criteria: Identical components appear consistent across all provided screens
 Note: Screenshot mode can only evaluate consistency across the screenshots provided. Inconsistencies on unshown screens cannot be detected.
 
 **6. Accessibility (WCAG 2.2 AA)**
-Sub-criteria: Images appear to have alt text context (though cannot verify), form fields have visible labels, focus indicators are visible in any interaction screenshots, color contrast appears sufficient, no flashing content visible.
-10/10 definition: All visually verifiable accessibility criteria appear to pass across all screenshots.
+Sub-criteria: Images appear to have alt text context (though cannot verify), form fields have visible labels, focus indicators are visible in any interaction screenshots, color contrast appears sufficient, no flashing content visible. WCAG 2.2 additions visible in screenshots: focused elements are not hidden behind sticky headers, cookie banners, or overlays in any focus-state screenshot (2.4.11), drag-only interactions show a single-pointer alternative (2.5.7), targets appear at least 24x24 CSS px or adequately spaced (2.5.8; Inferred unless the device scale is known), help links appear in a consistent location across screens (3.2.6), multi-step flows do not ask for the same information twice (3.3.7), login screens do not show a puzzle CAPTCHA or other cognitive test without an alternative (3.3.8).
+10/10 definition: All visually verifiable accessibility criteria appear to pass across all screenshots. This checklist covers a subset of WCAG 2.2 AA. Do not claim full conformance; that requires a manual audit with assistive technology.
 Note: Screenshot mode cannot verify alt text, keyboard navigation, screen reader compatibility, or semantic HTML. These require Codebase Mode. All accessibility findings are Inferred or Suspected.
 
 **7. Responsive and Mobile Behavior**
-Sub-criteria: If multiple viewport screenshots provided - content reflows correctly, tap targets appear minimum 44x44px, text remains readable at all sizes shown, navigation adapts appropriately.
+Sub-criteria: If multiple viewport screenshots provided - content reflows correctly, interactive targets appear at least 24x24 CSS px or adequately spaced (WCAG 2.5.8, AA; Inferred unless the device scale is known), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text remains readable at all sizes shown, navigation adapts appropriately.
 10/10 definition: Interface is fully usable across all viewport sizes shown in screenshots.
 Note: If only one viewport size is provided, responsive evaluation is not possible. State this explicitly.
 

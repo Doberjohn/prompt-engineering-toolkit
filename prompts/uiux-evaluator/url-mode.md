@@ -46,11 +46,11 @@ Sub-criteria: Single dominant focal point per screen, intentional size and weigh
 10/10 definition: Every element has a clear and intentional weight. The blur test passes at every primary screen. No competing focal points. Eye is guided through content in the intended order without ambiguity.
 
 **2. Typography**
-Sub-criteria: Maximum 2-3 typefaces, consistent typographic scale, sufficient line height (minimum 1.5 for body text per WCAG 1.4.12), line length between 50-75 characters, heading hierarchy (H1-H6) used semantically, readable font sizes (minimum 16px body text).
+Sub-criteria: Maximum 2-3 typefaces, consistent typographic scale, sufficient line height (at least 1.5 for body text as a readability best practice; WCAG 1.4.12 separately requires that content survives user-applied spacing overrides without loss), line length between 50-75 characters, heading hierarchy (H1-H6) used semantically, readable font sizes (around 16px or larger for body text as a best practice; not a WCAG requirement).
 10/10 definition: All sub-criteria met. Typography is consistent, scalable, and readable across all screen sizes.
 
 **3. Color and Contrast**
-Sub-criteria: WCAG 2.2 AA minimum contrast ratio 4.5:1 for normal text, 3:1 for large text and UI components, color not used as the sole means of conveying information, consistent use of color to signal meaning across the interface.
+Sub-criteria: WCAG 2.2 AA minimum contrast ratio 4.5:1 for normal text and 3:1 for large text (at least 24px regular or 18.66px bold) per SC 1.4.3, and 3:1 for UI components and graphical objects per SC 1.4.11, color not used as the sole means of conveying information, consistent use of color to signal meaning across the interface.
 10/10 definition: All contrast ratios verifiably pass WCAG 2.2 AA. Color is used consistently and never as the sole signal.
 
 **4. Spacing and Layout**
@@ -62,17 +62,17 @@ Sub-criteria: Identical components look and behave identically across all pages,
 10/10 definition: No inconsistencies detected across all accessible pages.
 
 **6. Accessibility (WCAG 2.2 AA)**
-Sub-criteria: Images have descriptive alt text, form fields have visible labels, keyboard navigation is logical, focus indicators are visible, color contrast passes, no content flashes more than 3 times per second, page has a meaningful title.
-10/10 definition: All WCAG 2.2 AA criteria pass across all accessible pages.
+Sub-criteria: Images have descriptive alt text, form fields have visible labels, keyboard navigation is logical, focus indicators are visible, color contrast passes, no content flashes more than 3 times per second, page has a meaningful title. WCAG 2.2 additions: focused elements are not hidden behind sticky headers, cookie banners, or other overlays (2.4.11), drag-only interactions have a single-pointer alternative (2.5.7), targets at least 24x24 CSS px or adequately spaced (2.5.8; see Responsive Design), help mechanisms appear in a consistent location across pages (3.2.6), information already entered in a flow is not requested again (3.3.7), login does not require a cognitive test such as a puzzle CAPTCHA and allows pasting and password managers (3.3.8).
+10/10 definition: All checked criteria pass across all accessible pages. This checklist covers a subset of WCAG 2.2 AA. Do not claim full conformance; that requires a manual audit with assistive technology.
 Note: URL mode can infer some accessibility issues visually but cannot verify semantic HTML, keyboard navigation, or screen reader compatibility. Flag all accessibility findings as Inferred unless visually verifiable.
 
 **7. Responsive and Mobile Behavior**
-Sub-criteria: Content reflows at mobile breakpoints without horizontal scrolling, tap targets minimum 44x44px, text remains readable at mobile sizes, navigation adapts appropriately for small screens.
+Sub-criteria: Content reflows at mobile breakpoints without horizontal scrolling, interactive targets at least 24x24 CSS px or adequately spaced (WCAG 2.5.8, AA), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text remains readable at mobile sizes, navigation adapts appropriately for small screens.
 10/10 definition: Interface is fully usable on mobile with no loss of content or functionality.
 Note: URL mode can only evaluate the viewport it renders in. Flag mobile findings as Suspected unless you can verify at multiple breakpoints.
 
 **8. Performance Indicators**
-Sub-criteria: Page appears to load within 2.5 seconds (LCP threshold), no visible layout shift after initial load (CLS), images appear optimized, no render-blocking indicators visible.
+Sub-criteria: Page appears to load within 2.5 seconds (LCP threshold), no visible layout shift after initial load (CLS), interactions appear to respond without noticeable delay (INP, good at or below 200 ms), images appear optimized, no render-blocking indicators visible.
 10/10 definition: No visible performance issues on any accessible page.
 Note: URL mode cannot measure Core Web Vitals precisely. All performance findings are Inferred.
 

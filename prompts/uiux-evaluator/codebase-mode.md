@@ -52,6 +52,10 @@ Run: `grep -r "alt=" --include="*.tsx" --include="*.jsx" --include="*.html" -l`
 Run: `grep -r "aria-" --include="*.tsx" --include="*.jsx" --include="*.html" -l`
 Run: `grep -r "role=" --include="*.tsx" --include="*.jsx" --include="*.html" -l`
 Run: `grep -r "focus" --include="*.css" --include="*.scss" -l`
+Run: `grep -r "draggable\|onDrag\|dragstart\|useDrag\|useSortable" --include="*.tsx" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 2.5.7)
+Run: `grep -ri "onPaste\|captcha\|turnstile" --include="*.tsx" --include="*.jsx" --include="*.js" --include="*.ts" --include="*.html" -l` (WCAG 3.3.8)
+Run: `grep -r "autocomplete=\|autoComplete=" --include="*.tsx" --include="*.jsx" --include="*.html" -l` (WCAG 3.3.7)
+Run: `grep -r "position: *sticky\|position: *fixed\|scroll-padding\|scroll-margin" --include="*.css" --include="*.scss" -l` (WCAG 2.4.11)
 Document what was found and what was not found.
 
 **5. Color system inventory**
@@ -83,12 +87,12 @@ Evidence required: Reference the specific component files and CSS rules that def
 
 **2. Typography**
 Evaluation method: Read typography tokens or CSS. Measure font sizes, line heights, line lengths, and typeface count.
-Sub-criteria: Maximum 2-3 typefaces, consistent typographic scale, line height minimum 1.5 for body text (WCAG 1.4.12), line length 50-75 characters, semantic heading hierarchy, body text minimum 16px.
-10/10 definition: All sub-criteria verified from code. Typography is consistent and WCAG-compliant.
+Sub-criteria: Maximum 2-3 typefaces, consistent typographic scale, line height at least 1.5 for body text (readability best practice), line length 50-75 characters, semantic heading hierarchy, body text around 16px or larger (best practice; not a WCAG requirement), text containers do not use fixed heights with hidden overflow that would clip text when users override spacing (WCAG 1.4.12, AA).
+10/10 definition: All sub-criteria verified from code. Typography is consistent and readable, and no text container would clip under WCAG 1.4.12 spacing overrides.
 Evidence required: File:line references for font definitions, size values, and line height values.
 
 **3. Color and Contrast**
-Evaluation method: Extract exact hex values from design tokens or CSS. Calculate contrast ratios against WCAG 2.2 AA thresholds (4.5:1 normal text, 3:1 large text and UI components).
+Evaluation method: Extract exact hex values from design tokens or CSS. Calculate contrast ratios against WCAG 2.2 AA thresholds (SC 1.4.3: 4.5:1 normal text, 3:1 large text of at least 24px regular or 18.66px bold; SC 1.4.11: 3:1 for UI components and graphical objects).
 Sub-criteria: All text/background combinations pass WCAG 2.2 AA, color not sole means of conveying information.
 10/10 definition: Every text/background combination verified to pass WCAG 2.2 AA.
 Evidence required: Exact hex values with file:line references. Contrast ratio calculation shown for each combination.
@@ -108,16 +112,16 @@ Evidence required: File:line references for any inconsistencies. Grep results fo
 Negative claim rule: If claiming "no inconsistencies", show the search that confirmed it.
 
 **6. Accessibility (WCAG 2.2 AA)**
-Evaluation method: Use the inventory from Step 1. Read every image component and verify alt text. Check every form field for labels. Grep for focus styles. Check for ARIA roles. Verify semantic HTML structure.
-Sub-criteria: All images have descriptive alt text, all form fields have visible labels, keyboard focus styles defined, ARIA roles used correctly, semantic heading structure followed, no positive tabindex values.
-10/10 definition: All WCAG 2.2 AA criteria verified as passing from code.
+Evaluation method: Use the inventory from Step 1. Read every image component and verify alt text. Check every form field for labels. Grep for focus styles. Check for ARIA roles. Verify semantic HTML structure. Use the WCAG 2.2 greps from Step 1 to check the criteria new in 2.2.
+Sub-criteria: All images have descriptive alt text, all form fields have visible labels, keyboard focus styles defined, ARIA roles used correctly, semantic heading structure followed, no positive tabindex values. WCAG 2.2 additions: sticky or fixed elements do not obscure focused elements, for example scroll-padding offsets sticky headers (2.4.11); every drag interaction has a single-pointer alternative (2.5.7); interactive targets are at least 24x24 CSS px or adequately spaced (2.5.8); help and contact links sit in a consistent place in shared layout components (3.2.6); multi-step forms prefill or offer previously entered data (3.3.7); login does not block paste on password fields or require a puzzle CAPTCHA without an alternative (3.3.8).
+10/10 definition: All code-verifiable criteria pass. Code review cannot establish full WCAG 2.2 AA conformance: list the manual checks still required (screen reader testing, keyboard operation in the running app, reading order, alt text quality).
 Evidence required: File:line for every accessibility attribute found and not found.
 Negative claim rule: Every "missing" accessibility attribute must be confirmed with a grep showing no results.
 
 **7. Responsive and Mobile Behavior**
 Evaluation method: Read CSS breakpoints and media queries. Check component behavior at each breakpoint. Verify tap target sizes on interactive elements.
-Sub-criteria: Content reflows at mobile breakpoints, tap targets minimum 44x44px, text readable at all breakpoints, navigation adapts for small screens.
-10/10 definition: All breakpoints verified. All tap targets meet minimum size. No overflow or scroll issues in code.
+Sub-criteria: Content reflows at mobile breakpoints, interactive targets at least 24x24 CSS px or adequately spaced (WCAG 2.5.8, AA), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text readable at all breakpoints, navigation adapts for small screens.
+10/10 definition: All breakpoints verified. All interactive targets meet 24x24 CSS px or the spacing exception. No overflow or scroll issues in code.
 Evidence required: File:line for breakpoint definitions and tap target size values.
 
 **8. Performance Indicators**
