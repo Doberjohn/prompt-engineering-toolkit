@@ -207,7 +207,7 @@ The overall score is the average of the active dimension scores. When Process or
 
 - The rubric orders prompts reliably: Spearman correlation with the reference overall scores was 0.95 to 1.00 in every run.
 - Scores are highly repeatable within one model: in pairwise comparisons, three runs of the same model gave identical dimension scores 80% of the time (Krippendorff's alpha 0.98).
-- Absolute scores vary: without anchors, runs were 0.5 to 1.4 points from the reference overall scores on average, and scored the two 10/10 anchors between 6.25 and 9.0.
+- Absolute scores vary: without anchors, runs were 0.5 to 1.4 points from the reference overall scores on average, and scored the two anchors then rated 10/10 between 6.25 and 9.0. A follow-up run with reasons showed real gaps in both, and they were lowered to 8/10 and 7/10; against the revised reference, the average gap narrows to 0.6 to 1.1 points across both runs (partly by construction, since the revision used the raters' reasons).
 
 In practice: trust the evaluator's ranking of prompts more than any single absolute score, keep the calibration anchors in the evaluator, and treat differences of about one point as noise.
 

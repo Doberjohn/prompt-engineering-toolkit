@@ -182,23 +182,23 @@ Use the following reference prompts to anchor your scoring. Scores reflect the r
 
 ---
 
-### ANCHOR 8 - Score: 10/10 (technical, agentic context)
+### ANCHOR 8 - Score: 8/10, originally 10/10 (failure mode: epistemic rigor with no stated audience, depth, or tone)
 
 **Prompt:** "Improve the overall UI/UX on Inkweave to make it more engaging with animated segments and graphics. Constraints on analysis: 1. Inventory before judging. Before scoring any area, produce a complete inventory of every page/route in the app, every existing @keyframes animation, every component that uses transition or animation properties, every custom animation hook and where each is imported. Show the grep results or file references as evidence. 2. Per-page analysis. Score each route separately. Every page in the router must appear in the report. 3. Negative claims require proof. If you say something does not exist show the search you ran to confirm it. If you say a component is not used show the import search. 4. Scoring criteria. For each page score current animation quality 1-10, improvement impact potential 1-10, list every existing animation with file:line references. Deliverables in order: 1. Inventory - the raw evidence. 2. Audit report - structured findings per page with scores. 3. Proposed solutions - creative, out of the box, build on existing patterns. 4. Discussion - pause for my input. Process: notify me when each deliverable is complete. If you need clarification ask before proceeding. Do not summarize agent exploration results as facts - verify every claim with direct grep/read."
 
-**Scores:** Product 10, Process 10, Performance 10, Epistemics 10
+**Scores:** Product 8, Process 9, Performance 6, Epistemics 10 (originally all 10)
 
-**Why:** Every dimension fully specified. Process is strong in exactly the way the revised criteria reward: ordered deliverables, a pause for input, and notification at each stage, with the analysis method left to the model. The defining characteristic is the Epistemics dimension - it tells the AI how to know things and how to prove them: inventory before judging, negative claims require proof, no summarizing as facts. This is the gold standard for technical agentic prompts. In a repeated agentic setup, the standing Epistemics rules could live in a repository instruction file instead of the prompt.
+**Why:** Process is strong in exactly the way the revised criteria reward: ordered deliverables, a pause for input, and notification at each stage, with the analysis method left to the model. Epistemics is the set's best: inventory before judging, negative claims require proof, no summarizing as facts. But the prompt never states who the report is for, how deep to go, or in what tone, so Product loses the audience sub-criterion and Performance falls to 6; the completion condition is implied by the deliverable list rather than stated. Overall (8 + 9 + 6 + 10) / 4 = 8.25, rounded to 8.
 
 ---
 
-### ANCHOR 9 - Score: 10/10 (non-technical, collaborative context)
+### ANCHOR 9 - Score: 7/10, originally 10/10 (failure mode: strong collaboration, contradictory format, garbled epistemic rule)
 
 **Prompt:** "Act as an experienced human resources manager that had a career in academics in the past and was my manager in the previous company. If you have any questions throughout the process ask me clarifying questions before writing anything. Write me a strong 1000 word cover letter for an upcoming senior fashion journalist job I am applying, covering all the things I worked on with the manager and my strengths in a structured report. Break the letter in segments. Create draft versions first so we can go back and forth fixing all the points needed or I give you feedback about missing stuff. We will finalize when everything is in order. I was a senior journalist in the previous company so do a thorough search online about other strong cover letters in my domain and always verify that your structure is the most up to date with what others do. You have to always find and provide proof that what you propose is true and that you don't give negative claims."
 
-**Scores:** Product 10, Process 10, Performance 10, Epistemics 10
+**Scores:** Product 7, Process 8, Performance 7, Epistemics 7 (originally all 10)
 
-**Why:** A role that carries real context (a former manager who knows the candidate's work), specific job target, word count, format, iterative process with a defined completion condition, mandatory verification, and explicit proof requirement for both positive and negative claims. The gold standard for non-technical collaborative prompts. Notice how this reaches 10/10 through collaboration and verification rather than technical commands - a completely different path to perfect than Anchor 8.
+**Why:** A role that carries real context, a specific job target and word count, and a fully defined iterative collaboration. But the format contradicts itself (a cover letter "in a structured report"), the completion condition is vague ("when everything is in order"), tone is only "strong", and "you don't give negative claims" garbles the negative-claims rule instead of requiring proof, with no instruction to label inferences. Overall (7 + 8 + 7 + 7) / 4 = 7.25, rounded to 7.
 
 ---
 

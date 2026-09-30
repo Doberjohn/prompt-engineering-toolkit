@@ -64,7 +64,7 @@ This study replaces the former "93% framework confidence" figure, which had no m
 1. **The rubric orders prompts reliably.** Every run ranked the nine prompts in nearly the same order as the reference (Spearman 0.95 to 1.00).
 2. **Scores are highly repeatable within one model.** Re-running the same model changes an overall score by about a tenth of a point on average.
 3. **Absolute scores depend on the model and on the anchors.** Without anchors, runs sat 0.5 to 1.4 points from the reference on average, and different models disagreed with each other by similar amounts.
-4. **The gold-standard anchors are where blind raters disagree most.** Anchors 8 and 9 (reference 10/10) scored 6.25 to 8.25 in the same-model runs. The largest and most consistent drops were Anchor 9's Performance and Epistemics (6 in every same-model run, against a reference of 10) and Anchor 8's Performance (5 or 6, against 10). Raters returned scores only, so their reasons are not recorded; a follow-up run that asks for one-line notes would show which sub-criteria they judged missing. Either the written rubric is stricter than the reference at the top of the scale, or the reference is generous there; the owner should decide which, and adjust either the rubric text or the two anchors.
+4. **The gold-standard anchors are where blind raters disagree most.** Anchors 8 and 9 (reference 10/10) scored 6.25 to 8.25 in the same-model runs. The largest and most consistent drops were Anchor 9's Performance and Epistemics (6 in every same-model run, against a reference of 10) and Anchor 8's Performance (5 or 6, against 10). Raters returned scores only, so their reasons are not recorded; a follow-up run that asks for one-line notes would show which sub-criteria they judged missing. Either the written rubric is stricter than the reference at the top of the scale, or the reference is generous there; the owner should decide which, and adjust either the rubric text or the two anchors. *Update:* the follow-up run below answered this: the reference was generous, and both anchors were lowered.
 5. **The calibration anchors are doing essential work.** Because blind scores drift at the top of the scale, the anchors in the shipped evaluator are what keep absolute scores comparable. Do not remove them.
 
 ---
@@ -93,9 +93,28 @@ Anchor 10's reference is shown after the correction described below. Spearman ag
 **What the reasons showed:**
 
 1. **Anchor 10 was over-scored on Product.** All three runs noted that the prompt never states who the report is for. Audience is a Product sub-criterion, and a missing sub-criterion rules out 9-10, so the reference Product score was corrected from 10 to 8 (overall 8.5 to 8.0). The candidate was sought as a 9/10 anchor and was added at 8/10 instead.
-2. **The gold-standard anchors have real gaps.** For Anchor 9, all three runs flagged the contradiction between "cover letter" and "a structured report", and read "you don't give negative claims" as a garbled version of the negative-claims rule rather than a requirement to prove them. For Anchor 8, all three flagged that audience, depth, and tone are never stated. These are gaps the rubric defines, which suggests the 10/10 reference scores for Anchors 8 and 9 are generous rather than the rubric being too strict. Whether to lower them is the author's decision.
+2. **The gold-standard anchors have real gaps.** For Anchor 9, all three runs flagged the contradiction between "cover letter" and "a structured report", and read "you don't give negative claims" as a garbled version of the negative-claims rule rather than a requirement to prove them. For Anchor 8, all three flagged that audience, depth, and tone are never stated. These are gaps the rubric defines, which suggests the 10/10 reference scores for Anchors 8 and 9 are generous rather than the rubric being too strict. The author then lowered them: Anchor 8 to 8/10 and Anchor 9 to 7/10 (details in `examples/prompt-calibration-set.md`).
 3. **Autonomous briefs cap at Process 8.** The Process 9-10 band requires checkpoints; a brief for an agent that runs unattended cannot have them. Two runs also called Anchor 10's numbered steps over-prescribed. A future revision could make checkpoints N/A when no human is in the loop.
 4. **N/A use varies.** Runs marked Process N/A on Anchors 2, 3, or 1 in some cases, where the reference scores 1 or 2. The N/A rule for "small tasks" is being read more broadly than intended.
+
+---
+
+## Agreement after lowering Anchors 8 and 9
+
+After Anchors 8 and 9 were lowered (Anchor 8: 10/10/10/10 to 8/9/6/10; Anchor 9: 10/10/10/10 to 7/8/7/7), agreement was recomputed against the revised reference using the same rater data.
+
+| Run | Spearman | Mean abs. overall difference | Dimension scores within ±1 |
+|---|---|---|---|
+| First study, same model, run 1 | 0.98 | 0.94 | 76% |
+| First study, same model, run 2 | 1.00 | 0.72 | 74% |
+| First study, same model, run 3 | 0.98 | 0.81 | 76% |
+| First study, mid-size model | 0.98 | 0.89 | 58% |
+| First study, small model | 0.97 | 0.58 | 86% |
+| Follow-up, run 1 | 0.97 | 1.12 | — |
+| Follow-up, run 2 | 0.99 | 0.91 | — |
+| Follow-up, run 3 | 0.99 | 0.96 | — |
+
+**Caveat:** this improvement is partly by construction. The revised scores were informed by the same raters' reasons, so these numbers are not independent confirmation. A fresh blind run against the revised reference is the proper test. The tables above keep the reference scores as they were at the time of each run.
 
 ---
 

@@ -38,6 +38,20 @@ These anchors were calibrated against Claude's behavior specifically. Scoring co
 
 **September 2026, later:** Anchor 10 added at 8/10 (see its provenance note). A candidate for a 9/10 anchor was sought; the best available real prompt scored 8.
 
+**September 2026, later still:** Anchors 8 and 9 lowered at the author's request, after blind raters' reasons (see `examples/prompt-calibration-agreement.md`) identified gaps that the rubric defines. The set now has no anchor above 8/10; real 9/10 and 10/10 prompts should be added.
+
+| Anchor | Dimension | Original | Revised | Reason |
+|---|---|---|---|---|
+| 8 | Product | 10 | 8 | Audience not stated (a Product sub-criterion); length unbounded |
+| 8 | Process | 10 | 9 | Completion condition implied rather than stated |
+| 8 | Performance | 10 | 6 | Audience, depth, and tone not stated; only collaboration style defined |
+| 9 | Product | 10 | 7 | Format contradiction: cover letter "in a structured report" |
+| 9 | Process | 10 | 8 | Vague completion condition ("when everything is in order") |
+| 9 | Performance | 10 | 7 | Tone only "strong"; reader implied, not stated |
+| 9 | Epistemics | 10 | 7 | Negative-claims rule garbled; inferences not labelled |
+
+Overall: Anchor 8 from 10/10 to 8/10 (8.25); Anchor 9 from 10/10 to 7/10 (7.25).
+
 Overall effect of the re-score: Anchor 6 stays 8/10 (7.75). Anchor 7 moves from 9/10 to 6/10, which leaves the set without a 9/10 anchor; a real prompt at that level should be added. Several notes were also reworded because a missing persona is no longer a gap on its own and tone belongs to Performance, not Product; those changes did not move any score.
 
 ### Relationship to the framework
@@ -197,8 +211,8 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 
 ---
 
-## ANCHOR 8 — Overall: 10/10
-### Gold standard: Technical agentic context
+## ANCHOR 8 — Overall: 8/10 (originally 10/10)
+### Failure mode: Epistemic rigor with no stated audience, depth, or tone
 
 **Prompt:**
 > "Improve the overall UI/UX on Inkweave to make it more engaging with animated segments and graphics. Constraints on analysis: 1. Inventory before judging. Before scoring any area, produce a complete inventory of every page/route in the app, every existing @keyframes animation, every component that uses transition or animation properties, every custom animation hook and where each is imported. Show the grep results or file references as evidence. 2. Per-page analysis. Score each route separately. Every page in the router must appear in the report. 3. Negative claims require proof. If you say something does not exist show the search you ran to confirm it. If you say a component is not used show the import search. 4. Scoring criteria. For each page score current animation quality 1-10, improvement impact potential 1-10, list every existing animation with file:line references. Deliverables in order: 1. Inventory - the raw evidence. 2. Audit report - structured findings per page with scores. 3. Proposed solutions - creative, out of the box, build on existing patterns. 4. Discussion - pause for my input. Process: notify me when each deliverable is complete. If you need clarification ask before proceeding. Do not summarize agent exploration results as facts - verify every claim with direct grep/read."
@@ -206,17 +220,17 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 **Scores:**
 | Dimension | Score | Notes |
 |---|---|---|
-| Product | 10 | Deliverable fully specified: per-page scores, file:line references, ordered deliverables. |
-| Process | 10 | Four explicit ordered deliverables, pause for input, notify on completion. |
-| Performance | 10 | Collaboration style, verification behavior, and creative direction all defined. |
+| Product | 8 (originally 10) | Scope, per-page scores, file:line references, and ordered deliverables fully specified. The report's audience is never stated and its length is unbounded. |
+| Process | 9 (originally 10) | Four explicit ordered deliverables, pause for input, notify on completion, ask before proceeding. The completion condition is implied by the deliverable list rather than stated. |
+| Performance | 6 (originally 10) | Collaboration style is fully defined, and "creative, out of the box" steers the proposals. Audience, depth, and tone are never stated. |
 | Epistemics | 10 | Inventory before judging, negative claims require proof, no summarizing as facts — full epistemic rigor. |
 
-**Why this is the technical 10/10:** The defining characteristic is not just that it covers all four dimensions — it is the depth of the Epistemics dimension. This prompt does not just tell Claude what to do; it tells Claude how to know things and how to prove them. The instruction "do not summarize agent exploration results as facts" anticipates guidance that now appears in official documentation for agentic work: ground every claim in evidence from the session.
+**Why this score:** (8 + 9 + 6 + 10) / 4 = 8.25, rounded to 8. The defining characteristic is still the depth of the Epistemics dimension: it tells the AI how to know things and how to prove them. The instruction "do not summarize agent exploration results as facts" anticipates guidance that now appears in official documentation for agentic work. It was originally scored as the technical 10/10; blind raters consistently marked it down for never stating who the output is for, how deep to go, or in what tone, and the rubric counts those as gaps. It remains the set's best example of Epistemics and Process.
 
 ---
 
-## ANCHOR 9 — Overall: 10/10
-### Gold standard: Non-technical collaborative context
+## ANCHOR 9 — Overall: 7/10 (originally 10/10)
+### Failure mode: Strong collaboration, contradictory format, garbled epistemic rule
 
 **Prompt:**
 > "Act as an experienced human resources manager that had a career in academics in the past and was my manager in the previous company. If you have any questions throughout the process ask me clarifying questions before writing anything. Write me a strong 1000 word cover letter for an upcoming senior fashion journalist job I am applying, covering all the things I worked on with the manager and my strengths in a structured report. Break the letter in segments. Create draft versions first so we can go back and forth fixing all the points needed or I give you feedback about missing stuff. We will finalize when everything is in order. I was a senior journalist in the previous company so do a thorough search online about other strong cover letters in my domain and always verify that your structure is the most up to date with what others do. You have to always find and provide proof that what you propose is true and that you don't give negative claims."
@@ -224,12 +238,12 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 **Scores:**
 | Dimension | Score | Notes |
 |---|---|---|
-| Product | 10 | Word count, specific job target, format, structured segments, domain all specified. |
-| Process | 10 | Clarifying questions before writing, draft iterations, back-and-forth loop, defined completion condition. |
-| Performance | 10 | A role that carries real context (HR manager + academic background + former direct manager who knows the candidate's work), collaborative and iterative tone fully defined. |
-| Epistemics | 10 | Online search, verification against current standards, proof for positive and negative claims. |
+| Product | 7 (originally 10) | Word count, specific job target, and domain specified. The format contradicts itself: a cover letter "in a structured report". |
+| Process | 8 (originally 10) | Clarifying questions before writing, draft iterations, back-and-forth loop. "We will finalize when everything is in order" is a vague completion condition. |
+| Performance | 7 (originally 10) | A role that carries real context and a fully defined collaboration style. Tone is only "strong", and the reader (the hiring manager) is implied, not stated. |
+| Epistemics | 7 (originally 10) | Specific evidence requirements: search strong letters in the domain and prove what is proposed. "You don't give negative claims" garbles the negative-claims rule instead of requiring proof, and inferences are not labelled. |
 
-**Why this is the non-technical 10/10:** This prompt reaches the same score as Anchor 8 through entirely different means. No grep commands, no file references, no agentic tools — just a precisely specified role, a fully defined iterative process, and explicit epistemic requirements for a collaborative writing task. The two 10/10 anchors together demonstrate that perfect prompts look very different depending on the task type.
+**Why this score:** (7 + 8 + 7 + 7) / 4 = 7.25, rounded to 7. It was originally scored as the non-technical 10/10, and it is still a good example of a collaborative, iterative writing prompt. Blind raters consistently flagged the format contradiction and the garbled negative-claims instruction, which the rubric counts as gaps. Its lesson is that a prompt can feel complete to its author while containing instructions the AI cannot satisfy together.
 
 ---
 
@@ -278,7 +292,7 @@ When Epistemics is N/A, the overall score is the average of the active dimension
 
 ## Observations from scoring the calibration set
 
-The following patterns were observed during the scoring of Anchors 1-9 by a single subject matter expert (Observation 7 covers Anchor 10). They are not formal research findings — they are heuristics surfaced from this specific set of nine real prompts. They are offered as calibration guidance, not as general claims about all prompts or all users.
+The following patterns were observed during the scoring of Anchors 1-9 by a single subject matter expert (Observation 7 covers Anchor 10). They are not formal research findings — they are heuristics surfaced from this specific set of nine real prompts. Observation 4 was revised after Anchors 8 and 9 were lowered. They are offered as calibration guidance, not as general claims about all prompts or all users.
 
 **Observation 1: In this set, strong Product without the other dimensions produced low overall scores.**
 Anchor 2 scores 7 on Product but only 3 overall. The developer knew their domain well but did not address how Claude should approach the task, behave, or verify its knowledge. Whether this reflects a general pattern in real-world prompts is not claimed here — it is a structural consequence of the four-dimension framework applied to these specific examples.
@@ -289,14 +303,14 @@ Between Anchor 3 and Anchor 4, one addition — web search and verification — 
 **Observation 3: In this set, Epistemics was consistently the last dimension addressed.**
 Apart from Anchor 4, no anchor before the 7/10 range has meaningful Epistemics. Whether this reflects general user behaviour is not claimed here — it reflects the development trajectory of these nine specific prompts.
 
-**Observation 4: Two structurally different prompts reached 10/10.**
-Anchors 8 and 9 both score 10/10 through entirely different approaches. One uses grep commands and file references in an agentic codebase context. The other uses role layers and iterative collaboration in a non-technical writing context. This suggests the framework is task-agnostic in its application, though two examples are insufficient to establish this as a general claim.
+**Observation 4: The author's two best prompts were strong along different dimensions, and both had gaps the author did not see.**
+Anchors 8 and 9 were originally scored 10/10. One uses grep commands and file references in an agentic codebase context; the other uses role layers and iterative collaboration in a non-technical writing context. Independent blind raters found gaps in both (no stated audience or tone in Anchor 8; a format contradiction and a garbled epistemic rule in Anchor 9), and they were lowered to 8/10 and 7/10. The lesson is the one the framework's confidence section warns about: a single evaluator, especially the prompt's own author, tends to score their best work too high.
 
 **Observation 5: Epistemics N/A is valid for some task types, but narrower than it first appears.**
 Anchor 7 was originally scored N/A on Epistemics as a code generation task. On re-scoring, its request for "the latest best practices" made the dimension applicable. N/A remains valid for generation from a complete, self-contained specification; forcing the dimension there would artificially deflate the score.
 
 **Observation 6: The revised criteria mostly moved notes, not scores.**
-Of 36 dimension scores, three changed in the September 2026 re-score, all in Anchors 6 and 7. The larger shift was in what the notes credit: checkpoints and completion conditions rather than numbered steps, audience and depth rather than a persona, and specific evidence rather than generic verification.
+Of 36 dimension scores, three changed in the first September 2026 re-score, all in Anchors 6 and 7 (a later change to Anchors 8 and 9 is covered in Observation 4). The larger shift was in what the notes credit: checkpoints and completion conditions rather than numbered steps, audience and depth rather than a persona, and specific evidence rather than generic verification.
 
 **Observation 7: A prompt can be rigorous about evidence and still leave the audience undefined.**
-Anchor 10 matches Anchor 8 on Epistemics (10) but scores 6 on Performance and 8 on Product because it never says who the output is for. Blind raters converged on this gap without seeing the reference scores. It also exposes a rubric limit: autonomous agent briefs cannot have checkpoints, so Process caps at 8 for them.
+Anchors 8 and 10 share the same profile: Epistemics 10, Product 8, and Performance 6, because neither says who the output is for, how deep to go, or in what tone. Blind raters converged on this gap without seeing the reference scores. Anchor 10 also exposes a rubric limit: autonomous agent briefs cannot have checkpoints, so Process caps at 8 for them.
