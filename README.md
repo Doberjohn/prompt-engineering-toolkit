@@ -31,7 +31,7 @@ Every decision in this framework was:
 
 - **Grounded in established research** — Nielsen's 10 Usability Heuristics, WCAG 2.2 AA, NN/G studies, peer-reviewed usability literature
 - **Validated through iteration** — prompts were evaluated, scored, revised, and rescored against a consistent rubric until the framework stabilized
-- **Calibrated against real examples** — a set of nine anchor prompts spanning the full quality range (1/10 to 10/10) was developed to reduce scoring subjectivity
+- **Calibrated against real examples** — a set of ten anchor prompts spanning the full quality range (1/10 to 10/10) was developed to reduce scoring subjectivity
 - **Honest about limitations** — scoring agreement is measured rather than asserted, and the limits of single-evaluator scoring are documented
 
 The result is a framework you can trust, teach, and build on.
@@ -64,7 +64,7 @@ A four-dimension model for evaluating and writing AI prompts, extended with seve
 > The criteria were revised in September 2026 for current reasoning models: Process no longer rewards step-by-step thinking instructions, a persona is optional, and generic "verify your answer" lines earn little. See "What changed and why" in `framework/ppep-framework.md`.
 
 ### The Prompt Evaluator
-A session intro prompt for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using nine scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
+A session intro prompt for activating strict, calibrated prompt evaluation. Scores prompts across the four PPEP dimensions using ten scored reference anchors. Works best with Claude, compatible with any instruction-following AI model.
 
 ### The UI/UX Evaluation Prompts
 Three production-ready evaluation prompts for auditing user interfaces (`prompts/uiux-evaluator/`), one for each evaluation source: URL (`url-mode.md`), Screenshot (`screenshot-mode.md`), and Codebase (`codebase-mode.md`). Built on Nielsen's heuristics, WCAG 2.2 AA, and 20 independently scored dimensions (1-10 each, no aggregate score) covering both UI (objective) and UX (heuristic inference). Every finding carries a confidence label, and AI-generated findings of Severity 3 or 4 that are not verified require human confirmation.
@@ -73,7 +73,7 @@ Three production-ready evaluation prompts for auditing user interfaces (`prompts
 A Discernment tool — a session intro prompt for exercising human judgment over GitHub implementation plan issues before delegating execution to AI. Evaluates whether an issue is safe to hand to an AI coding agent by scoring it across eight sections using a weighted formula derived from Nielsen's severity scale. Also runs a separate agent readiness check (runnable done-when command, environment or instruction file, out-of-scope list, boundaries, human-only steps, scope) with a verdict of ready, supervise, or not ready. Produces severity findings and generates targeted improvement suggestions (score >= 7.0), a full revised issue (2.0 <= score < 7.0), or a structured template (score < 2.0) when context is insufficient for a meaningful rewrite. Built on research from GitHub official documentation, Agile acceptance criteria standards, and SRE runbook quality frameworks.
 
 ### The Prompt Calibration Set
-Nine real prompts evaluated and scored during framework development, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Re-scored in September 2026 against the revised criteria, with the original scores kept for traceability. A companion agreement study (`examples/prompt-calibration-agreement.md`) measures how consistently independent raters reproduce these scores. Included as a learning resource.
+Ten real prompts, spanning scores from 1/10 to 10/10 with two distinct 10/10 anchors (technical agentic and non-technical collaborative). Nine were written by the framework author during development; the tenth is an autonomous agent brief from a real audit of this repository. Re-scored in September 2026 against the revised criteria, with the original scores kept for traceability. A companion agreement study (`examples/prompt-calibration-agreement.md`) measures how consistently independent raters reproduce these scores. Included as a learning resource.
 
 ### The Issue Calibration Set
 A real implementation plan issue ([Doberjohn/inkweave#278](https://github.com/Doberjohn/inkweave/issues/278), formula score 9.44/10) plus nine controlled degradations of it, each with a traceable degradation rationale and formula score. Built by controlled degradation of a known-good artifact, following the logic of perturbation-based meta-evaluation (Karpinska et al., 2022). Includes a full methodology section with 28 citations across GitHub issue quality research, Agile documentation standards, SRE runbook frameworks, and LLM evaluation methods.

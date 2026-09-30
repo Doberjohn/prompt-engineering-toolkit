@@ -69,9 +69,39 @@ This study replaces the former "93% framework confidence" figure, which had no m
 
 ---
 
+## Follow-up run: ten prompts, with reasons (September 2026)
+
+A second blind run added a candidate anchor and asked raters for a one-line reason for every dimension scored below 9, which the first run lacked.
+
+**Setup:** three runs of the same large Claude model, each given the same rubric and the nine anchor prompts plus the candidate (now Anchor 10), shuffled under new labels. As before, no scores, notes, or repository access. The candidate's reference scores (Product 10, Process 8, Performance 6, Epistemics 10; 8.5 overall) were recorded before the runs.
+
+| Anchor | Reference | Run 1 | Run 2 | Run 3 |
+|---|---|---|---|---|
+| 1 | 1.00 | 1.00 | 1.00 | 1.00 |
+| 2 | 3.25 | 4.00 | 3.50 | 4.00 |
+| 3 | 2.75 | 2.00 | 2.67 | 2.67 |
+| 4 | 5.25 | 3.25 | 3.50 | 3.25 |
+| 5 | 7.00 | 5.25 | 5.25 | 5.25 |
+| 6 | 7.75 | 6.00 | 6.50 | 6.75 |
+| 7 | 6.00 | 4.00 | 4.00 | 4.25 |
+| 8 | 10.00 | 7.50 | 7.50 | 7.75 |
+| 9 | 10.00 | 6.50 | 6.50 | 6.25 |
+| 10 | 8.00 | 7.25 | 7.50 | 7.25 |
+
+Anchor 10's reference is shown after the correction described below. Spearman against the reference: 0.96, 0.96, 0.94. Mean absolute overall difference: 1.57, 1.36, 1.41. Every run ranked Anchor 8 first and Anchor 10 second.
+
+**What the reasons showed:**
+
+1. **Anchor 10 was over-scored on Product.** All three runs noted that the prompt never states who the report is for. Audience is a Product sub-criterion, and a missing sub-criterion rules out 9-10, so the reference Product score was corrected from 10 to 8 (overall 8.5 to 8.0). The candidate was sought as a 9/10 anchor and was added at 8/10 instead.
+2. **The gold-standard anchors have real gaps.** For Anchor 9, all three runs flagged the contradiction between "cover letter" and "a structured report", and read "you don't give negative claims" as a garbled version of the negative-claims rule rather than a requirement to prove them. For Anchor 8, all three flagged that audience, depth, and tone are never stated. These are gaps the rubric defines, which suggests the 10/10 reference scores for Anchors 8 and 9 are generous rather than the rubric being too strict. Whether to lower them is the author's decision.
+3. **Autonomous briefs cap at Process 8.** The Process 9-10 band requires checkpoints; a brief for an agent that runs unattended cannot have them. Two runs also called Anchor 10's numbered steps over-prescribed. A future revision could make checkpoints N/A when no human is in the loop.
+4. **N/A use varies.** Runs marked Process N/A on Anchors 2, 3, or 1 in some cases, where the reference scores 1 or 2. The N/A rule for "small tasks" is being read more broadly than intended.
+
+---
+
 ## How to re-run
 
-1. Copy the EVALUATION FRAMEWORK and SCORING BEHAVIOR sections from `prompts/prompt-evaluator.md` into a file, followed by the nine anchor prompts in a shuffled order under neutral labels (P1 to P9). Do not include scores or notes.
+1. Copy the EVALUATION FRAMEWORK and SCORING BEHAVIOR sections from `prompts/prompt-evaluator.md` into a file, followed by all anchor prompts in a shuffled order under neutral labels (P1, P2, ...). Do not include scores or notes. Asking for a one-line reason for every dimension scored below 9 makes disagreements interpretable.
 2. Give that file, and nothing else, to at least three fresh sessions of the model you care about, plus any other models you want to compare. Ask for JSON scores only.
 3. Map labels back to anchors and compute the metrics above. Record the model names, the date, and the rubric revision.
 

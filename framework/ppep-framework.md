@@ -215,7 +215,7 @@ A single evaluator's scores remain a known limitation. Evaluators frequently dis
 
 Earlier versions of this document stated a "framework confidence" of 93%. That figure was not measured and has been replaced by the results above.
 
-Since this framework uses a single AI evaluator, some scoring variance is unavoidable by definition. The calibration set (see `examples/prompt-calibration-set.md`) reduces this variance by providing nine concrete reference points, but does not eliminate it.
+Since this framework uses a single AI evaluator, some scoring variance is unavoidable by definition. The calibration set (see `examples/prompt-calibration-set.md`) reduces this variance by providing ten concrete reference points, but does not eliminate it.
 
 **Model dependence:** Prompting guidance differs between model generations, and the model used for the original calibration was not recorded. When you re-run the calibration anchors, record the model and date alongside the scores.
 
