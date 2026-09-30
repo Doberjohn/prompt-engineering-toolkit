@@ -99,6 +99,27 @@ Anchor 10's reference is shown after the correction described below. Spearman ag
 
 ---
 
+## Validation run after the rubric refinements (September 2026)
+
+Two rubric changes were made in response to the follow-up run: Process N/A was restricted to fully specified single-output tasks (vague prompts and requests for documents or code are never N/A, and the same applies to Epistemics N/A for prompts too vague to judge), and checkpoints became N/A for prompts that state no human is available. Three fresh runs of the same large Claude model scored the same ten prompts, in the same order, with the revised rubric and reasons.
+
+| Measure | Follow-up run (old rules) | Validation run (new rules) |
+|---|---|---|
+| Process N/A uses (reference never uses N/A) | 6 | 0 |
+| Epistemics N/A uses | 4 | 2 |
+| Spearman against current reference | 0.97 to 0.99 | 0.98 to 1.00 |
+| Mean absolute overall difference | 0.91 to 1.12 | 1.10 to 1.15 |
+
+**What this shows:**
+
+1. **The tightened Process N/A rule works.** Misuse fell from six instances to none, and raters cited the rule directly ("too vague for N/A").
+2. **The autonomous-brief rule is not over-applied.** All three runs declined to apply it to Anchor 10 because its text never states that it runs unattended, and scored its Process 7.
+3. **Anchor 2's Epistemics is genuinely ambiguous.** Both remaining Epistemics N/A uses were on Anchor 2, with the reason that the job posting is generated from requirements the prompt supplies. Under the current N/A rule that reading is defensible; the reference score of 1 may need to become N/A. This is the author's call.
+4. **New disagreement on Anchor 10's Epistemics.** Runs scored it 8 or 9 (reference 10), noting that DEAD and NOT FOUND statuses do not require showing the search that established them, and that inferences are only partly labelled. Runs also scored its Performance 4 or 5 (reference 6).
+5. **Absolute agreement did not change much.** The average gap stayed near one point, consistent with the earlier conclusion: trust rankings over single absolute scores.
+
+---
+
 ## Agreement after lowering Anchors 8 and 9
 
 After Anchors 8 and 9 were lowered (Anchor 8: 10/10/10/10 to 8/9/6/10; Anchor 9: 10/10/10/10 to 7/8/7/7), agreement was recomputed against the revised reference using the same rater data.
