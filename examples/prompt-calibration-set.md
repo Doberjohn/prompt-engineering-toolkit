@@ -9,16 +9,16 @@
 
 These nine prompts are real prompts written and iteratively improved during live development sessions. They are not synthetic examples. Each represents a genuine use case encountered during framework development, and they were scored against the PPEP rubric as the framework was being stabilised.
 
-Scores were assigned by the subject matter expert who developed the PPEP framework — a single evaluator. This follows the standard for calibration set construction described in LLM evaluation research, which requires human expert judgment rather than automated scoring as the ground truth source:
+Scores were assigned by the subject matter expert who developed the PPEP framework — a single evaluator. The LLM evaluation literature below uses human judgment rather than automated scoring as ground truth, typically from multiple raters with adjudication; single-rater scoring is a known limitation of this set:
 
-- Eisenstein, J., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
+- Hashemi, H., Eisner, J., Rosset, C., Van Durme, B., & Kedzie, C. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
 - Label Studio. (2026). *How to Scale Evaluation for RAG and Agent Workflows*. https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
 
 ### Known limitations
 
 Single-evaluator scoring carries irreducible subjectivity. This is a documented limitation in usability and evaluation research:
 
-> "There tends to be disagreement between evaluators when assigning severity, and reliability improves when averaging ratings from independent evaluators." — Nielsen (1993), as discussed in Hertzum (2006). *International Journal of Human-Computer Interaction*, 21(2), 125–146.
+Evaluators frequently disagree when assigning severity ratings (Sauro, J. (2014), *Journal of Usability Studies*, 10(1), citing Nielsen, 1993; see also Hertzum, M. (2006), *International Journal of Human-Computer Interaction*, 21(2), 125–146), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, J. (1994), *Severity Ratings for Usability Problems*, Nielsen Norman Group).
 
 The calibration set reduces scoring variance by providing nine concrete reference points, but does not eliminate the underlying subjectivity. The framework confidence is documented as 93% in `framework/ppep-framework.md`, with the remaining 7% reflecting this irreducible gap.
 

@@ -193,7 +193,7 @@ The overall score is the average of the active dimension scores. When Epistemics
 
 The remaining 7% reflects the irreducible subjectivity inherent in single-evaluator heuristic assessment. This is a documented limitation in the usability research literature:
 
-> "There tends to be disagreement between evaluators when assigning severity, and reliability improves when averaging ratings from independent evaluators." — Nielsen (1993), as discussed in Hertzum (2006)
+Evaluators frequently disagree when assigning severity ratings (Sauro, 2014, citing Nielsen, 1993; see also Hertzum, 2006), and Nielsen recommends averaging the ratings of several independent evaluators because a single evaluator's ratings are unreliable (Nielsen, 1994b).
 
 Since this framework uses a single AI evaluator, some scoring variance is unavoidable by definition. The calibration set (see `examples/prompt-calibration-set.md`) reduces this variance by providing nine concrete reference points, but does not eliminate it.
 
@@ -201,6 +201,9 @@ Since this framework uses a single AI evaluator, some scoring variance is unavoi
 
 ## References
 
-- Nielsen, J. (1994). Heuristic evaluation. In Nielsen, J. & Mack, R.L. (Eds.), *Usability Inspection Methods*. John Wiley & Sons.
+- Nielsen, J. (1994a). Heuristic evaluation. In Nielsen, J. & Mack, R.L. (Eds.), *Usability Inspection Methods*. John Wiley & Sons.
+- Nielsen, J. (1993). *Usability Engineering*. Academic Press.
+- Nielsen, J. (1994b). [Severity Ratings for Usability Problems](https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/). Nielsen Norman Group.
+- Sauro, J. (2014). [The Relationship Between Problem Frequency and Problem Severity in Usability Evaluations](https://uxpajournal.org/the-relationship-between-problem-frequency-and-problem-severity-in-usability-evaluations/). *Journal of Usability Studies*, 10(1).
 - Hertzum, M. (2006). Problem prioritization in usability evaluation: From severity assessments toward impact on design. *International Journal of Human-Computer Interaction*, 21(2), 125–146.
 - Dakan, R., Feller, J., & Anthropic. (2025). [AI Fluency: Framework and Foundations](https://www-cdn.anthropic.com/62df988c101af71291b06843b63d39bbd600bed8.pdf). Released under CC BY-NC-SA 4.0.
