@@ -25,6 +25,9 @@ Extract:
 - **Scope boundaries** — what is explicitly in and out of this issue
 - **Deferred work** — anything agreed to be a follow-up issue
 - **Prerequisites** — access, tools, or knowledge required before starting
+- **Verification commands** — tests, builds, or scripts that prove the work is done
+- **Boundaries** — operations that need a human (production data, secrets, deploys,
+  dashboard actions)
 
 If `$ARGUMENTS` is provided, use it as a title hint. Otherwise derive the title from the
 agreed scope.
@@ -57,14 +60,15 @@ Before I draft, I need to clarify a few things:
 ## Step 3: Draft the issue
 
 Draft the complete issue body using the eight-section structure below. Apply the quality
-criteria for each section — do not produce acceptable when strong is achievable from the
+criteria for each section (full criteria in `${CLAUDE_SKILL_DIR}/issue-rubric.md`) — do not produce acceptable when strong is achievable from the
 available context.
 
 ---
 
 **## Context**
 
-State why this process exists, when to trigger it, and what outcome it achieves.
+State why this process exists, when to trigger it, and what outcome it achieves. End with
+an **Out of scope** list of explicit non-goals.
 
 Strong: names specific trigger conditions, explains motivation in terms of the system's
 needs, states the outcome that defines success. A developer reading this six months from
@@ -79,10 +83,21 @@ tools (specific names and versions where relevant), required knowledge.
 
 Strong: executor can confirm readiness in under two minutes. Nothing left to assumption.
 
+Add two short lists so an AI coding agent can execute the issue: **Environment** (setup,
+build, and test commands, or a pointer to CLAUDE.md / AGENTS.md /
+`.github/copilot-instructions.md`) and **Agent boundaries** (operations that need a human,
+with human-only steps labelled).
+
 ```
 - [ ] <specific access requirement — name the role>
 - [ ] <specific tool — name and version if relevant>
 - [ ] <specific knowledge requirement>
+
+### Environment
+- Setup / build / test: `<commands>` (or: see `<instruction file>`)
+
+### Agent boundaries
+- Human only: <operation, e.g. running migrations against production>
 ```
 
 ---
@@ -132,9 +147,15 @@ Table split into Created and Modified. Exact file paths. Purpose per file.
 Pass/fail checkboxes grouped by track or phase. Each checkpoint names a specific
 observable outcome.
 
+End with a **Done when** block: runnable commands and their expected results that prove
+the acceptance criteria are met.
+
 ```
 ### <Track or phase name>
 - [ ] <run X> → <confirm Y is observable>
+
+### Done when
+- `<command>` → <expected result>
 ```
 
 ---
@@ -157,7 +178,9 @@ Separate instruction per track or phase. Exact command, file change, or dashboar
 per instruction. Covers partial and full rollback.
 
 A single vague sentence like "revert all changes" is not acceptable — it implies safety
-without providing it.
+without providing it. For single-track, code-only changes delivered as one PR, naming the PR
+revert plus a check that confirms it is enough. Multi-track plans still need a rollback
+per track.
 
 ```
 - **<Track name>:** `<exact command or action>` → <what this undoes>
@@ -168,8 +191,9 @@ without providing it.
 
 **## References**
 
-Links to related issues or PRs, official documentation for external systems, specific
-internal files. All links specific — no homepage links.
+Links to related issues or PRs and specific internal files, plus official documentation
+for external systems the repository cannot explain. All links specific — no homepage
+links. Prefer in-repository links; do not pad with external sources.
 
 ---
 
@@ -177,23 +201,13 @@ Title: imperative form — "Add X", "Migrate Y to Z", "Implement X for Y".
 
 ## Step 4: Score the draft
 
-Immediately after drafting, score it against the weighted rubric.
+Immediately after drafting, score it using `${CLAUDE_SKILL_DIR}/issue-rubric.md`, the single source of
+truth for section weights, per-section scoring criteria, the weighted formula, severity
+findings, and the agent readiness check. Then run the agent readiness check. The readiness
+check does not change the score.
 
-```
-overall_score = max(
-(
-(Implementation Steps × 4) +
-(Acceptance Criteria  × 4) +
-(Rollback             × 4) +
-(Context              × 3) +
-(Prerequisites        × 3) +
-(Testing/Verification × 3) +
-(Files Affected       × 2) +
-(References           × 2)
-) / 25,
-0.5
-)
-```
+If the file cannot be read, stop and tell the user the skill is installed incompletely:
+the whole `draft-issue` folder, including `issue-rubric.md`, must be copied.
 
 Present the score card alongside the draft:
 
@@ -218,6 +232,18 @@ Present the score card alongside the draft:
 | References           | <n>/10 | ... | ... |
 
 **Severity findings:** <list if any, or "None">
+
+**Agent readiness:** <verdict>
+
+| Check | Result | Note |
+|---|---|---|
+| R1 Executable done-when | Pass/Partial/Fail/N/A | <one sentence> |
+| R2 Environment and instructions | ... | ... |
+| R3 Out of scope | ... | ... |
+| R4 Boundaries | ... | ... |
+| R5 Human-only steps marked | ... | ... |
+| R6 Scoped for one change | ... | ... |
+
 **What would push this higher:** <specific targeted improvement, or "None" if 10/10>
 ```
 

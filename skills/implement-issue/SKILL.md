@@ -58,109 +58,14 @@ Extract and hold internally (do not present yet):
 
 ## Step 3: Evaluate issue quality
 
-Evaluate the issue body against the eight-section implementation plan rubric below.
-Score each section, calculate the weighted overall score, identify severity findings,
-and decide whether to proceed or trigger the soft gate.
+Read `${CLAUDE_SKILL_DIR}/issue-rubric.md` before scoring. It is the single source of truth for the
+section weights, per-section scoring criteria, the weighted formula, severity findings, and
+the agent readiness check. Apply it exactly: score each section 0-10, calculate the weighted
+overall score, identify severity findings, run the agent readiness check (it does not change
+the score), and decide whether to proceed or trigger the soft gate.
 
-### Rubric
-
-Score each section 0–10. A section that does not exist scores 0.
-
-**Section weights:**
-
-| Section | Weight | Critical if absent |
-|---|---|---|
-| Implementation Steps | 4 | Yes — without steps this is not a runbook |
-| Acceptance Criteria | 4 | Yes — no definition of done |
-| Rollback | 4 | Yes — production process is dangerous without it |
-| Context | 3 | Important — future developers cannot understand why |
-| Prerequisites | 3 | Important — process cannot be safely started |
-| Testing / Verification | 3 | Important — no way to confirm success |
-| Files Affected | 2 | Supporting |
-| References | 2 | Supporting |
-
-**Scoring per section:**
-
-Implementation Steps
-- Strong (8-10): Numbered imperative steps, code block per command/SQL/path, expected output per step, verification instruction per step, logically ordered
-- Acceptable (5-7): Numbered and ordered but missing code blocks, expected output, or per-step verification
-- Poor (1-4): Prose bullets or vague descriptions, no commands, cannot be followed without prior knowledge
-- Absent (0): Section does not exist
-
-Acceptance Criteria
-- Strong (8-10): Checkboxes, outcome-oriented, pass/fail testable, no implementation details, covers all primary constraints
-- Acceptable (5-7): Checkboxes present but one or more criteria are vague or a primary constraint is missing
-- Poor (1-4): Prose statements, no checkboxes, not independently testable
-- Absent (0): Section does not exist
-
-Rollback
-- Strong (8-10): Separate instruction per track or phase, exact command or file per instruction, covers partial and full rollback
-- Acceptable (5-7): Present but covers only one track when multiple exist, or partially specific
-- Poor (1-4): Single vague sentence such as "revert all changes" — worse than absent because it implies safety without delivering it. Flag as severity 4.
-- Absent (0): Section does not exist
-
-Context
-- Strong (8-10): States why the process exists, when to trigger it, what outcome it achieves
-- Acceptable (5-7): Covers why and when but one element is missing or vague
-- Poor (1-4): Single sentence, no trigger conditions, no motivation
-- Absent (0): Section does not exist
-
-Prerequisites
-- Strong (8-10): Checkboxes covering required access (specific roles), required tools (specific names), required knowledge
-- Acceptable (5-7): Checkboxes present but one category missing or items vague
-- Poor (1-4): General statement, no checkboxes, no specific named requirements
-- Absent (0): Section does not exist
-
-Testing / Verification
-- Strong (8-10): Pass/fail checkboxes grouped by track or phase, observable objective outcomes, covers success and failure
-- Acceptable (5-7): Checkboxes present but subjective language or a track is missing
-- Poor (1-4): Single vague sentence, no checkboxes, no observable outcomes
-- Absent (0): Section does not exist
-
-Files Affected
-- Strong (8-10): Split into Created and Modified, exact file paths, purpose per file
-- Acceptable (5-7): Files listed but paths partial or purpose absent
-- Poor (1-4): Directory names or component names, no exact paths
-- Absent (0): Section does not exist
-
-References
-- Strong (8-10): Links to related issues/PRs, official docs for external systems, specific internal files — all links specific
-- Acceptable (5-7): Present but incomplete
-- Poor (1-4): One or two vague links that do not materially help an executor
-- Absent (0): Section does not exist
-
-### Scoring formula
-
-```
-overall_score = max(
-  (
-    (Implementation Steps × 4) +
-    (Acceptance Criteria  × 4) +
-    (Rollback             × 4) +
-    (Context              × 3) +
-    (Prerequisites        × 3) +
-    (Testing/Verification × 3) +
-    (Files Affected       × 2) +
-    (References           × 2)
-  ) / 25,
-  0.5
-)
-```
-
-Round to two decimal places.
-
-### Severity findings
-
-For each issue found, assign:
-- Severity 4 — Catastrophic: blocks safe execution or creates production risk
-- Severity 3 — Major: significant confusion or unsafe inference required
-- Severity 2 — Minor: inconvenience but does not block execution
-- Severity 1 — Cosmetic: does not affect execution
-
-Key severity 4 triggers:
-- Rollback present but single vague sentence
-- Acceptance Criteria as prose with no checkboxes
-- Implementation Steps as bullets with no commands
+If the file cannot be read, stop and tell the user the skill is installed incompletely:
+the whole `implement-issue` folder, including `issue-rubric.md`, must be copied.
 
 ### Decision after scoring
 
@@ -169,6 +74,7 @@ Present a compact quality note in the Step 6 brief and proceed to Step 4. Format
 ```
 Issue quality: <score>/10 — <one-line assessment>
 Gaps noted: <severity findings if any, or "None">
+Agent readiness: <verdict> — <checks that are not Pass or N/A, or "None">
 ```
 
 **If overall_score < 7.0:**
@@ -190,7 +96,9 @@ Sev <N> | <section> | <description>
 
 **Rewritten issue:**
 <complete rewritten issue using the eight-section structure, filled with all
-available context from the original body, comments, and linked issues>
+available context from the original body, comments, and linked issues. Close agent
+readiness gaps inside the existing sections: Out of scope under Context, Environment
+and Agent boundaries under Prerequisites, Done when under Testing / Verification>
 ```
 
 Then ask:
@@ -208,12 +116,15 @@ Then proceed to Step 4.
 
 ## Step 4: Read project conventions
 
-Read `CLAUDE.md` to establish:
+Read whichever of these repo instruction files exist: `CLAUDE.md`, `AGENTS.md`,
+`.github/copilot-instructions.md`. Use them to establish:
 - Branch naming convention for this project
 - Architecture overview relevant to the issue
 - Any workflow rules that affect implementation
+- Setup, build, test, lint, and typecheck commands (these close readiness check R2 and
+  supply the done-when commands for the brief if the issue has none)
 
-Use the branch naming convention from CLAUDE.md in Step 5. If CLAUDE.md does not specify
+Use the branch naming convention from these files in Step 5. If none of these files specifies
 a branch naming convention, fall back to `feature/<number>-<slugified-title>` (lowercase,
 hyphens, max 40 chars for slug).
 
@@ -256,8 +167,21 @@ Present the full brief:
 **Context from comments**:
 <notable decisions, scope changes, or constraints added after the original issue>
 
+**Done when**:
+<runnable commands and expected results, from the issue or the repo instruction files;
+mark any you proposed yourself as "proposed">
+
+**Out of scope**:
+<non-goals from the issue, or "Not stated. Proposed:" followed by your proposal>
+
+**Human-only steps and boundaries**:
+<steps you will not perform yourself (production data, secrets, deploys, dashboard
+actions) and where you will stop and hand over, or "None">
+
 **Suggested approach**:
-<brief suggestion grounded in the issue content and CLAUDE.md architecture only>
+<brief suggestion grounded in the issue content and the repo instruction files only>
 ```
 
-Then ask: "Ready to start, or do you want to discuss the approach first?"
+Then ask: "Ready to start, or do you want to discuss the approach first?" If any proposed
+done-when commands, out-of-scope items, or boundaries appear above, ask the user to
+confirm them in the same question.

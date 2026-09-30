@@ -47,6 +47,7 @@ Score each dimension on a 1-10 scale based only on what is visible in the provid
 **1. Visual Hierarchy**
 Sub-criteria: Single dominant focal point per screen, intentional size and weight contrast between primary/secondary/tertiary elements, F-pattern or Z-pattern alignment with content type, no two elements competing for primary attention at the same level, blur test: primary actions and groupings remain distinguishable when mentally blurred.
 10/10 definition: Every element has a clear and intentional weight. The blur test passes at every screen provided. No competing focal points. Eye is guided through content in the intended order without ambiguity.
+Maps to: Nielsen H8 (Aesthetic and Minimalist Design).
 
 **2. Typography**
 Sub-criteria: Maximum 2-3 typefaces visible, consistent typographic scale, sufficient apparent line height, line length appears within 50-75 characters, heading hierarchy appears semantically correct, readable font sizes.
@@ -54,9 +55,9 @@ Sub-criteria: Maximum 2-3 typefaces visible, consistent typographic scale, suffi
 Note: Screenshot mode cannot verify exact font sizes, line heights, or semantic HTML structure. Flag technical typography findings as Inferred.
 
 **3. Color and Contrast**
-Sub-criteria: Text and background combinations appear to meet WCAG 2.2 AA (4.5:1 for normal text, 3:1 for large text and UI components), color is not the sole means of conveying information, consistent color meaning across all screenshots.
+Sub-criteria: Text and background combinations appear to meet WCAG 2.2 AA (SC 1.4.3: 4.5:1 for normal text, 3:1 for large text of at least 24px regular or 18.66px bold; SC 1.4.11: 3:1 for UI components and graphical objects), color is not the sole means of conveying information, consistent color meaning across all screenshots.
 10/10 definition: All visible color combinations appear to pass WCAG 2.2 AA. Color meaning is consistent.
-Note: Screenshot mode cannot measure exact contrast ratios. All contrast findings are Inferred. Codebase mode is required for verified contrast values.
+Note: Screenshot mode cannot measure exact contrast ratios. If you can execute code, you may sample pixel colors from the image and compute an approximate ratio; report it as Inferred (approximate, affected by anti-aliasing and compression) and show the sampled values. Codebase mode is required for verified contrast values.
 
 **4. Spacing and Layout**
 Sub-criteria: Consistent apparent spacing between elements, generous negative space around primary actions, visual grouping through proximity, no crowded or cluttered regions visible.
@@ -65,15 +66,17 @@ Sub-criteria: Consistent apparent spacing between elements, generous negative sp
 **5. Component and Design System Consistency**
 Sub-criteria: Identical components appear consistent across all provided screenshots, button styles are consistent, form elements are consistent, icon style is consistent.
 10/10 definition: No visual inconsistencies detected across all provided screenshots.
+Maps to: Nielsen H4 (Consistency and Standards).
 Note: Screenshot mode can only evaluate consistency across the screenshots provided. Inconsistencies on unshown screens cannot be detected.
 
 **6. Accessibility (WCAG 2.2 AA)**
-Sub-criteria: Images appear to have alt text context (though cannot verify), form fields have visible labels, focus indicators are visible in any interaction screenshots, color contrast appears sufficient, no flashing content visible.
-10/10 definition: All visually verifiable accessibility criteria appear to pass across all screenshots.
-Note: Screenshot mode cannot verify alt text, keyboard navigation, screen reader compatibility, or semantic HTML. These require Codebase Mode. All accessibility findings are Inferred or Suspected.
+Sub-criteria: Images appear to have alt text context (though cannot verify), form fields have visible labels, focus indicators are visible in any interaction screenshots, color contrast appears sufficient, no flashing content visible. WCAG 2.2 additions visible in screenshots: focused elements are not entirely hidden behind sticky headers, cookie banners, or overlays in any focus-state screenshot (2.4.11; partial obscuring meets AA), drag-only interactions show a single-pointer alternative (2.5.7), targets appear at least 24x24 CSS px or adequately spaced, unless a 2.5.8 exception applies (an equivalent control meets the size, the target is inline in text, it is an unmodified browser control, or its size is essential) (2.5.8; Inferred unless the device scale is known), help links appear in a consistent location across screens (3.2.6), where a multi-step flow asks again for information entered earlier in the same process, it is prefilled or selectable, unless re-entry is essential, needed for security, or the earlier value is no longer valid (3.3.7), login screens do not show a puzzle CAPTCHA or other cognitive test without an alternative (3.3.8).
+10/10 definition: All visually verifiable accessibility criteria appear to pass across all screenshots. This checklist covers a subset of WCAG 2.2 AA. Do not claim full conformance; that requires a manual audit with assistive technology.
+Note: Screenshot mode cannot verify alt text, keyboard navigation, screen reader compatibility, or semantic HTML. These require Codebase Mode. Label accessibility findings VERIFIED only when the screenshot directly shows the failure (for example a focused element entirely hidden in a focus-state screenshot; a puzzle CAPTCHA counts only if the screenshots also show there is no alternative method or assistance); everything else is Inferred or Suspected.
+Regulatory note (status as of September 2026; check for changes): this evaluation is not a legal compliance audit. In the EU, the European Accessibility Act has been enforceable since 28 June 2025, and conformity is presumed through EN 301 549 v3.2.1, which references WCAG 2.1 AA; EN 301 549 v4.1.1, which adopts WCAG 2.2, was published in September 2026 but is not yet cited in the Official Journal. In the US, the ADA Title II rule requires WCAG 2.1 AA for state and local governments from 26 April 2027 (populations of 50,000 or more) or 26 April 2028 (smaller entities), and Section 508 references WCAG 2.0 AA. WCAG 2.2 AA is a superset of both, so evaluating against it is safe, but label findings for the six criteria new in 2.2 (2.4.11, 2.5.7, 2.5.8, 3.2.6, 3.3.7, 3.3.8) as "WCAG 2.2, beyond the current EU/US legal baseline" so readers can separate legal exposure from best practice.
 
 **7. Responsive and Mobile Behavior**
-Sub-criteria: If multiple viewport screenshots provided - content reflows correctly, tap targets appear minimum 44x44px, text remains readable at all sizes shown, navigation adapts appropriately.
+Sub-criteria: If multiple viewport screenshots provided - content reflows correctly, interactive targets appear at least 24x24 CSS px or adequately spaced, unless a 2.5.8 exception applies (an equivalent control meets the size, the target is inline in text, it is an unmodified browser control, or its size is essential) (WCAG 2.5.8, AA; Inferred unless the device scale is known), with 44x44px recommended (WCAG 2.5.5 AAA and platform guidelines; score only 24x24 violations as accessibility failures), text remains readable at all sizes shown, navigation adapts appropriately.
 10/10 definition: Interface is fully usable across all viewport sizes shown in screenshots.
 Note: If only one viewport size is provided, responsive evaluation is not possible. State this explicitly.
 
@@ -85,7 +88,7 @@ Note: Screenshot mode cannot evaluate actual performance metrics. All performanc
 **9. Motion and Animation Quality**
 Sub-criteria: Any visible animation states appear purposeful and smooth, no jarring transition artifacts visible in screenshots.
 10/10 definition: All visible motion states appear intentional and smooth.
-Note: Screenshot mode captures static states only. Motion evaluation is severely limited. Codebase mode is required for motion assessment.
+Note: Screenshot mode captures static states only. Motion evaluation is severely limited. Codebase mode is required for motion assessment. prefers-reduced-motion support is a best practice here; the related WCAG criterion (2.3.3) is AAA, so do not score its absence as a WCAG 2.2 AA failure.
 
 **10. Dark Pattern Detection**
 Sub-criteria: No hidden fees, no disguised ads, no trick questions in forms, no confirm-shaming visible, no false urgency indicators, no misdirection in visible CTAs.
@@ -124,7 +127,7 @@ Sub-criteria: Calls to action are clear and specific in every screenshot, flow d
 10/10 definition: Every screenshot communicates clearly what the user should do next.
 
 **18. Microcopy and Content Quality**
-Sub-criteria: Button labels are action-oriented and specific, visible error messages are human and constructive, empty states (if shown) provide guidance, tone is consistent.
+Sub-criteria: Button labels are action-oriented and specific, visible error messages are human and constructive, empty states (if shown) provide guidance, tone is consistent, help or guidance is visible where tasks appear complex (Nielsen H10).
 10/10 definition: Every visible label, error, empty state, CTA, and tooltip is clear, consistent in tone, and action-oriented.
 
 **19. Trust Signals and Conversion Path Clarity**
@@ -149,6 +152,10 @@ Format: "INFERRED: [Finding]. Reasoning: [which heuristic or visual principle th
 
 **SUSPECTED:** Finding is a potential issue triggered by something visible but requiring investigation beyond what screenshots can show.
 Format: "SUSPECTED: [Finding]. Basis: [what in the screenshot triggered this concern]. To confirm: [Codebase Mode / URL Mode / User Testing]."
+
+---
+
+**Evidence and reliability rule:** Every VERIFIED finding must quote or point to the exact element, text, or code it rests on; if you cannot, it is not Verified. AI evaluations of interfaces miss a meaningful share of the issues expert evaluators find and also report issues that are not there. Treat this evaluation as a first pass: every Severity 3 or 4 finding that is not VERIFIED must be confirmed by a human before anyone acts on it, and the roadmap must say so. Quote visible text exactly; if text is too small or blurry to read with confidence, say so instead of guessing.
 
 ---
 
@@ -177,7 +184,7 @@ After completing all dimension scores, produce a mandatory disclosure section ti
 
 - Exact contrast ratio values (requires Codebase Mode for hex verification)
 - Semantic HTML structure and accessibility attributes (requires Codebase Mode)
-- Keyboard navigation and screen reader compatibility (requires Codebase Mode)
+- Keyboard operation and screen reader compatibility (requires manual keyboard and screen reader testing; Codebase Mode can check focus styles and tabindex statically)
 - prefers-reduced-motion support (requires Codebase Mode)
 - Core Web Vitals and performance metrics (requires Codebase Mode or Lighthouse)
 - Animation and motion behavior (requires Codebase Mode or URL Mode)
@@ -185,7 +192,7 @@ After completing all dimension scores, produce a mandatory disclosure section ti
 - Authenticated content not shown in screenshots
 - Responsive behavior for any viewport size not shown
 
-For each gap, specify: "To evaluate this, use: [URL Mode / Codebase Mode / User Testing]."
+For each gap, specify: "To evaluate this, use: [URL Mode / Codebase Mode / Manual Testing / User Testing]."
 
 ---
 
@@ -204,7 +211,7 @@ Produce a prioritized action list ordered by Severity (4 first) then Frequency (
 - Severity and Frequency
 - Confidence label
 - Recommended fix
-- Effort estimate: Low (CSS/copy change), Medium (component change), High (architectural change)
+- Effort estimate: Low (CSS/copy change, < 1 hour), Medium (component change, 1-4 hours), High (architectural change, > 4 hours)
 
 ---
 

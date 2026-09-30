@@ -1,0 +1,12 @@
+name: Check issue rubric copies
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify every rubric copy matches rubric/issue-rubric.md
+        run: python3 scripts/sync-issue-rubric.py --check

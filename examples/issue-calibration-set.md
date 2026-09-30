@@ -9,13 +9,14 @@ This calibration set was built on a foundation of primary research across four d
 
 ### How this was built
 
-The calibration set uses controlled degradation of a single real issue (Inkweave #278, produced by Claude Code) rather than synthetic generation. This approach is grounded in NLP evaluation research which shows that synthetic low-quality examples tend to be theatrically bad rather than realistically bad, producing central tendency bias in evaluators. The degradation approach ensures every anchor traces to a real artifact with a known quality baseline.
+The calibration set uses controlled degradation of a single real issue (Inkweave #278, produced by Claude Code) rather than synthetic generation. This follows the logic of perturbation-based meta-evaluation, where controlled edits to a known-good artifact make each score change attributable to a specific defect (Karpinska et al., 2022). A further motivation, based on the author's experience rather than a cited finding, is that synthetic low-quality examples tend to be theatrically bad rather than realistically bad. The degradation approach ensures every anchor traces to a real artifact with a known quality baseline.
 
-Scores were assigned by the subject matter expert (the developer who owns the repository and wrote the original prompt) against the eight-section rubric. This follows the standard for ground truth calibration sets in LLM evaluation research, which requires human expert judgment rather than automated scoring.
+Scores were assigned by the subject matter expert (the developer who owns the repository and wrote the original prompt) against the eight-section rubric. The LLM evaluation literature below uses human judgment rather than automated scoring as ground truth, typically from multiple raters; this set uses a single expert rater, which is a known limitation.
 
 Sources used to verify this approach:
-- Eisenstein, J., et al. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
-- Holterman, B., et al. (2026). *Rulers: Locked Rubrics and Evidence-Anchored Scoring for Robust LLM Evaluation*. arXiv preprint. https://arxiv.org/html/2601.08654
+- Hashemi, H., Eisner, J., Rosset, C., Van Durme, B., & Kedzie, C. (2024). *LLM-Rubric: A Multidimensional, Calibrated Approach to Automated Evaluation of Natural Language Texts*. Proceedings of ACL 2024. https://aclanthology.org/2024.acl-long.745.pdf
+- Hong, Y., Yao, H., Shen, B., Xu, W., Wei, H., & Dong, Y. (2026). *RULERS: Locked Rubrics and Evidence-Anchored Scoring for Robust LLM Evaluation* (v1; later versions retitled). arXiv preprint. https://arxiv.org/abs/2601.08654v1
+- Karpinska, M., Raj, N., Thai, K., Song, Y., Gupta, A., & Iyyer, M. (2022). *DEMETR: Diagnosing Evaluation Metrics for Translation*. Proceedings of EMNLP 2022. https://aclanthology.org/2022.emnlp-main.649/
 - Label Studio. (2026). *How to Scale Evaluation for RAG and Agent Workflows*. https://labelstud.io/blog/how-to-scale-evaluation-for-rag-and-agent-workflows/
 
 ---
@@ -27,7 +28,7 @@ The eight sections were derived from three converging research areas: GitHub iss
 **GitHub issue completeness research**
 
 - GitHub. (2025). *Quickstart for GitHub Issues*. GitHub Docs. https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/quickstart
-  - Confirms: title, description, acceptance criteria as baseline requirements
+  - Confirms: title, description, and task lists as baseline components
 - GitHub. (2025). *Best Practices for Projects*. GitHub Docs. https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects
   - Confirms: sub-issues, dependencies, milestones as structural components
 - GitHub. (2025). *Best Practices for Using GitHub Copilot to Work on Tasks*. GitHub Docs. https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results
@@ -35,26 +36,26 @@ The eight sections were derived from three converging research areas: GitHub iss
 - GitHub Blog. (2025). *How to Create Issues and Pull Requests in Record Time on GitHub*. https://github.blog/developer-skills/github/how-to-create-issues-and-pull-requests-in-record-time-on-github/
   - Confirms: action-forward title, problem description, acceptance criteria / definition of done as the GitHub-recommended checklist
 - GitHub Blog. (2025). *From Idea to PR: A Guide to GitHub Copilot's Agentic Workflows*. https://github.blog/ai-and-ml/github-copilot/from-idea-to-pr-a-guide-to-github-copilots-agentic-workflows/
-  - Confirms: GitHub Copilot's own planning mode generates four sections: Overview, Requirements, Implementation Steps, Testing. This is the direct source for including Testing/Verification as a mandatory section.
-- IssuePilot. (2024). *GitHub CLI Workflow for Task Management — Issue Body Structure*. Community resource. https://gist.githubusercontent.com/raw/c9efc3e0e4fb81b4aefa3bf43d22391b
+  - Confirms: the sample "Plan" custom chat mode the article builds on generates four sections: Overview, Requirements, Implementation Steps, Testing. This is the direct source for including Testing/Verification as a mandatory section.
+- Lindsay, S. (2025). *GitHub CLI Workflow for Task Management: IssuePilot*. GitHub Gist. https://gist.github.com/shanelindsay/c9efc3e0e4fb81b4aefa3bf43d22391b
   - Confirms: the Why/What/How structure — Description (Why), Acceptance Criteria (What), Implementation Plan (How) — as the canonical three-part structure for task issues
-- Li, X., et al. (2024). *An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub*. ACM Transactions on Software Engineering and Methodology. https://dl.acm.org/doi/10.1145/3643673
+- Sülün, E., Saçakçı, M., & Tüzün, E. (2024). *An Empirical Analysis of Issue Templates Usage in Large-Scale Projects on GitHub*. ACM Transactions on Software Engineering and Methodology, 33(5). https://dl.acm.org/doi/10.1145/3643673
   - Empirical evidence that structured templates improve issue resolution time, reduce reopening rates, and increase project productivity. Peer-reviewed source confirming that structure matters.
-- Wang, Y., et al. (2024). *Empirical Study on GitHub Issue Report Templates*. IEEE Conference Publication. https://ieeexplore.ieee.org/document/10633301/
+- Zhang, J., Peng, M., & Zhang, Y. (2024). *Empirical Study on GitHub Issue Report Templates*. Proceedings of IEEE COMPSAC 2024. https://ieeexplore.ieee.org/document/10633301/
   - Confirms: adoption of issue templates is associated with increased project productivity and more successful projects across 1,084,300 projects.
-- Arya, D., et al. (2018). *An empirical study on the issue reports with questions raised during the issue resolving process*. Empirical Software Engineering. https://link.springer.com/article/10.1007/s10664-018-9636-3
+- Huang, Y., da Costa, D. A., Zhang, F., & Zou, Y. (2019). *An empirical study on the issue reports with questions raised during the issue resolving process*. Empirical Software Engineering, 24 (published online 2018). https://link.springer.com/article/10.1007/s10664-018-9636-3
   - Confirms: unnecessary questions raised during issue resolution cause significant delays. Complete upfront context — the why, prerequisites, and acceptance criteria — reduces resolution time.
-- Zhang, Y., et al. (2025). *Can We Enhance Bug Report Quality Using LLMs? An Empirical Study of LLM-Based Bug Report Generation*. Proceedings of EASE 2025. https://arxiv.org/pdf/2504.18804
-  - Confirms: issue quality evaluated on five dimensions — Atomicity, Conciseness, Completeness, Understandability, Reproducibility. Completeness and Reproducibility map directly to our Acceptance Criteria and Testing/Verification sections.
+- Acharya, J., & Ginde, G. (2025). *Can We Enhance Bug Report Quality Using LLMs? An Empirical Study of LLM-Based Bug Report Generation*. Proceedings of EASE 2025. https://arxiv.org/pdf/2504.18804
+  - Confirms: issue quality evaluated on the five properties of the CTQRS framework the paper applies — Atomicity, Conciseness, Completeness, Understandability, Reproducibility. Completeness and Reproducibility map directly to our Acceptance Criteria and Testing/Verification sections.
 
 **Agile task documentation standards**
 
-- Atlassian. (2025). *What is Acceptance Criteria? Definition, Examples, and Tips*. https://www.atlassian.com/work-management/project-management/acceptance-criteria
+- Atlassian. (n.d.). *What is Acceptance Criteria? Definition, Examples, and Tips*. https://www.atlassian.com/work-management/project-management/acceptance-criteria
   - Confirms: acceptance criteria are the specific conditions that must be satisfied for a task to be considered complete. Source for the Definition of Done concept.
 - Scrum Alliance. (2023). *What You Need to Know About Acceptance Criteria*. https://resources.scrumalliance.org/Article/need-know-acceptance-criteria
   - Confirms: acceptance criteria must be pass/fail, outcome-oriented, and defined before development begins.
 - ArgonDigital. (2023). *User Stories and Technical Stories in Agile Development*. https://argondigital.com/blog/product-management/user-stories-technical-stories-agile-development-productmanagement/
-  - Confirms: technical implementation plan issues require a different structure than user stories, with technical acceptance criteria and file-level specificity.
+  - Confirms: technical implementation plan issues require a different structure than user stories, with technical acceptance criteria and as much detail as needed.
 - ZenHub. (2021). *GitHub Best Practices: Taking Issues from Good to Great*. https://www.zenhub.com/blog-posts/best-practices-for-github-issues
   - Confirms: issues should use markdown checklists for acceptance criteria and sub-tasks. Source for the checkbox format recommendation.
 
@@ -71,15 +72,30 @@ The eight sections were derived from three converging research areas: GitHub iss
 - CorsoUX. (2026). *UX Audit Checklist: 50 Points*. https://courseux.com/ux-audit-checklist/
   - Confirms: "An audit that does not specify what to do in what order is analysis, not design. The output must be a roadmap." Source for the roadmap/action plan requirement.
 
+**Agent readiness (separate, unscored check)**
+
+The agent readiness check in `prompts/issue-evaluator.md` does not change section scores; it asks whether an AI coding agent could execute the issue without a human filling gaps.
+
+- Anthropic. (n.d.). *Best practices for Claude Code*. Claude Code Docs. https://code.claude.com/docs/en/best-practices
+  - Confirms: "Give Claude a check it can run: tests, a build, a screenshot to compare." Also: "The most useful specs are self-contained: they name the files and interfaces involved, state what is out of scope, and end with an end-to-end verification step that proves the feature works." Source for checks R1 (executable done-when) and R3 (out of scope).
+- GitHub. (2025). *Best Practices for Using GitHub Copilot to Work on Tasks* (cited above).
+  - Confirms: repository custom instructions that tell the agent how to build and test the project. Source for check R2.
+- AGENTS.md. (n.d.). *AGENTS.md: an open format for guiding coding agents*. https://agents.md/
+  - A README-style file for agents that holds setup, build, and test instructions, read by multiple coding agents. Source for check R2 alongside CLAUDE.md and `.github/copilot-instructions.md`.
+- Sayagh, M. (2025). *What Makes a GitHub Issue Ready for Copilot?* arXiv preprint. https://arxiv.org/abs/2512.21426
+  - Confirms: issues leading to merged agent PRs tend to be shorter and well scoped, with hints about relevant artifacts; issues with external references are associated with lower merge rates. Source for check R6 and for not rewarding link volume in References.
+
+Checks R4 (boundaries) and R5 (human-only steps) follow from the Rollback rationale above: an agent that can run commands can also run irreversible ones, so the issue must say which operations need a human.
+
 ---
 
 ### Research basis for the severity scale
 
-The severity scale (1-4) is directly derived from Jakob Nielsen's original usability severity rating scale, the most cited severity framework in software engineering.
+The severity scale (1-4) is directly derived from Jakob Nielsen's original usability severity rating scale, a widely used severity framework in usability engineering.
 
 - Nielsen, J. (1994). *Severity Ratings for Usability Problems*. Nielsen Norman Group. https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/
   - Original source: 0 = not a problem, 1 = cosmetic, 2 = minor, 3 = major, 4 = catastrophic/blocks task completion
-  - Our mapping preserves this scale exactly, applied to issue sections rather than UI elements
+  - Our mapping uses levels 1-4 of this scale (level 0, "not a problem", has no section equivalent), applied to issue sections rather than UI elements
 - Sauro, J. (2013). *Rating the Severity of Usability Problems*. MeasuringU. https://measuringu.com/rating-severity/
   - Confirms: "treat frequency separately from severity" — which is why section absence and section quality are scored independently
 - Nielsen, J. (1993). *Usability Engineering*. Academic Press. ISBN: 978-0125184069.
@@ -91,7 +107,7 @@ The mapping of sections to severity levels was determined by applying Nielsen's 
 
 ### Calibration method
 
-Controlled degradation as a method for building evaluation calibration sets is documented in NLP evaluation research as more reliable than synthetic generation for the reasons described above. The specific degradation plan follows a principle of single-change-per-anchor, ensuring each score difference is traceable to exactly one variable. This is consistent with controlled experiment design principles in software engineering research.
+Controlled degradation follows perturbation-based meta-evaluation practice (Karpinska et al., 2022), for the reasons described above. The specific degradation plan follows a principle of single-change-per-anchor, ensuring each score difference is traceable to exactly one variable. This is consistent with controlled experiment design principles in software engineering research.
 
 The five patterns documented at the end of the calibration set are observations derived from scoring the anchors, not pre-specified claims. They are offered as heuristics for human evaluators, not as formal findings.
 
@@ -142,6 +158,8 @@ Adapted from Nielsen's 0-4 usability severity scale (Nielsen, J. 1994. *Severity
 **Degradation applied:** None. This is the reference issue.
 
 **Failure mode:** None. Minor gap in Prerequisites (missing local environment setup) noted but insufficient to reduce score below 10 in context of a solo developer who owns the repo. Expert judgment override: formula score 9.44 rounded to 10/10 given that the gap is context-specific and does not reduce actionability.
+
+**Agent readiness (unscored):** R1 Partial (one build command; display-track checks are manual), R2 Partial (build commands given; no setup or instruction-file pointer), R3 Fail (no out-of-scope list), R4 Fail (production Supabase changes with no stated boundaries), R5 Partial (dashboard steps not labelled as human steps), R6 Partial (two tracks in one issue). Verdict: Not ready to delegate. The issue was written for, and executed by, a developer working interactively with Claude Code, where these gaps were filled in conversation; handed to an unattended agent, they would not be.
 
 **Source:** https://github.com/Doberjohn/inkweave/issues/278
 
